@@ -1167,13 +1167,42 @@
       height: 58px;
     }
 
-    .testimonials {
-      display: grid;
-      gap: 18px;
+    .testimonials-viewport {
       margin-top: 30px;
+      overflow: hidden;
+      -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+      mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+    }
+
+    .testimonials-track {
+      display: flex;
+      width: max-content;
+      gap: 18px;
+      animation: testimonials-scroll 36s linear infinite;
+    }
+
+    .testimonials-viewport:hover .testimonials-track {
+      animation-play-state: paused;
+    }
+
+    @keyframes testimonials-scroll {
+      from {
+        transform: translateX(0);
+      }
+      to {
+        transform: translateX(-50%);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .testimonials-track {
+        animation: none;
+      }
     }
 
     .testimonial {
+      flex: 0 0 360px;
+      width: 360px;
       padding: 28px;
       border: 1px solid rgba(201, 168, 76, 0.14);
       border-radius: 22px;
@@ -1422,8 +1451,7 @@
       .two-column,
       .results-grid,
       .diploma-grid,
-      .press-grid,
-      .testimonials {
+      .press-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
@@ -1433,8 +1461,7 @@
 
       .results-grid,
       .diploma-grid,
-      .press-grid,
-      .testimonials {
+      .press-grid {
         grid-template-columns: repeat(3, minmax(0, 1fr));
       }
 
@@ -1655,10 +1682,23 @@
 
       .results-grid,
       .diploma-grid,
-      .press-grid,
-      .testimonials {
+      .press-grid {
         gap: 14px;
         margin-top: 28px;
+      }
+
+      .testimonials-viewport {
+        margin-top: 28px;
+      }
+
+      .testimonials-track {
+        gap: 14px;
+        animation-duration: 26s;
+      }
+
+      .testimonial {
+        flex-basis: 280px;
+        width: 280px;
       }
 
       .case-photo {
@@ -2258,40 +2298,75 @@
             <h2>Quem já passou pelo método</h2>
           </div>
 
-          <div class="testimonials content-narrow">
-            <article class="testimonial">
-              <div class="quote-mark">“</div>
-              <p class="testimonial-text">Antes eu aplicava técnica isolada. Hoje, antes de tocar no paciente, eu já sei exatamente o que o rosto precisa — e consigo explicar por quê.</p>
-              <div class="testimonial-meta">
-                <div class="avatar">CL</div>
-                <div>
-                  <div class="meta-name">Camila L.</div>
-                  <div class="meta-role">Cirurgiã-dentista</div>
+          <div class="testimonials-viewport">
+            <div class="testimonials-track">
+              <article class="testimonial">
+                <div class="quote-mark">“</div>
+                <p class="testimonial-text">Antes eu aplicava técnica isolada. Hoje, antes de tocar no paciente, eu já sei exatamente o que o rosto precisa — e consigo explicar por quê.</p>
+                <div class="testimonial-meta">
+                  <div class="avatar">CL</div>
+                  <div>
+                    <div class="meta-name">Camila L.</div>
+                    <div class="meta-role">Cirurgiã-dentista</div>
+                  </div>
                 </div>
-              </div>
-            </article>
-            <article class="testimonial">
-              <div class="quote-mark">“</div>
-              <p class="testimonial-text">Recuperei o investimento em três meses. Não foi mágica — foi entender como comunicar um trabalho que já era bom.</p>
-              <div class="testimonial-meta">
-                <div class="avatar">RF</div>
-                <div>
-                  <div class="meta-name">Rafael F.</div>
-                  <div class="meta-role">Médico esteta</div>
+              </article>
+              <article class="testimonial">
+                <div class="quote-mark">“</div>
+                <p class="testimonial-text">Recuperei o investimento em três meses. Não foi mágica — foi entender como comunicar um trabalho que já era bom.</p>
+                <div class="testimonial-meta">
+                  <div class="avatar">RF</div>
+                  <div>
+                    <div class="meta-name">Rafael F.</div>
+                    <div class="meta-role">Médico esteta</div>
+                  </div>
                 </div>
-              </div>
-            </article>
-            <article class="testimonial">
-              <div class="quote-mark">“</div>
-              <p class="testimonial-text">O suporte nos primeiros casos foi o que me deu confiança para cobrar o que o trabalho realmente vale.</p>
-              <div class="testimonial-meta">
-                <div class="avatar">JP</div>
-                <div>
-                  <div class="meta-name">Juliana P.</div>
-                  <div class="meta-role">Biomédica esteta</div>
+              </article>
+              <article class="testimonial">
+                <div class="quote-mark">“</div>
+                <p class="testimonial-text">O suporte nos primeiros casos foi o que me deu confiança para cobrar o que o trabalho realmente vale.</p>
+                <div class="testimonial-meta">
+                  <div class="avatar">JP</div>
+                  <div>
+                    <div class="meta-name">Juliana P.</div>
+                    <div class="meta-role">Biomédica esteta</div>
+                  </div>
                 </div>
-              </div>
-            </article>
+              </article>
+              <article class="testimonial" aria-hidden="true">
+                <div class="quote-mark">“</div>
+                <p class="testimonial-text">Antes eu aplicava técnica isolada. Hoje, antes de tocar no paciente, eu já sei exatamente o que o rosto precisa — e consigo explicar por quê.</p>
+                <div class="testimonial-meta">
+                  <div class="avatar">CL</div>
+                  <div>
+                    <div class="meta-name">Camila L.</div>
+                    <div class="meta-role">Cirurgiã-dentista</div>
+                  </div>
+                </div>
+              </article>
+              <article class="testimonial" aria-hidden="true">
+                <div class="quote-mark">“</div>
+                <p class="testimonial-text">Recuperei o investimento em três meses. Não foi mágica — foi entender como comunicar um trabalho que já era bom.</p>
+                <div class="testimonial-meta">
+                  <div class="avatar">RF</div>
+                  <div>
+                    <div class="meta-name">Rafael F.</div>
+                    <div class="meta-role">Médico esteta</div>
+                  </div>
+                </div>
+              </article>
+              <article class="testimonial" aria-hidden="true">
+                <div class="quote-mark">“</div>
+                <p class="testimonial-text">O suporte nos primeiros casos foi o que me deu confiança para cobrar o que o trabalho realmente vale.</p>
+                <div class="testimonial-meta">
+                  <div class="avatar">JP</div>
+                  <div>
+                    <div class="meta-name">Juliana P.</div>
+                    <div class="meta-role">Biomédica esteta</div>
+                  </div>
+                </div>
+              </article>
+            </div>
           </div>
         </div>
       </section>
