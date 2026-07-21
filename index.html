@@ -253,14 +253,16 @@
     }
 
     .brand-bar {
-      position: absolute;
+      position: fixed;
       top: 0;
       left: 0;
       right: 0;
-      z-index: 2;
+      z-index: 40;
       padding: 24px 0;
-      background: linear-gradient(180deg, rgba(11, 11, 11, 0.52), rgba(11, 11, 11, 0));
-      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(201, 168, 76, 0.12);
+      background: rgba(11, 11, 11, 0.84);
+      backdrop-filter: blur(14px);
+      box-shadow: 0 18px 46px rgba(0, 0, 0, 0.2);
     }
 
     .brand {
@@ -391,40 +393,40 @@
     }
 
     .hero-subline {
-      max-width: 34rem;
+      max-width: 36rem;
     }
 
     .hero-meta {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 14px;
-      margin-top: 30px;
+      margin-top: 28px;
       max-width: 700px;
     }
 
     .hero-stat {
-      padding: 16px 18px;
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 15px 16px;
+      border: 1px solid rgba(201, 168, 76, 0.16);
       border-radius: 18px;
       background:
-        linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.01)),
+        linear-gradient(180deg, rgba(201, 168, 76, 0.055), rgba(255, 255, 255, 0.01)),
         rgba(255, 255, 255, 0.015);
       box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
-      min-height: 110px;
+      min-height: 96px;
     }
 
     .hero-stat-value {
-      color: var(--white);
+      color: var(--gold);
       font-family: "Playfair Display", serif;
-      font-size: 1.55rem;
+      font-size: 1.48rem;
       font-style: italic;
       margin-bottom: 6px;
     }
 
     .hero-stat-label {
       color: var(--text-dim);
-      font-size: 0.82rem;
-      line-height: 1.6;
+      font-size: 0.76rem;
+      line-height: 1.5;
       text-transform: uppercase;
       letter-spacing: 0.08em;
     }
@@ -572,8 +574,9 @@
       position: relative;
       min-height: 480px;
       overflow: hidden;
+      border: 1.5px solid rgba(201, 168, 76, 0.45);
       border-radius: 28px;
-      box-shadow: var(--shadow);
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35), 0 0 38px rgba(201, 168, 76, 0.12);
       background: #121212;
     }
 
@@ -2200,19 +2203,25 @@
       }
 
       .hero-meta {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
         gap: 10px;
-        margin-top: 24px;
+        margin-top: 22px;
       }
 
       .hero-stat {
         min-height: auto;
-        padding: 14px 16px;
+        padding: 12px 10px;
         border-radius: 16px;
       }
 
       .hero-stat-value {
-        font-size: 1.35rem;
+        font-size: 1.18rem;
+      }
+
+      .hero-stat-label {
+        font-size: 0.62rem;
+        letter-spacing: 0.05em;
+        line-height: 1.35;
       }
 
       .cta-row {
@@ -2590,24 +2599,28 @@
       <section class="hero section is-visible">
         <div class="container">
           <div class="hero-copy">
-            <div class="hero-kicker">Formação presencial consolidada, agora em escala digital</div>
-            <span class="section-label">Método 01 — Harmonização Orofacial</span>
-            <h1>Aprenda a <span class="gold-shimmer">Esculpir Faces</span> com Precisão Artística</h1>
-            <p class="lead hero-subline">Um método para profissionais da saúde que querem unir técnica, visão estética e posicionamento para construir resultados naturais, autoridade percebida e uma carreira mais valorizada.</p>
+            <div class="hero-kicker">Formação online com base clínica real</div>
+            <span class="section-label">Método Esculpindo Faces — Dr. Lopez</span>
+            <h1>Domine o raciocínio por trás de <span class="gold-shimmer">faces naturais</span></h1>
+            <p class="lead hero-subline">Aprenda leitura facial, técnica e posicionamento para entregar resultados mais harmônicos, seguros e valorizados pelos seus pacientes.</p>
             <div class="hero-meta">
               <div class="hero-stat">
                 <div class="hero-stat-value">+300</div>
-                <div class="hero-stat-label">alunos formados no presencial antes da expansão para o digital</div>
+                <div class="hero-stat-label">alunos formados no presencial</div>
               </div>
               <div class="hero-stat">
                 <div class="hero-stat-value">+6.000</div>
-                <div class="hero-stat-label">cirurgias realizadas construindo repertório clínico e visão estética</div>
+                <div class="hero-stat-label">cirurgias realizadas pelo Dr. Lopez</div>
+              </div>
+              <div class="hero-stat">
+                <div class="hero-stat-value">1 ano</div>
+                <div class="hero-stat-label">de acesso e suporte para evoluir</div>
               </div>
             </div>
             <div class="cta-row">
               <a class="cta-button" href="#checkout">QUERO GARANTIR MINHA VAGA</a>
             </div>
-            <div class="cta-support">Acesso imediato | Garantia de 7 dias | Suporte por 1 ano</div>
+            <div class="cta-support">Acesso imediato | 7 dias de garantia | Investimento acessível</div>
             <a class="hero-social" href="https://www.instagram.com/drlopez_/" target="_blank" rel="noreferrer">
               <span class="hero-social-label">Instagram</span>
               <span>@drlopez_</span>
@@ -2725,21 +2738,21 @@
         <div class="container two-column">
           <div class="content-narrow">
             <span class="section-label">—— Nº 04</span>
-            <h2>Para quem é o Método Esculpindo Faces</h2>
+            <h2>Este curso é para você que:</h2>
           </div>
 
           <div class="for-you-list">
             <article class="for-you-item">
               <div class="for-you-line"></div>
-              <p>É para você que <span>já entendeu que a técnica sozinha não sustenta diferenciação.</span></p>
+              <p>Já atua na área e quer <span>se aperfeiçoar, se atualizar e elevar o padrão dos seus resultados.</span></p>
             </article>
             <article class="for-you-item">
               <div class="for-you-line"></div>
-              <p>Quer sair do operacional e desenvolver um <span>olhar que gera assinatura.</span></p>
+              <p>É recém-formado e busca iniciar da melhor forma sua carreira com <span>conhecimento prático, direcionado e com investimento acessível para começar com mais segurança.</span></p>
             </article>
             <article class="for-you-item">
               <div class="for-you-line"></div>
-              <p>Quer construir autoridade real, e não apenas mais um <span>certificado na parede.</span></p>
+              <p>Sente que tem uma missão e propósito com seus pacientes: <span>proporcionar mudança, autoestima e qualidade de vida.</span></p>
             </article>
             <article class="for-you-item">
               <div class="for-you-line"></div>
