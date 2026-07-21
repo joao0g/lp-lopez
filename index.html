@@ -786,6 +786,76 @@
       display: block;
     }
 
+    .case-carousel {
+      position: absolute;
+      inset: 0;
+    }
+
+    .case-carousel img {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .case-carousel img.is-active {
+      opacity: 1;
+    }
+
+    .case-carousel-arrow {
+      position: absolute;
+      top: 42%;
+      transform: translateY(-50%);
+      z-index: 2;
+      width: 32px;
+      height: 32px;
+      border: none;
+      border-radius: 50%;
+      background: rgba(11, 11, 11, 0.55);
+      color: #ffffff;
+      font-size: 1.3rem;
+      line-height: 1;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    .case-carousel-arrow:hover,
+    .case-carousel-arrow:focus-visible {
+      background: rgba(11, 11, 11, 0.82);
+    }
+
+    .case-carousel-prev {
+      left: 10px;
+    }
+
+    .case-carousel-next {
+      right: 10px;
+    }
+
+    .case-carousel-dots {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+
+    .case-carousel-dots button {
+      width: 6px;
+      height: 6px;
+      padding: 0;
+      border: none;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.35);
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+
+    .case-carousel-dots button.is-active {
+      background: var(--gold);
+      transform: scale(1.3);
+    }
+
     .case-photo-caption {
       position: absolute;
       left: 0;
@@ -2069,8 +2139,19 @@
 
           <div class="results-grid">
             <div class="case-photo">
-              <img src="./casos/contorno-mandibular.jpeg" alt="Caso clínico de lipoescultura HD de papada e pescoço com comparação de perfil antes e depois">
+              <div class="case-carousel" data-carousel>
+                <img src="./casos/contorno-mandibular.jpeg" alt="Caso 1 de lipoescultura HD de papada e pescoço com comparação de perfil antes e depois" class="is-active">
+                <img src="./casos/lipohd2.jpeg" alt="Caso 2 de lipoescultura HD de papada e pescoço com comparação antes e depois">
+                <img src="./casos/lipohd3.jpeg" alt="Caso 3 de lipoescultura HD de papada e pescoço com comparação antes e depois">
+              </div>
+              <button class="case-carousel-arrow case-carousel-prev" type="button" aria-label="Foto anterior">‹</button>
+              <button class="case-carousel-arrow case-carousel-next" type="button" aria-label="Próxima foto">›</button>
               <div class="case-photo-caption">
+                <div class="case-carousel-dots">
+                  <button class="is-active" type="button" aria-label="Foto 1"></button>
+                  <button type="button" aria-label="Foto 2"></button>
+                  <button type="button" aria-label="Foto 3"></button>
+                </div>
                 <div class="case-caption-title">Lipoescultura HD de Papada e Pescoço</div>
                 <div class="case-caption-text">Aspiração de gordura com escultura, definição e marcação mandibular — leitura de perfil e definição estrutural com resultado mais limpo no terço inferior.</div>
               </div>
@@ -2461,6 +2542,23 @@
 
     document.querySelectorAll(".section").forEach((section, index) => {
       if (index !== 0) observer.observe(section);
+    });
+
+    document.querySelectorAll("[data-carousel]").forEach((carousel) => {
+      const card = carousel.closest(".case-photo");
+      const imgs = carousel.querySelectorAll("img");
+      const dots = card.querySelectorAll(".case-carousel-dots button");
+      let index = 0;
+
+      function show(next) {
+        index = (next + imgs.length) % imgs.length;
+        imgs.forEach((img, i) => img.classList.toggle("is-active", i === index));
+        dots.forEach((dot, i) => dot.classList.toggle("is-active", i === index));
+      }
+
+      card.querySelector(".case-carousel-prev").addEventListener("click", () => show(index - 1));
+      card.querySelector(".case-carousel-next").addEventListener("click", () => show(index + 1));
+      dots.forEach((dot, i) => dot.addEventListener("click", () => show(i)));
     });
 
     document.querySelectorAll(".faq-trigger").forEach((button) => {
