@@ -2196,6 +2196,24 @@
               <div class="case-carousel" data-carousel>
                 <img src="./casos/asa-nasal.jpeg" alt="Caso 1 de alectomia com diminuição das asas nasais antes e depois" class="is-active">
                 <img src="./casos/asanasal1.jpeg" alt="Caso 2 de alectomia com diminuição das asas nasais antes e depois">
+                <img src="./casos/asanasal2.jpeg" alt="Caso 3 de alectomia com marcação cirúrgica das asas nasais">
+              </div>
+              <button class="case-carousel-arrow case-carousel-prev" type="button" aria-label="Foto anterior">‹</button>
+              <button class="case-carousel-arrow case-carousel-next" type="button" aria-label="Próxima foto">›</button>
+              <div class="case-photo-caption">
+                <div class="case-carousel-dots">
+                  <button class="is-active" type="button" aria-label="Foto 1"></button>
+                  <button type="button" aria-label="Foto 2"></button>
+                  <button type="button" aria-label="Foto 3"></button>
+                </div>
+                <div class="case-caption-title">Alectomia — Diminuição das Asas Nasais</div>
+                <div class="case-caption-text">Refinamento das asas nasais com resultado discreto e cicatrização bem conduzida.</div>
+              </div>
+            </div>
+            <div class="case-photo">
+              <div class="case-carousel" data-carousel>
+                <img src="./casos/preenchimento-labial.jpeg" alt="Caso 1 de preenchimento labial antes e depois" class="is-active">
+                <img src="./casos/preenchimento-labial2.jpeg" alt="Caso 2 de preenchimento labial antes e depois">
               </div>
               <button class="case-carousel-arrow case-carousel-prev" type="button" aria-label="Foto anterior">‹</button>
               <button class="case-carousel-arrow case-carousel-next" type="button" aria-label="Próxima foto">›</button>
@@ -2204,20 +2222,22 @@
                   <button class="is-active" type="button" aria-label="Foto 1"></button>
                   <button type="button" aria-label="Foto 2"></button>
                 </div>
-                <div class="case-caption-title">Alectomia — Diminuição das Asas Nasais</div>
-                <div class="case-caption-text">Refinamento das asas nasais com resultado discreto e cicatrização bem conduzida.</div>
-              </div>
-            </div>
-            <div class="case-photo">
-              <img src="./casos/preenchimento-labial.jpeg" alt="Caso clínico de preenchimento labial antes e depois">
-              <div class="case-photo-caption">
                 <div class="case-caption-title">Preenchimento Labial</div>
                 <div class="case-caption-text">Anatomia, delineamento, volume e contorno ideais, com resultado natural que respeita a proporção do rosto.</div>
               </div>
             </div>
             <div class="case-photo">
-              <img src="./casos/harmonizacao.png" alt="Caso clínico de harmonização orofacial masculina com comparação antes e depois">
+              <div class="case-carousel" data-carousel>
+                <img src="./casos/harmonizacao.png" alt="Caso 1 de harmonização orofacial masculina com comparação antes e depois" class="is-active">
+                <img src="./casos/harmonizacao2.jpeg" alt="Caso 2 de harmonização orofacial masculina com comparação antes e depois">
+              </div>
+              <button class="case-carousel-arrow case-carousel-prev" type="button" aria-label="Foto anterior">‹</button>
+              <button class="case-carousel-arrow case-carousel-next" type="button" aria-label="Próxima foto">›</button>
               <div class="case-photo-caption">
+                <div class="case-carousel-dots">
+                  <button class="is-active" type="button" aria-label="Foto 1"></button>
+                  <button type="button" aria-label="Foto 2"></button>
+                </div>
                 <div class="case-caption-title">Harmonização Orofacial (Preenchimentos e Botox)</div>
                 <div class="case-caption-text">Harmonia da face com quantidades ideais em pontos estratégicos para valorizar o paciente — sutileza que transforma, rejuvenesce e esculpe.</div>
               </div>
@@ -2587,38 +2607,9 @@
         dots.forEach((dot, i) => dot.classList.toggle("is-active", i === index));
       }
 
-      card.querySelector(".case-carousel-prev").addEventListener("click", () => {
-        show(index - 1);
-        restartAutoplay();
-      });
-      card.querySelector(".case-carousel-next").addEventListener("click", () => {
-        show(index + 1);
-        restartAutoplay();
-      });
-      dots.forEach((dot, i) => dot.addEventListener("click", () => {
-        show(i);
-        restartAutoplay();
-      }));
-
-      let timer = null;
-
-      function startAutoplay() {
-        if (imgs.length < 2) return;
-        timer = setInterval(() => show(index + 1), 3800);
-      }
-
-      function stopAutoplay() {
-        clearInterval(timer);
-      }
-
-      function restartAutoplay() {
-        stopAutoplay();
-        startAutoplay();
-      }
-
-      card.addEventListener("mouseenter", stopAutoplay);
-      card.addEventListener("mouseleave", startAutoplay);
-      startAutoplay();
+      card.querySelector(".case-carousel-prev").addEventListener("click", () => show(index - 1));
+      card.querySelector(".case-carousel-next").addEventListener("click", () => show(index + 1));
+      dots.forEach((dot, i) => dot.addEventListener("click", () => show(i)));
     });
 
     document.querySelectorAll(".faq-trigger").forEach((button) => {
