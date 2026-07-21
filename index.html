@@ -784,6 +784,93 @@
       height: 100%;
       object-fit: contain;
       display: block;
+      cursor: zoom-in;
+    }
+
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      align-items: center;
+      justify-content: center;
+      background: rgba(8, 8, 8, 0.94);
+      padding: 60px 20px;
+    }
+
+    .lightbox.is-open {
+      display: flex;
+    }
+
+    .lightbox-img {
+      max-width: min(92vw, 920px);
+      max-height: 86vh;
+      width: auto;
+      height: auto;
+      border-radius: 12px;
+      box-shadow: 0 30px 90px rgba(0, 0, 0, 0.55);
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 40px;
+      height: 40px;
+      border: none;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.08);
+      color: #ffffff;
+      font-size: 1.5rem;
+      line-height: 1;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    .lightbox-close:hover,
+    .lightbox-close:focus-visible {
+      background: rgba(255, 255, 255, 0.18);
+    }
+
+    .lightbox-arrow {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 46px;
+      height: 46px;
+      border: none;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.08);
+      color: #ffffff;
+      font-size: 1.6rem;
+      line-height: 1;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    .lightbox-arrow:hover,
+    .lightbox-arrow:focus-visible {
+      background: rgba(255, 255, 255, 0.18);
+    }
+
+    .lightbox-prev {
+      left: 20px;
+    }
+
+    .lightbox-next {
+      right: 20px;
+    }
+
+    @media (max-width: 640px) {
+      .lightbox-arrow {
+        width: 38px;
+        height: 38px;
+        font-size: 1.3rem;
+      }
     }
 
     .case-carousel {
@@ -795,18 +882,86 @@
       position: absolute;
       inset: 0;
       opacity: 0;
+      pointer-events: none;
       transition: opacity 0.4s ease;
     }
 
     .case-carousel img.is-active {
       opacity: 1;
+      pointer-events: auto;
+    }
+
+    .case-carousel img[data-sensitive="true"]:not(.is-revealed) {
+      filter: blur(28px);
+      cursor: default;
+    }
+
+    .sensitive-warning {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 140px;
+      z-index: 3;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      text-align: center;
+      padding: 24px;
+      background: rgba(11, 11, 11, 0.4);
+    }
+
+    .sensitive-warning.is-shown {
+      display: flex;
+    }
+
+    .sensitive-warning-title {
+      color: #ffffff;
+      font-weight: 600;
+      font-size: 0.94rem;
+    }
+
+    .sensitive-warning-text {
+      color: rgba(255, 255, 255, 0.78);
+      font-size: 0.8rem;
+      max-width: 220px;
+      line-height: 1.5;
+    }
+
+    .sensitive-warning button {
+      margin-top: 6px;
+      padding: 9px 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.32);
+      background: rgba(255, 255, 255, 0.08);
+      color: #ffffff;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    .sensitive-warning button:hover,
+    .sensitive-warning button:focus-visible {
+      background: rgba(255, 255, 255, 0.18);
+    }
+
+    .lightbox-img[data-sensitive="true"]:not(.is-revealed) {
+      filter: blur(30px);
+    }
+
+    .lightbox .sensitive-warning {
+      position: fixed;
+      inset: 0;
+      background: none;
     }
 
     .case-carousel-arrow {
       position: absolute;
       top: 42%;
       transform: translateY(-50%);
-      z-index: 2;
+      z-index: 4;
       width: 32px;
       height: 32px;
       border: none;
@@ -864,6 +1019,11 @@
       z-index: 1;
       padding: 32px 16px 16px;
       background: linear-gradient(180deg, rgba(11, 11, 11, 0) 0%, rgba(11, 11, 11, 0.86) 55%, rgba(11, 11, 11, 0.94) 100%);
+      pointer-events: none;
+    }
+
+    .case-carousel-dots {
+      pointer-events: auto;
     }
 
     .case-caption-title {
@@ -2212,6 +2372,31 @@
             </div>
             <div class="case-photo">
               <div class="case-carousel" data-carousel>
+                <img src="./casos/bichectomia1.jpeg" alt="Caso 1 de bichectomia com bioplastia facial antes e depois" class="is-active">
+                <img src="./casos/bichectomia2.jpeg" alt="Caso 2 de bichectomia com bioplastia facial antes e depois">
+                <img src="./casos/bichectomia3.jpeg" alt="Caso 3 de bichectomia com bioplastia facial antes e depois">
+                <img src="./casos/bichectomia4.jpeg" alt="Registro cirúrgico do procedimento de bichectomia" data-sensitive="true">
+              </div>
+              <div class="sensitive-warning" data-sensitive-warning>
+                <div class="sensitive-warning-title">⚠ Conteúdo sensível</div>
+                <div class="sensitive-warning-text">Esta foto mostra um registro cirúrgico e pode ser sensível para alguns visitantes.</div>
+                <button type="button">Ver mesmo assim</button>
+              </div>
+              <button class="case-carousel-arrow case-carousel-prev" type="button" aria-label="Foto anterior">‹</button>
+              <button class="case-carousel-arrow case-carousel-next" type="button" aria-label="Próxima foto">›</button>
+              <div class="case-photo-caption">
+                <div class="case-carousel-dots">
+                  <button class="is-active" type="button" aria-label="Foto 1"></button>
+                  <button type="button" aria-label="Foto 2"></button>
+                  <button type="button" aria-label="Foto 3"></button>
+                  <button type="button" aria-label="Foto 4"></button>
+                </div>
+                <div class="case-caption-title">Bichectomia: Bioplastia Facial</div>
+                <div class="case-caption-text">Melhores contornos de face, efeito blush e top model look de malar (maçã do rosto) para pacientes com rosto mais arredondado ou que mordem as bochechas. Mais harmonia e qualidade de vida.</div>
+              </div>
+            </div>
+            <div class="case-photo">
+              <div class="case-carousel" data-carousel>
                 <img src="./casos/preenchimento-labial.jpeg" alt="Caso 1 de preenchimento labial antes e depois" class="is-active">
                 <img src="./casos/preenchimento-labial2.jpeg" alt="Caso 2 de preenchimento labial antes e depois">
               </div>
@@ -2574,13 +2759,25 @@
       </div>
     </footer>
 
-    <a class="whatsapp-float" href="https://wa.me/5511941736368?text=Ol%C3%A1%2C%20quero%20saber%20mais%20sobre%20o%20curso%20Esculpindo%20Faces" target="_blank" rel="noreferrer" aria-label="Falar no WhatsApp com Dr. Lopez">
+    <a class="whatsapp-float" href="https://wa.me/5511941736368?text=Ol%C3%A1%2C%20quero%20saber%20mais%20sobre%20o%20Curso%20On-line%20do%20Dr%20Lopez%20M%C3%A9todo%20Esculpindo%20Faces" target="_blank" rel="noreferrer" aria-label="Falar no WhatsApp com Dr. Lopez">
       <span class="whatsapp-pulse" aria-hidden="true"></span>
       <svg class="whatsapp-icon" viewBox="0 0 32 32" aria-hidden="true">
         <path fill="currentColor" d="M16.004 3C9.377 3 4 8.373 4 15c0 2.372.687 4.583 1.875 6.445L4 29l7.727-1.85A11.94 11.94 0 0 0 16.004 27C22.63 27 28 21.627 28 15S22.63 3 16.004 3Zm0 21.75a9.7 9.7 0 0 1-4.95-1.36l-.355-.21-4.585 1.098 1.12-4.47-.232-.365A9.71 9.71 0 0 1 5.25 15c0-5.93 4.823-10.75 10.754-10.75S26.75 9.07 26.75 15 21.935 24.75 16.004 24.75Zm5.55-7.98c-.303-.152-1.792-.884-2.07-.985-.278-.101-.48-.152-.682.152-.202.303-.783.985-.96 1.187-.177.202-.354.227-.657.076-.303-.152-1.28-.472-2.438-1.505-.9-.803-1.508-1.795-1.685-2.098-.177-.303-.019-.467.133-.618.137-.136.303-.354.455-.53.152-.177.202-.303.303-.505.101-.202.05-.38-.025-.53-.076-.152-.682-1.646-.935-2.253-.246-.591-.497-.511-.682-.52l-.581-.01c-.202 0-.53.076-.808.38-.278.303-1.06 1.036-1.06 2.53 0 1.494 1.086 2.937 1.237 3.14.152.202 2.137 3.263 5.178 4.575.723.312 1.287.499 1.727.639.726.231 1.386.198 1.908.12.582-.087 1.792-.733 2.045-1.44.253-.708.253-1.315.177-1.44-.076-.126-.278-.202-.581-.354Z"/>
       </svg>
       <span class="whatsapp-label">Fale no WhatsApp</span>
     </a>
+
+    <div class="lightbox" id="lightbox">
+      <button class="lightbox-close" type="button" aria-label="Fechar">×</button>
+      <button class="lightbox-arrow lightbox-prev" type="button" aria-label="Foto anterior">‹</button>
+      <img class="lightbox-img" src="" alt="">
+      <div class="sensitive-warning" data-lightbox-sensitive-warning>
+        <div class="sensitive-warning-title">⚠ Conteúdo sensível</div>
+        <div class="sensitive-warning-text">Esta foto mostra um registro cirúrgico e pode ser sensível para alguns visitantes.</div>
+        <button type="button">Ver mesmo assim</button>
+      </div>
+      <button class="lightbox-arrow lightbox-next" type="button" aria-label="Próxima foto">›</button>
+    </div>
   </div>
 
   <script>
@@ -2601,17 +2798,100 @@
       const card = carousel.closest(".case-photo");
       const imgs = carousel.querySelectorAll("img");
       const dots = card.querySelectorAll(".case-carousel-dots button");
+      const warning = card.querySelector("[data-sensitive-warning]");
       let index = 0;
+
+      function updateWarning() {
+        if (!warning) return;
+        const activeImg = imgs[index];
+        const isSensitive = activeImg.dataset.sensitive === "true" && !activeImg.classList.contains("is-revealed");
+        warning.classList.toggle("is-shown", isSensitive);
+      }
 
       function show(next) {
         index = (next + imgs.length) % imgs.length;
         imgs.forEach((img, i) => img.classList.toggle("is-active", i === index));
         dots.forEach((dot, i) => dot.classList.toggle("is-active", i === index));
+        updateWarning();
       }
 
       card.querySelector(".case-carousel-prev").addEventListener("click", () => show(index - 1));
       card.querySelector(".case-carousel-next").addEventListener("click", () => show(index + 1));
       dots.forEach((dot, i) => dot.addEventListener("click", () => show(i)));
+
+      if (warning) {
+        warning.querySelector("button").addEventListener("click", () => {
+          imgs[index].classList.add("is-revealed");
+          updateWarning();
+        });
+        updateWarning();
+      }
+    });
+
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImg = lightbox.querySelector(".lightbox-img");
+    const lightboxPrev = lightbox.querySelector(".lightbox-prev");
+    const lightboxNext = lightbox.querySelector(".lightbox-next");
+    const lightboxWarning = lightbox.querySelector("[data-lightbox-sensitive-warning]");
+    let lightboxImages = [];
+    let lightboxIndex = 0;
+
+    function updateLightboxImage() {
+      const img = lightboxImages[lightboxIndex];
+      lightboxImg.src = img.src;
+      lightboxImg.alt = img.alt;
+      const showArrows = lightboxImages.length > 1;
+      lightboxPrev.style.display = showArrows ? "grid" : "none";
+      lightboxNext.style.display = showArrows ? "grid" : "none";
+
+      const isSensitive = img.dataset.sensitive === "true" && !img.classList.contains("is-revealed");
+      lightboxImg.toggleAttribute("data-sensitive", isSensitive);
+      lightboxImg.classList.toggle("is-revealed", !isSensitive);
+      lightboxWarning.classList.toggle("is-shown", isSensitive);
+    }
+
+    function openLightbox(imgs, i) {
+      lightboxImages = imgs;
+      lightboxIndex = i;
+      updateLightboxImage();
+      lightbox.classList.add("is-open");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove("is-open");
+      document.body.style.overflow = "";
+    }
+
+    document.querySelectorAll(".case-photo").forEach((card) => {
+      const imgs = Array.from(card.querySelectorAll("img"));
+      imgs.forEach((img, i) => {
+        img.addEventListener("click", () => openLightbox(imgs, i));
+      });
+    });
+
+    lightboxWarning.querySelector("button").addEventListener("click", () => {
+      lightboxImages[lightboxIndex].classList.add("is-revealed");
+      updateLightboxImage();
+    });
+
+    lightbox.querySelector(".lightbox-close").addEventListener("click", closeLightbox);
+    lightbox.addEventListener("click", (event) => {
+      if (event.target === lightbox) closeLightbox();
+    });
+    lightboxPrev.addEventListener("click", () => {
+      lightboxIndex = (lightboxIndex - 1 + lightboxImages.length) % lightboxImages.length;
+      updateLightboxImage();
+    });
+    lightboxNext.addEventListener("click", () => {
+      lightboxIndex = (lightboxIndex + 1) % lightboxImages.length;
+      updateLightboxImage();
+    });
+    document.addEventListener("keydown", (event) => {
+      if (!lightbox.classList.contains("is-open")) return;
+      if (event.key === "Escape") closeLightbox();
+      if (event.key === "ArrowLeft") lightboxPrev.click();
+      if (event.key === "ArrowRight") lightboxNext.click();
     });
 
     document.querySelectorAll(".faq-trigger").forEach((button) => {
