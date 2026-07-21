@@ -70,6 +70,18 @@
       }
     }
 
+    @property --investment-angle {
+      syntax: "<angle>";
+      inherits: false;
+      initial-value: 0deg;
+    }
+
+    @keyframes investmentBorderSpin {
+      to {
+        --investment-angle: 360deg;
+      }
+    }
+
     * {
       box-sizing: border-box;
     }
@@ -227,6 +239,17 @@
       display: grid;
       gap: 18px;
       align-items: start;
+    }
+
+    .hero-vsl-replay {
+      display: flex;
+      justify-content: center;
+    }
+
+    .hero-vsl-replay .secondary-link {
+      background: transparent;
+      cursor: pointer;
+      font-family: inherit;
     }
 
     .brand-bar {
@@ -445,28 +468,90 @@
     }
 
     .cta-button {
+      position: relative;
+      overflow: hidden;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-height: 58px;
+      gap: 12px;
+      min-height: 62px;
       padding: 18px 40px;
-      border: 0;
-      border-radius: 2px;
-      background: var(--gold);
-      color: var(--bg);
+      border: 1px solid rgba(245, 224, 144, 0.34);
+      border-radius: 6px;
+      background:
+        linear-gradient(135deg, #f0d080 0%, #c9a84c 42%, #a98224 100%);
+      color: #090909;
       font-size: 0.82rem;
-      font-weight: 500;
-      letter-spacing: 2px;
+      font-weight: 700;
+      letter-spacing: 2.4px;
       text-transform: uppercase;
-      transition: background 0.25s ease, transform 0.25s ease;
+      transition: background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
       cursor: pointer;
-      box-shadow: 0 18px 40px rgba(201, 168, 76, 0.18);
+      box-shadow:
+        0 22px 58px rgba(201, 168, 76, 0.32),
+        0 1px 0 rgba(255, 255, 255, 0.38) inset,
+        0 -10px 26px rgba(93, 65, 8, 0.22) inset;
+    }
+
+    .cta-button::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(110deg, transparent 0%, rgba(255, 255, 255, 0.45) 46%, transparent 58%);
+      transform: translateX(-120%);
+      transition: transform 0.6s ease;
+      pointer-events: none;
+    }
+
+    .cta-button::after {
+      content: "";
+      width: 9px;
+      height: 9px;
+      border-top: 1.5px solid currentColor;
+      border-right: 1.5px solid currentColor;
+      transform: rotate(45deg);
+      transition: transform 0.25s ease;
     }
 
     .cta-button:hover,
     .cta-button:focus-visible {
-      background: #e8d080;
-      transform: translateY(-1px);
+      background:
+        linear-gradient(135deg, #ffe19a 0%, #d8b653 44%, #b88f2d 100%);
+      box-shadow:
+        0 26px 70px rgba(201, 168, 76, 0.42),
+        0 1px 0 rgba(255, 255, 255, 0.48) inset,
+        0 -10px 26px rgba(93, 65, 8, 0.18) inset;
+      transform: translateY(-2px);
+    }
+
+    .cta-button:hover::before,
+    .cta-button:focus-visible::before {
+      transform: translateX(120%);
+    }
+
+    .cta-button:hover::after,
+    .cta-button:focus-visible::after {
+      transform: translateX(3px) rotate(45deg);
+    }
+
+    .section-cta {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .section-cta.is-centered {
+      align-items: center;
+      text-align: center;
+    }
+
+    .section-cta-note {
+      max-width: 440px;
+      color: #8d877f;
+      font-size: 0.82rem;
+      line-height: 1.55;
     }
 
     .hero-visual,
@@ -548,6 +633,138 @@
       height: 100%;
       border: 0;
       display: block;
+    }
+
+    .vsl-popup {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 60;
+      align-items: center;
+      justify-content: center;
+      background: rgba(6, 6, 6, 0.92);
+      padding: 24px;
+    }
+
+    .vsl-popup.is-open {
+      display: flex;
+    }
+
+    .vsl-popup-box {
+      position: relative;
+      width: min(94vw, 880px);
+    }
+
+    .vsl-popup-frame {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border-radius: 16px;
+      overflow: hidden;
+      background: #101010;
+      box-shadow: 0 30px 90px rgba(0, 0, 0, 0.55);
+    }
+
+    .vsl-popup-frame iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
+
+    .vsl-popup-label {
+      margin-top: 14px;
+      text-align: center;
+      color: rgba(255, 255, 255, 0.75);
+      font-size: 0.88rem;
+    }
+
+    .vsl-popup.is-mini {
+      display: block;
+      inset: auto 20px 92px auto;
+      width: min(360px, calc(100vw - 40px));
+      padding: 0;
+      background: transparent;
+    }
+
+    .vsl-popup.is-mini .vsl-popup-box {
+      width: 100%;
+    }
+
+    .vsl-popup.is-mini .vsl-popup-frame {
+      border: 1px solid rgba(201, 168, 76, 0.28);
+      border-radius: 14px;
+      box-shadow: 0 18px 54px rgba(0, 0, 0, 0.56);
+    }
+
+    .vsl-popup.is-mini .vsl-popup-label {
+      display: none;
+    }
+
+    .vsl-popup-actions {
+      position: absolute;
+      top: -44px;
+      right: 0;
+      z-index: 2;
+      display: flex;
+      gap: 10px;
+    }
+
+    .vsl-popup-control {
+      width: 36px;
+      height: 36px;
+      border: none;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      color: #ffffff;
+      font-size: 1.4rem;
+      line-height: 1;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    .vsl-popup-expand {
+      display: none;
+    }
+
+    .vsl-popup.is-mini .vsl-popup-actions {
+      top: 8px;
+      right: 8px;
+    }
+
+    .vsl-popup.is-mini .vsl-popup-control {
+      width: 32px;
+      height: 32px;
+      background: rgba(8, 8, 8, 0.72);
+      backdrop-filter: blur(10px);
+    }
+
+    .vsl-popup.is-mini .vsl-popup-minimize {
+      display: none;
+    }
+
+    .vsl-popup.is-mini .vsl-popup-expand {
+      display: grid;
+    }
+
+    .vsl-popup-control:hover,
+    .vsl-popup-control:focus-visible {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    @media (max-width: 640px) {
+      .vsl-popup-actions {
+        top: -40px;
+        right: -4px;
+      }
+
+      .vsl-popup.is-mini {
+        right: 14px;
+        bottom: 76px;
+        width: min(330px, calc(100vw - 28px));
+      }
     }
 
     .vsl-copy {
@@ -1202,9 +1419,11 @@
     }
 
     .press-card {
+      position: relative;
+      overflow: hidden;
       display: flex;
       flex-direction: column;
-      gap: 18px;
+      gap: 16px;
       padding: 32px;
       border: 1px solid rgba(201, 168, 76, 0.14);
       border-radius: 24px;
@@ -1213,6 +1432,23 @@
         linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0)),
         rgba(255, 255, 255, 0.012);
       transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+    }
+
+    .press-card::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold), rgba(201, 168, 76, 0));
+      opacity: 0.75;
+    }
+
+    .press-card.is-featured {
+      border-color: rgba(201, 168, 76, 0.28);
+      background:
+        radial-gradient(circle at 14% 0%, rgba(201, 168, 76, 0.16), transparent 34%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0)),
+        rgba(255, 255, 255, 0.016);
     }
 
     .press-card:hover,
@@ -1232,19 +1468,44 @@
       text-transform: uppercase;
     }
 
+    .press-meta {
+      width: fit-content;
+      padding: 7px 10px;
+      border: 1px solid rgba(201, 168, 76, 0.18);
+      border-radius: 999px;
+      color: #9f978e;
+      font-family: monospace;
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
     .press-title {
       color: var(--white);
       font-size: 1.25rem;
       font-weight: 500;
       line-height: 1.45;
-      min-height: 168px;
+      min-height: 132px;
+    }
+
+    .press-card.is-featured .press-title {
+      max-width: 760px;
+      font-size: clamp(1.55rem, 3vw, 2.35rem);
+      line-height: 1.15;
+      min-height: auto;
     }
 
     .press-description {
       color: var(--text-dim);
       font-size: 0.98rem;
       line-height: 1.75;
-      min-height: 150px;
+      min-height: 132px;
+    }
+
+    .press-card.is-featured .press-description {
+      max-width: 720px;
+      min-height: auto;
+      font-size: 1.05rem;
     }
 
     .press-cta {
@@ -1326,57 +1587,195 @@
     }
 
     .investment-card {
-      padding: 42px;
-      border: 1px solid rgba(201, 168, 76, 0.18);
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 48px;
+      border: 1px solid rgba(201, 168, 76, 0.26);
       border-radius: 28px;
       background:
-        radial-gradient(circle at top right, rgba(201, 168, 76, 0.08), transparent 30%),
+        radial-gradient(circle at 50% 0%, rgba(201, 168, 76, 0.18), transparent 34%),
+        radial-gradient(circle at 100% 18%, rgba(255, 255, 255, 0.06), transparent 26%),
         linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0)),
         #121212;
-      box-shadow: var(--shadow);
+      box-shadow: 0 34px 100px rgba(0, 0, 0, 0.48), 0 0 0 1px rgba(255, 255, 255, 0.02) inset;
       text-align: center;
     }
 
+    .investment-card::before {
+      content: "";
+      position: absolute;
+      inset: 0 18% auto;
+      z-index: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(245, 224, 144, 0.7), transparent);
+    }
+
+    .investment-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      padding: 1.5px;
+      border-radius: inherit;
+      background: conic-gradient(
+        from var(--investment-angle),
+        transparent 0deg,
+        transparent 245deg,
+        rgba(122, 92, 16, 0.25) 275deg,
+        rgba(201, 168, 76, 0.95) 304deg,
+        rgba(245, 224, 144, 0.95) 322deg,
+        rgba(201, 168, 76, 0.8) 338deg,
+        transparent 360deg
+      );
+      animation: investmentBorderSpin 5.4s linear infinite;
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+      mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+
+    .investment-card > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .investment-card .section-label {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+      padding: 8px 14px;
+      border: 1px solid rgba(201, 168, 76, 0.22);
+      border-radius: 999px;
+      background: rgba(201, 168, 76, 0.06);
+    }
+
     .investment-topline {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.035);
       color: var(--gold);
       font-size: 11px;
       letter-spacing: 3px;
       text-transform: uppercase;
-      margin-bottom: 16px;
+      margin-bottom: 20px;
+    }
+
+    .investment-topline::before,
+    .investment-topline::after {
+      content: "";
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--gold);
+      box-shadow: 0 0 18px rgba(201, 168, 76, 0.8);
+    }
+
+    .investment-card h2 {
+      max-width: 640px;
+      margin-inline: auto;
+    }
+
+    .price-box {
+      max-width: 560px;
+      margin: 30px auto 0;
+      padding: 26px 26px 22px;
+      border: 1px solid rgba(201, 168, 76, 0.2);
+      border-radius: 24px;
+      background:
+        linear-gradient(135deg, rgba(201, 168, 76, 0.1), rgba(255, 255, 255, 0.018)),
+        rgba(8, 8, 8, 0.42);
     }
 
     .price-value {
-      margin-top: 18px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 0;
       color: var(--white);
-      font-size: clamp(2.6rem, 5vw, 4.2rem);
       font-style: italic;
+      line-height: 1;
+    }
+
+    .price-installments {
+      color: var(--gold);
+      font-size: clamp(2.7rem, 5vw, 4.6rem);
+    }
+
+    .price-currency {
+      color: var(--text);
+      font-size: clamp(1.6rem, 3vw, 2.3rem);
+    }
+
+    .price-amount {
+      color: var(--white);
+      font-size: clamp(2.4rem, 4.4vw, 4rem);
     }
 
     .price-note {
-      margin-top: 8px;
+      margin-top: 14px;
       color: var(--text-dim);
     }
 
     .investment-points {
       display: grid;
       gap: 12px;
-      margin-top: 26px;
+      margin-top: 28px;
       text-align: left;
     }
 
     .investment-point {
-      padding: 14px 16px;
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      border-radius: 16px;
+      display: grid;
+      grid-template-columns: 28px 1fr;
+      gap: 12px;
+      align-items: start;
+      padding: 17px 18px;
+      border: 1px solid rgba(201, 168, 76, 0.13);
+      border-radius: 18px;
       color: var(--text);
-      background: rgba(255, 255, 255, 0.016);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.026), rgba(255, 255, 255, 0)),
+        rgba(255, 255, 255, 0.012);
+      line-height: 1.65;
+    }
+
+    .investment-check {
+      display: grid;
+      place-items: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(201, 168, 76, 0.13);
+      color: var(--gold);
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    .investment-card .cta-row {
+      margin-top: 30px;
+    }
+
+    .investment-card .cta-button {
+      min-width: min(100%, 420px);
     }
 
     .card-footer {
-      margin-top: 20px;
+      max-width: 500px;
+      margin: 22px auto 0;
       color: #8d877f;
       font-size: 0.8rem;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.12em;
+      line-height: 1.8;
       text-transform: uppercase;
     }
 
@@ -1670,6 +2069,11 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
+      .investment-card::after {
+        animation: none;
+        opacity: 0.55;
+      }
+
       .whatsapp-pulse {
         animation: none;
         display: none;
@@ -1693,6 +2097,10 @@
       .diploma-grid,
       .press-grid {
         grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .press-card.is-featured {
+        grid-column: span 2;
       }
 
       .guarantee-box {
@@ -1825,9 +2233,31 @@
         letter-spacing: 1.8px;
       }
 
+      .investment-card .cta-button {
+        min-height: 58px;
+        padding: 16px;
+        gap: 10px;
+        font-size: 0.72rem;
+        letter-spacing: 1.5px;
+      }
+
       .cta-support {
         font-size: 0.72rem;
         line-height: 1.5;
+      }
+
+      .section-cta {
+        align-items: stretch;
+        margin-top: 24px;
+      }
+
+      .section-cta.is-centered {
+        align-items: stretch;
+      }
+
+      .section-cta-note {
+        max-width: none;
+        text-align: center;
       }
 
       .hero-social,
@@ -1972,12 +2402,18 @@
         gap: 14px;
       }
 
+      .press-card.is-featured .press-title {
+        font-size: 1.32rem;
+        line-height: 1.28;
+      }
+
       .press-title {
         min-height: auto;
         font-size: 1.08rem;
         line-height: 1.45;
       }
 
+      .press-card.is-featured .press-description,
       .press-description {
         min-height: auto;
         font-size: 0.92rem;
@@ -2006,21 +2442,54 @@
       }
 
       .investment-card {
-        padding: 28px 20px;
+        padding: 32px 18px 28px;
+        border-radius: 24px;
+      }
+
+      .investment-card .section-label {
+        margin-bottom: 14px;
+        padding: 7px 12px;
+      }
+
+      .price-box {
+        margin-top: 24px;
+        padding: 22px 16px 18px;
+        border-radius: 20px;
       }
 
       .price-value {
-        font-size: clamp(2.2rem, 11vw, 3.1rem);
+        gap: 7px;
+      }
+
+      .price-installments {
+        font-size: clamp(2.55rem, 13vw, 3.4rem);
+      }
+
+      .price-currency {
+        font-size: clamp(1.35rem, 7vw, 1.8rem);
+      }
+
+      .price-amount {
+        width: 100%;
+        margin-top: 6px;
+        font-size: clamp(2.55rem, 13vw, 3.5rem);
       }
 
       .investment-points {
-        margin-top: 20px;
+        margin-top: 22px;
         gap: 10px;
       }
 
       .investment-point {
-        padding: 12px 14px;
+        grid-template-columns: 26px 1fr;
+        gap: 10px;
+        padding: 14px;
         font-size: 0.92rem;
+      }
+
+      .investment-check {
+        width: 26px;
+        height: 26px;
       }
 
       .guarantee-box {
@@ -2146,19 +2615,11 @@
           </div>
 
           <div class="hero-media">
-            <div class="vsl-card">
-              <div class="vsl-frame">
-                <iframe src="https://www.youtube.com/embed/0FDNtOLn9eE?rel=0" title="VSL Método Esculpindo Faces" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-              </div>
-              <div class="vsl-copy">
-                <div class="vsl-label">Assista antes de decidir</div>
-                <div class="vsl-title">Uma apresentação direta sobre o método, a visão do curso e a transformação que ele propõe.</div>
-                <div class="vsl-text">Use este vídeo para conduzir o visitante pela promessa do curso, mostrar autoridade e aquecer a decisão de compra logo na primeira dobra.</div>
-                <div class="vsl-note">VSL integrada ao topo da página</div>
-              </div>
-            </div>
             <div class="hero-visual">
               <img src="./snapinsta.com.br-6a5a7989aa3fe.jpg" alt="Dr. Lopez em ambiente cirúrgico, representando precisão e técnica no Método Esculpindo Faces">
+            </div>
+            <div class="hero-vsl-replay">
+              <button type="button" class="secondary-link" data-open-vsl>Assistir vídeo de apresentação</button>
             </div>
           </div>
         </div>
@@ -2173,6 +2634,10 @@
             <p>Foi a partir dessa visão que o Dr. Lopez estruturou o <strong>Método Esculpindo Faces</strong>: um método que transforma repertório clínico em leitura estética, segurança de execução e autoridade no mercado.</p>
             <p>Depois de anos formando alunos no presencial, acompanhando casos reais e refinando abordagem em campo, o método ganhou uma versão digital para escalar sem perder profundidade.</p>
             <div class="signature">Dr. Lopez — direção clínica e artística</div>
+            <div class="section-cta">
+              <a class="cta-button" href="#checkout">QUERO PARTICIPAR</a>
+              <div class="section-cta-note">Entre agora para aprender o raciocínio por trás de resultados naturais, valorizados e bem conduzidos.</div>
+            </div>
           </div>
 
           <div class="story-photo">
@@ -2248,6 +2713,10 @@
                 <p><strong>Posicionamento, comunicação e percepção de valor</strong><br>Para que a sua entrega não seja apenas boa, mas reconhecida como tal.</p>
               </div>
             </article>
+            <div class="section-cta">
+              <a class="cta-button" href="#checkout">QUERO GARANTIR MINHA INSCRIÇÃO</a>
+              <div class="section-cta-note">Acesse o passo a passo do método e comece a organizar sua evolução com direção.</div>
+            </div>
           </div>
         </div>
       </section>
@@ -2280,6 +2749,10 @@
               <div class="for-you-line"></div>
               <p>Quer fazer parte de uma comunidade de profissionais que <span>leva a profissão a sério.</span></p>
             </article>
+            <div class="section-cta">
+              <a class="cta-button" href="#checkout">QUERO INVESTIR EM MIM</a>
+              <div class="section-cta-note">Uma formação para transformar técnica em segurança, assinatura estética e percepção de valor.</div>
+            </div>
           </div>
         </div>
       </section>
@@ -2295,6 +2768,10 @@
               <span class="results-link-label">Veja mais casos</span>
               <span>no Instagram @drlopez_</span>
             </a>
+            <div class="section-cta">
+              <a class="cta-button" href="#checkout">QUERO PROPORCIONAR ESTES RESULTADOS</a>
+              <div class="section-cta-note">Aprenda a construir resultados com leitura facial, intenção técnica e acabamento natural.</div>
+            </div>
           </div>
 
           <div class="results-grid">
@@ -2489,6 +2966,10 @@
           <div class="diploma-actions">
             <a class="secondary-link" href="./alunos.html">Ver mais</a>
           </div>
+          <div class="section-cta is-centered">
+            <a class="cta-button" href="#checkout">QUERO MINHA VAGA</a>
+            <div class="section-cta-note">Mais de 300 alunos já passaram pelas formações presenciais antes da expansão para o digital.</div>
+          </div>
         </div>
       </section>
 
@@ -2496,28 +2977,52 @@
         <div class="container">
           <div class="content-narrow">
             <span class="section-label">—— Nº 08</span>
-            <h2>Na mídia e em páginas de notícia</h2>
-            <p class="lead press-intro">Se você já foi destaque em portais, entrevistas ou páginas de notícia, essa seção ajuda a reforçar autoridade imediata. Troque os links abaixo pelas matérias reais em que você apareceu.</p>
+            <h2>Dr. Lopez na imprensa</h2>
+            <p class="lead press-intro">UOL, Tô na Folha, Mais Charme, EGOBrazil, Cool Magazine e O Buxixo reforçam a presença do Dr. Lopez na mídia, conectando sua trajetória clínica à formação de profissionais da face.</p>
           </div>
 
           <div class="press-grid">
-            <a class="press-card" href="https://cenapop.uol.com.br/noticias/zoom-pop/dr-lopez-transforma-experiencia-em-plataforma-de-ensino-para-cirurgioes-e-medicos-saiba-mais.html" target="_blank" rel="noreferrer">
+            <a class="press-card is-featured" href="https://cenapop.uol.com.br/noticias/zoom-pop/dr-lopez-transforma-experiencia-em-plataforma-de-ensino-para-cirurgioes-e-medicos-saiba-mais.html" target="_blank" rel="noreferrer">
               <span class="press-label">Cenapop UOL</span>
+              <span class="press-meta">Educação médica</span>
               <div class="press-title">Dr. Lopez transforma experiência em plataforma de ensino para cirurgiões e médicos</div>
-              <p class="press-description">Matéria publicada no Cenapop UOL destacando a transição da experiência presencial para uma plataforma de ensino voltada a profissionais da saúde.</p>
-              <span class="press-cta">Ler matéria</span>
+              <p class="press-description">A matéria destaca o lançamento do Método Esculpindo Faces como uma formação voltada a profissionais que buscam evoluir em harmonização e cirurgia facial.</p>
+              <span class="press-cta">Ler no Cenapop</span>
             </a>
             <a class="press-card" href="https://tonafolha.com.br/dr-lopez-transforma-experiencia-em-legado-com-o-lancamento-do-metodo-esculpindo-faces/" target="_blank" rel="noreferrer">
               <span class="press-label">Tô na Folha</span>
+              <span class="press-meta">Lançamento</span>
               <div class="press-title">Dr. Lopez transforma experiência em legado com o lançamento do Método Esculpindo Faces</div>
-              <p class="press-description">Publicação que reforça a construção do método e posiciona o Método Esculpindo Faces como a evolução de uma trajetória consolidada no presencial.</p>
-              <span class="press-cta">Ler matéria</span>
+              <p class="press-description">Publicação sobre a construção do método, a trajetória presencial e a decisão de compartilhar protocolos e raciocínio clínico em uma plataforma online.</p>
+              <span class="press-cta">Ler no Tô na Folha</span>
             </a>
-            <a class="press-card" href="https://tonafolha.com.br/dr-lopez-transforma-experiencia-em-legado-com-o-lancamento-do-metodo-esculpindo-faces/?fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGndC907_86FSpWBc5N31yRFGOyzqtYi_olaO4iTsg_U2ZCONP_Fby6yobwhp0_aem_rOEOGevvzKxpNTWp6pgrFQ" target="_blank" rel="noreferrer">
-              <span class="press-label">Tô na Folha</span>
-              <div class="press-title">Nova publicação sobre o Método Esculpindo Faces e a consolidação do legado do Dr. Lopez</div>
-              <p class="press-description">Segundo destaque no portal Tô na Folha, reforçando a autoridade do método e a expansão da formação para o ambiente digital.</p>
-              <span class="press-cta">Ler matéria</span>
+            <a class="press-card" href="https://revistamaischarme.com.br/revista/do-consultorio-para-a-sala-de-aula-dr-lopez-aposta-na-educacao-para-formar-uma-nova-geracao-de-especialistas-com-o-lancamento-do-metodo-esculpindo-faces/" target="_blank" rel="noreferrer">
+              <span class="press-label">Revista Mais Charme</span>
+              <span class="press-meta">Nova geração</span>
+              <div class="press-title">Do consultório para a sala de aula: Dr. Lopez aposta na educação para formar especialistas</div>
+              <p class="press-description">A matéria reforça a passagem da vivência clínica para a educação, posicionando o método como uma forma de preparar uma nova geração de profissionais.</p>
+              <span class="press-cta">Ler na Mais Charme</span>
+            </a>
+            <a class="press-card" href="https://egobrazil.com.br/dr-lopez-explica-tudo-sobre-lipo-de-papada-e-harmonizacao-facial-a-arte-de-valorizar-a-melhor-versao-de-cada-pessoa/?utm_id=97760_v0_s00_e0_tv6_a1dennhbarfcy1" target="_blank" rel="noreferrer">
+              <span class="press-label">EGOBrazil</span>
+              <span class="press-meta">Procedimentos</span>
+              <div class="press-title">Dr. Lopez explica tudo sobre lipo de papada e harmonização facial</div>
+              <p class="press-description">Conteúdo de autoridade sobre a arte de valorizar a melhor versão de cada pessoa, conectando técnica, harmonia facial e resultado natural.</p>
+              <span class="press-cta">Ler no EGOBrazil</span>
+            </a>
+            <a class="press-card" href="https://coolmagazine.com.br/conheca-o-dr-lopez-especialista-em-odontologia-e-harmonizacao-facial/" target="_blank" rel="noreferrer">
+              <span class="press-label">Cool Magazine</span>
+              <span class="press-meta">Perfil profissional</span>
+              <div class="press-title">Conheça Dr. Lopez, especialista em odontologia e harmonização facial</div>
+              <p class="press-description">Perfil publicado pela Cool Magazine destacando a atuação do Dr. Lopez em cirurgias estético-faciais, harmonização orofacial e atendimentos humanizados.</p>
+              <span class="press-cta">Ler na Cool Magazine</span>
+            </a>
+            <a class="press-card" href="https://obuxixo.com.br/" target="_blank" rel="noreferrer">
+              <span class="press-label">O Buxixo</span>
+              <span class="press-meta">Mídia online</span>
+              <div class="press-title">Dr. Lopez também em destaque no portal O Buxixo</div>
+              <p class="press-description">Mais uma presença de mídia reforçando a autoridade do Dr. Lopez, sua atuação na estética facial e a expansão do seu método de ensino.</p>
+              <span class="press-cta">Ver O Buxixo</span>
             </a>
           </div>
         </div>
@@ -2581,12 +3086,18 @@
             <span class="section-label">Nº 11 — INVESTIMENTO</span>
             <div class="investment-topline">Acesso imediato + suporte durante 1 ano</div>
             <h2>Garanta sua vaga <span class="gold-shimmer-slow">hoje</span></h2>
-            <div class="price-value">12x de R$ [VALOR]</div>
-            <p class="price-note">ou à vista por R$ [VALOR] com desconto</p>
+            <div class="price-box">
+              <div class="price-value">
+                <span class="price-installments">12x</span>
+                <span class="price-currency">de R$</span>
+                <span class="price-amount">166,49</span>
+              </div>
+              <p class="price-note">ou à vista por R$ 1.997,90</p>
+            </div>
             <div class="investment-points">
-              <div class="investment-point">✓ Método estruturado para profissionais de saúde com foco em resultado natural</div>
-              <div class="investment-point">✓ Casos comentados, suporte e comunidade para aplicar com mais confiança</div>
-              <div class="investment-point">✓ Formação pensada para transformar técnica em autoridade percebida pelo paciente</div>
+              <div class="investment-point"><span class="investment-check">✓</span><span>Método estruturado para profissionais de saúde com foco em resultado natural</span></div>
+              <div class="investment-point"><span class="investment-check">✓</span><span>Casos comentados, suporte e comunidade para aplicar com mais confiança</span></div>
+              <div class="investment-point"><span class="investment-check">✓</span><span>Formação pensada para transformar técnica em autoridade percebida pelo paciente</span></div>
             </div>
             <div class="cta-row">
               <a class="cta-button" href="#checkout">QUERO GARANTIR MINHA VAGA</a>
@@ -2780,6 +3291,20 @@
       </div>
       <button class="lightbox-arrow lightbox-next" type="button" aria-label="Próxima foto">›</button>
     </div>
+
+    <div class="vsl-popup" id="vslPopup">
+      <div class="vsl-popup-box">
+        <div class="vsl-popup-actions">
+          <button class="vsl-popup-control vsl-popup-minimize" type="button" aria-label="Minimizar vídeo">−</button>
+          <button class="vsl-popup-control vsl-popup-expand" type="button" aria-label="Expandir vídeo">↗</button>
+          <button class="vsl-popup-control vsl-popup-close" type="button" aria-label="Fechar vídeo">×</button>
+        </div>
+        <div class="vsl-popup-frame">
+          <iframe id="vslPopupIframe" src="" title="VSL Método Esculpindo Faces" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+        <div class="vsl-popup-label">Assista antes de continuar navegando</div>
+      </div>
+    </div>
   </div>
 
   <script>
@@ -2912,6 +3437,56 @@
         }
       });
     });
+
+    const vslPopup = document.getElementById("vslPopup");
+    const vslPopupIframe = document.getElementById("vslPopupIframe");
+    const vslVideoId = "0FDNtOLn9eE";
+
+    function openVslPopup(muted) {
+      if (!vslPopupIframe.getAttribute("src")) {
+        vslPopupIframe.setAttribute("src", `https://www.youtube.com/embed/${vslVideoId}?rel=0&autoplay=1${muted ? "&mute=1" : ""}`);
+      }
+      vslPopup.classList.remove("is-mini");
+      vslPopup.classList.add("is-open");
+      document.body.style.overflow = "hidden";
+    }
+
+    document.querySelectorAll("[data-open-vsl]").forEach((button) => {
+      button.addEventListener("click", () => openVslPopup(false));
+    });
+
+    function minimizeVslPopup() {
+      vslPopup.classList.remove("is-open");
+      vslPopup.classList.add("is-mini");
+      document.body.style.overflow = "";
+    }
+
+    function expandVslPopup() {
+      vslPopup.classList.remove("is-mini");
+      vslPopup.classList.add("is-open");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeVslPopup() {
+      vslPopup.classList.remove("is-open", "is-mini");
+      vslPopupIframe.removeAttribute("src");
+      document.body.style.overflow = "";
+    }
+
+    vslPopup.querySelector(".vsl-popup-minimize").addEventListener("click", minimizeVslPopup);
+    vslPopup.querySelector(".vsl-popup-expand").addEventListener("click", expandVslPopup);
+    vslPopup.querySelector(".vsl-popup-close").addEventListener("click", closeVslPopup);
+    vslPopup.addEventListener("click", (event) => {
+      if (event.target === vslPopup) closeVslPopup();
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && (vslPopup.classList.contains("is-open") || vslPopup.classList.contains("is-mini"))) closeVslPopup();
+    });
+
+    if (!sessionStorage.getItem("vslPopupShown")) {
+      sessionStorage.setItem("vslPopupShown", "1");
+      window.setTimeout(() => openVslPopup(true), 900);
+    }
   </script>
 </body>
 </html>
