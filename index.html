@@ -723,7 +723,6 @@
 
     .results-grid {
       display: grid;
-      align-items: start;
       gap: 18px;
       margin-top: 36px;
     }
@@ -762,6 +761,7 @@
 
     .case-photo {
       position: relative;
+      aspect-ratio: 4 / 5;
       overflow: hidden;
       border: 1px solid rgba(201, 168, 76, 0.16);
       border-radius: 20px;
@@ -781,7 +781,8 @@
 
     .case-photo img {
       width: 100%;
-      height: auto;
+      height: 100%;
+      object-fit: contain;
       display: block;
     }
 
@@ -1356,33 +1357,70 @@
 
     .whatsapp-float {
       position: fixed;
-      right: 18px;
-      bottom: 18px;
+      right: 20px;
+      bottom: 20px;
       z-index: 4;
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      padding: 14px 18px;
+      padding: 15px 22px 15px 16px;
       border-radius: 999px;
-      background: #24d366;
+      background: linear-gradient(135deg, #2be07a, #1fb85c);
       color: #ffffff;
-      font-size: 0.98rem;
-      font-weight: 500;
-      box-shadow: 0 18px 40px rgba(36, 211, 102, 0.24);
+      font-size: 0.96rem;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      box-shadow: 0 14px 32px rgba(31, 184, 92, 0.38), 0 2px 8px rgba(0, 0, 0, 0.25);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
-    .whatsapp-dot {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: #ffffff;
+    .whatsapp-float:hover,
+    .whatsapp-float:focus-visible {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 18px 40px rgba(31, 184, 92, 0.46), 0 2px 8px rgba(0, 0, 0, 0.25);
+    }
+
+    .whatsapp-icon {
+      width: 26px;
+      height: 26px;
+      flex-shrink: 0;
+    }
+
+    .whatsapp-pulse {
+      position: absolute;
+      inset: 0;
+      border-radius: 999px;
+      background: rgba(43, 224, 122, 0.55);
+      animation: whatsapp-pulse 2.2s ease-out infinite;
+      pointer-events: none;
+    }
+
+    @keyframes whatsapp-pulse {
+      0% {
+        opacity: 0.55;
+        transform: scale(1);
+      }
+      70% {
+        opacity: 0;
+        transform: scale(1.25);
+      }
+      100% {
+        opacity: 0;
+        transform: scale(1.25);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .whatsapp-pulse {
+        animation: none;
+        display: none;
+      }
     }
 
     @media (min-width: 860px) {
       .hero .container,
       .two-column,
       .results-grid,
-      .case-caption-grid,
       .diploma-grid,
       .press-grid,
       .testimonials {
@@ -1394,7 +1432,6 @@
       }
 
       .results-grid,
-      .case-caption-grid,
       .diploma-grid,
       .press-grid,
       .testimonials {
@@ -1617,7 +1654,6 @@
       }
 
       .results-grid,
-      .case-caption-grid,
       .diploma-grid,
       .press-grid,
       .testimonials {
@@ -1627,11 +1663,6 @@
 
       .case-photo {
         border-radius: 18px;
-      }
-
-      .case-caption {
-        padding: 14px;
-        border-radius: 14px;
       }
 
       .authority-note {
@@ -1793,13 +1824,17 @@
       .whatsapp-float {
         right: 14px;
         bottom: 14px;
-        padding: 12px 16px;
+        padding: 13px;
         font-size: 0.9rem;
       }
 
-      .whatsapp-dot {
-        width: 10px;
-        height: 10px;
+      .whatsapp-icon {
+        width: 24px;
+        height: 24px;
+      }
+
+      .whatsapp-label {
+        display: none;
       }
     }
   </style>
@@ -1994,44 +2029,44 @@
 
           <div class="results-grid">
             <div class="case-photo">
-              <img src="./casos/rino.jpeg" alt="Caso clínico de rinoplastia com comparação de perfil nasal antes e depois">
+              <img src="./casos/contorno-mandibular.jpeg" alt="Caso clínico de lipoaspiração cervical com comparação de perfil antes e depois">
               <div class="case-photo-caption">
-                <div class="case-caption-title">Rinoplastia</div>
-                <div class="case-caption-text">Ajuste de perfil e projeção nasal com foco em naturalidade e harmonia facial.</div>
+                <div class="case-caption-title">Lipo</div>
+                <div class="case-caption-text">Lipoaspiração cervical com definição do contorno mandibular e resultado mais limpo no perfil.</div>
+              </div>
+            </div>
+            <div class="case-photo">
+              <img src="./casos/rino.jpeg" alt="Caso clínico de rinoplastia definitiva com comparação de perfil nasal antes e depois">
+              <div class="case-photo-caption">
+                <div class="case-caption-title">Rino definitiva</div>
+                <div class="case-caption-text">Ajuste definitivo de perfil e projeção nasal com foco em naturalidade e harmonia facial.</div>
+              </div>
+            </div>
+            <div class="case-photo">
+              <img src="./casos/orelha.jpeg" alt="Caso clínico de correção de orelha de abano com comparação antes e depois">
+              <div class="case-photo-caption">
+                <div class="case-caption-title">Orelha de abano</div>
+                <div class="case-caption-text">Correção de orelha de abano com resultado simétrico e discreto.</div>
               </div>
             </div>
             <div class="case-photo">
               <img src="./casos/asa-nasal.jpeg" alt="Caso clínico de redução de asa nasal antes e depois">
               <div class="case-photo-caption">
-                <div class="case-caption-title">Redução de asa nasal</div>
+                <div class="case-caption-title">Asa nasal</div>
                 <div class="case-caption-text">Refinamento da base nasal com resultado discreto e cicatrização bem conduzida.</div>
-              </div>
-            </div>
-            <div class="case-photo">
-              <img src="./casos/contorno-mandibular.jpeg" alt="Caso clínico com comparação de contorno mandibular e cervical antes e depois">
-              <div class="case-photo-caption">
-                <div class="case-caption-title">Contorno mandibular</div>
-                <div class="case-caption-text">Leitura de perfil e definição estrutural com resultado mais limpo no terço inferior.</div>
               </div>
             </div>
             <div class="case-photo">
               <img src="./casos/preenchimento-labial.jpeg" alt="Caso clínico de preenchimento labial antes e depois">
               <div class="case-photo-caption">
-                <div class="case-caption-title">Preenchimento labial</div>
+                <div class="case-caption-title">Preenchimento</div>
                 <div class="case-caption-text">Volume e contorno labial com resultado natural, respeitando a proporção do rosto.</div>
-              </div>
-            </div>
-            <div class="case-photo">
-              <img src="./casos/orelha.jpeg" alt="Caso clínico de otoplastia com comparação antes e depois">
-              <div class="case-photo-caption">
-                <div class="case-caption-title">Otoplastia</div>
-                <div class="case-caption-text">Correção de posicionamento auricular com resultado simétrico e discreto.</div>
               </div>
             </div>
             <div class="case-photo">
               <img src="./casos/harmonizacao.png" alt="Caso clínico de harmonização facial masculina com comparação antes e depois">
               <div class="case-photo-caption">
-                <div class="case-caption-title">Harmonização facial</div>
+                <div class="case-caption-title">Harmonização</div>
                 <div class="case-caption-text">Resultado que valoriza as feições masculinas com naturalidade e equilíbrio.</div>
               </div>
             </div>
@@ -2330,9 +2365,12 @@
       </div>
     </footer>
 
-    <a class="whatsapp-float" href="https://wa.me/5511999999999" target="_blank" rel="noreferrer">
-      <span class="whatsapp-dot" aria-hidden="true"></span>
-      WhatsApp
+    <a class="whatsapp-float" href="https://wa.me/5511941736368?text=Ol%C3%A1%2C%20quero%20saber%20mais%20sobre%20o%20curso%20Esculpindo%20Faces" target="_blank" rel="noreferrer" aria-label="Falar no WhatsApp com Dr. Lopez">
+      <span class="whatsapp-pulse" aria-hidden="true"></span>
+      <svg class="whatsapp-icon" viewBox="0 0 32 32" aria-hidden="true">
+        <path fill="currentColor" d="M16.004 3C9.377 3 4 8.373 4 15c0 2.372.687 4.583 1.875 6.445L4 29l7.727-1.85A11.94 11.94 0 0 0 16.004 27C22.63 27 28 21.627 28 15S22.63 3 16.004 3Zm0 21.75a9.7 9.7 0 0 1-4.95-1.36l-.355-.21-4.585 1.098 1.12-4.47-.232-.365A9.71 9.71 0 0 1 5.25 15c0-5.93 4.823-10.75 10.754-10.75S26.75 9.07 26.75 15 21.935 24.75 16.004 24.75Zm5.55-7.98c-.303-.152-1.792-.884-2.07-.985-.278-.101-.48-.152-.682.152-.202.303-.783.985-.96 1.187-.177.202-.354.227-.657.076-.303-.152-1.28-.472-2.438-1.505-.9-.803-1.508-1.795-1.685-2.098-.177-.303-.019-.467.133-.618.137-.136.303-.354.455-.53.152-.177.202-.303.303-.505.101-.202.05-.38-.025-.53-.076-.152-.682-1.646-.935-2.253-.246-.591-.497-.511-.682-.52l-.581-.01c-.202 0-.53.076-.808.38-.278.303-1.06 1.036-1.06 2.53 0 1.494 1.086 2.937 1.237 3.14.152.202 2.137 3.263 5.178 4.575.723.312 1.287.499 1.727.639.726.231 1.386.198 1.908.12.582-.087 1.792-.733 2.045-1.44.253-.708.253-1.315.177-1.44-.076-.126-.278-.202-.581-.354Z"/>
+      </svg>
+      <span class="whatsapp-label">Fale no WhatsApp</span>
     </a>
   </div>
 
