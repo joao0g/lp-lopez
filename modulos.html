@@ -146,13 +146,36 @@
         linear-gradient(180deg, rgba(255, 255, 255, 0.015), rgba(255, 255, 255, 0)),
         var(--panel);
       box-shadow: var(--shadow);
+      transition: transform 0.25s ease, border-color 0.25s ease;
     }
 
-    .module-card.is-combo {
-      border-color: rgba(201, 168, 76, 0.5);
-      background:
-        linear-gradient(180deg, rgba(201, 168, 76, 0.07), rgba(255, 255, 255, 0)),
-        var(--panel);
+    .module-card:not(.is-combo):hover {
+      transform: translateY(-3px);
+      border-color: rgba(201, 168, 76, 0.34);
+    }
+
+    .module-head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .module-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      width: 44px;
+      height: 44px;
+      border: 1px solid rgba(201, 168, 76, 0.4);
+      border-radius: 50%;
+      background: rgba(201, 168, 76, 0.07);
+      color: var(--gold);
+      font-family: "Playfair Display", serif;
+      font-style: italic;
+      font-weight: 700;
+      font-size: 0.92rem;
+      letter-spacing: 0.01em;
     }
 
     .module-tag {
@@ -161,6 +184,67 @@
       font-weight: 500;
       letter-spacing: 2px;
       text-transform: uppercase;
+    }
+
+    .module-card.is-combo {
+      position: relative;
+      grid-column: 1 / -1;
+      border-color: rgba(201, 168, 76, 0.55);
+      background:
+        radial-gradient(circle at 15% 0%, rgba(201, 168, 76, 0.14), transparent 55%),
+        linear-gradient(180deg, rgba(201, 168, 76, 0.06), rgba(255, 255, 255, 0)),
+        var(--panel);
+      box-shadow: 0 30px 90px rgba(201, 168, 76, 0.08), var(--shadow);
+      padding: 40px 44px;
+    }
+
+    @media (min-width: 860px) {
+      .module-card.is-combo {
+        display: grid;
+        grid-template-columns: 1.5fr auto;
+        column-gap: 40px;
+        align-items: center;
+      }
+
+      .is-combo .module-price,
+      .is-combo .module-cta {
+        grid-column: 2;
+      }
+
+      .is-combo .module-tag,
+      .is-combo h2,
+      .is-combo .module-desc,
+      .is-combo .module-note {
+        grid-column: 1;
+      }
+
+      .is-combo .module-price {
+        grid-row: 1;
+        padding-top: 0;
+        border-top: none;
+        flex-direction: column;
+        align-items: flex-end;
+        text-align: right;
+      }
+
+      .is-combo .module-cta {
+        grid-row: 2;
+        min-width: 260px;
+      }
+    }
+
+    .combo-badge {
+      position: absolute;
+      top: -13px;
+      left: 44px;
+      padding: 6px 16px;
+      background: var(--gold);
+      color: #0b0b0b;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      border-radius: 2px;
     }
 
     .module-card h2 {
@@ -300,6 +384,12 @@
       }
     }
 
+    @media (min-width: 1040px) {
+      .module-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
     @media (max-width: 767px) {
       .topbar {
         padding-top: 20px;
@@ -349,6 +439,14 @@
         padding: 26px 22px 24px;
       }
 
+      .module-card.is-combo {
+        padding: 34px 22px 26px;
+      }
+
+      .combo-badge {
+        left: 22px;
+      }
+
       .back-row {
         padding-bottom: 56px;
       }
@@ -387,8 +485,24 @@
       <div class="container">
         <div class="module-grid">
 
+          <article class="module-card is-combo">
+            <span class="combo-badge">Recomendado</span>
+            <span class="module-tag">Melhor custo-benefício</span>
+            <h2>Combo completo</h2>
+            <p class="module-desc">Eleve seu conhecimento com uma formação completa. Dr. ou Dra., o Combo Completo é a opção mais vantajosa: mais conhecimento por um investimento mais atrativo. Todos os 6 módulos + bônus de Ultrassom Microfocado e Bioestimulador, além de precificação, técnicas de vendas e 1 ano de suporte com o Dr. Lopez.</p>
+            <p class="module-note">Prefere personalizar sua formação? Escolha os módulos individualmente logo abaixo e monte tudo de acordo com os seus objetivos.</p>
+            <div class="module-price">
+              <span class="module-price-value">R$ 1.997,90</span>
+              <span class="module-price-note">ou 12x de R$ 206,26</span>
+            </div>
+            <a class="module-cta" href="./index.html#checkout">Ver o combo completo</a>
+          </article>
+
           <article class="module-card">
-            <span class="module-tag">Módulo</span>
+            <div class="module-head">
+              <div class="module-icon">LH</div>
+              <span class="module-tag">Módulo</span>
+            </div>
             <h2>Lipoescultura HD</h2>
             <p class="module-desc">Cirurgia filmada e narrada passo a passo sobre Lipoescultura HD, com possibilidade de assistir a um caso bônus.</p>
             <div class="module-price">
@@ -399,7 +513,10 @@
           </article>
 
           <article class="module-card">
-            <span class="module-tag">Módulo</span>
+            <div class="module-head">
+              <div class="module-icon">OA</div>
+              <span class="module-tag">Módulo</span>
+            </div>
             <h2>Otomodelação (Orelha de Abano)</h2>
             <p class="module-desc">Cirurgia de Otomodelação filmada e narrada passo a passo, com possibilidade de assistir a um caso bônus.</p>
             <div class="module-price">
@@ -410,7 +527,10 @@
           </article>
 
           <article class="module-card">
-            <span class="module-tag">Módulo</span>
+            <div class="module-head">
+              <div class="module-icon">RD</div>
+              <span class="module-tag">Módulo</span>
+            </div>
             <h2>Rino Definitiva com Fios</h2>
             <p class="module-desc">Cirurgia de Rino Definitiva com Fios filmada e narrada passo a passo, com demonstração prática completa.</p>
             <div class="module-price">
@@ -420,7 +540,10 @@
           </article>
 
           <article class="module-card">
-            <span class="module-tag">Módulo</span>
+            <div class="module-head">
+              <div class="module-icon">BF</div>
+              <span class="module-tag">Módulo</span>
+            </div>
             <h2>Bioplastia Facial (Bichectomia)</h2>
             <p class="module-desc">Cirurgia de Bioplastia Facial filmada e narrada passo a passo, demonstrada em detalhe.</p>
             <div class="module-price">
@@ -430,7 +553,10 @@
           </article>
 
           <article class="module-card">
-            <span class="module-tag">Módulo</span>
+            <div class="module-head">
+              <div class="module-icon">PB</div>
+              <span class="module-tag">Módulo</span>
+            </div>
             <h2>Preenchimentos &amp; Botox</h2>
             <p class="module-desc">Aplicações de preenchimento filmadas e narradas passo a passo: 3 lábios, bigode chinês, olheira, malar, queixo e mandíbula, além de Botox em testa, pé de galinha, glabela e código de barra.</p>
             <div class="module-price">
@@ -440,25 +566,16 @@
           </article>
 
           <article class="module-card">
-            <span class="module-tag">Módulo</span>
+            <div class="module-head">
+              <div class="module-icon">AL</div>
+              <span class="module-tag">Módulo</span>
+            </div>
             <h2>Alectomia</h2>
             <p class="module-desc">Cirurgia de Alectomia para diminuição de asa nasal filmada e narrada passo a passo.</p>
             <div class="module-price">
               <span class="module-price-value">R$ 397,45</span>
             </div>
             <a class="module-cta" href="https://socializepay.com/pay/metodo-esculpindo-faces-alectomia" target="_blank" rel="noreferrer">Garantir este módulo</a>
-          </article>
-
-          <article class="module-card is-combo">
-            <span class="module-tag">Melhor custo-benefício</span>
-            <h2>Combo completo</h2>
-            <p class="module-desc">Eleve seu conhecimento com uma formação completa. Dr. ou Dra., o Combo Completo é a opção mais vantajosa: mais conhecimento por um investimento mais atrativo. Todos os 6 módulos + bônus de Ultrassom Microfocado e Bioestimulador, além de precificação, técnicas de vendas e 1 ano de suporte com o Dr. Lopez.</p>
-            <p class="module-note">Prefere personalizar sua formação? Escolha os módulos individualmente aqui ao lado e monte tudo de acordo com os seus objetivos.</p>
-            <div class="module-price">
-              <span class="module-price-value">R$ 1.997,90</span>
-              <span class="module-price-note">ou 12x de R$ 206,26</span>
-            </div>
-            <a class="module-cta" href="./index.html#checkout">Ver o combo completo</a>
           </article>
 
         </div>
