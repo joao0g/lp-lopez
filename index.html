@@ -49,9 +49,14 @@
       --gold: #c9a84c;
       --gold-soft: rgba(201, 168, 76, 0.3);
       --line: rgba(255, 255, 255, 0.06);
+      --line-gold: rgba(201, 168, 76, 0.16);
+      --line-gold-strong: rgba(201, 168, 76, 0.24);
       --line-strong: rgba(255, 255, 255, 0.08);
       --shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
       --radius: 4px;
+      --radius-card: 20px;
+      --radius-btn: 10px;
+      --radius-pill: 999px;
       --container: 1160px;
       --text-width: 560px;
       --section-space: 80px;
@@ -361,7 +366,7 @@
     }
 
     .hero h1 {
-      font-size: clamp(1.95rem, 3.15vw, 2.9rem);
+      font-size: clamp(2.1rem, 3.15vw, 2.9rem);
       line-height: 1.1;
       margin-bottom: 16px;
     }
@@ -453,7 +458,7 @@
       margin-top: 8px;
       padding: 4px 13px;
       border: 1px solid rgba(201, 168, 76, 0.32);
-      border-radius: 999px;
+      border-radius: var(--radius-pill);
       background: rgba(255, 255, 255, 0.03);
       color: var(--text-dim);
       font-size: 0.57rem;
@@ -486,7 +491,7 @@
       gap: 11px;
       padding: 6px 18px 6px 6px;
       border: 1px solid rgba(201, 168, 76, 0.24);
-      border-radius: 999px;
+      border-radius: var(--radius-pill);
       background: rgba(20, 18, 14, 0.6);
       backdrop-filter: blur(10px);
       transition: border-color 0.25s ease, background 0.25s ease;
@@ -702,7 +707,7 @@
       padding-top: 10px;
       padding-bottom: 10px;
       border: 1px solid rgba(201, 168, 76, 0.22);
-      border-radius: 999px;
+      border-radius: var(--radius-pill);
       background: rgba(16, 14, 10, 0.82);
       backdrop-filter: blur(16px);
       box-shadow: 0 18px 46px rgba(0, 0, 0, 0.42);
@@ -745,7 +750,7 @@
     .sticky-cta-button {
       flex: none;
       padding: 12px 26px;
-      border-radius: 999px;
+      border-radius: var(--radius-pill);
       background: linear-gradient(135deg, #8b6914, #c9a84c 46%, #f0d080);
       color: #14110a;
       font-size: 0.72rem;
@@ -801,7 +806,7 @@
       width: 30px;
       height: 46px;
       border: 1px solid rgba(201, 168, 76, 0.3);
-      border-radius: 999px;
+      border-radius: var(--radius-pill);
       color: var(--gold);
       transition: border-color 0.25s ease, color 0.25s ease;
     }
@@ -835,15 +840,74 @@
       }
     }
 
+    /* filete de luz no topo dos cards, ecoando os arcos do hero */
+    .diploma-card,
+    .testimonial,
+    .vsl-card,
+    .guarantee-box {
+      position: relative;
+    }
+
+    .diploma-card::before,
+    .testimonial::before,
+    .vsl-card::before,
+    .guarantee-box::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 14%;
+      right: 14%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(201, 168, 76, 0.5), transparent);
+      pointer-events: none;
+    }
+
+    /* hover unico para os cards que nao tinham nenhum */
+    .diploma-card,
+    .testimonial {
+      transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .diploma-card:hover,
+    .testimonial:hover {
+      border-color: var(--line-gold-strong);
+      transform: translateY(-3px);
+      box-shadow: 0 22px 48px rgba(0, 0, 0, 0.4);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .diploma-card:hover,
+      .testimonial:hover {
+        transform: none;
+      }
+    }
+
     .section-label {
-      display: inline-block;
-      margin-bottom: 22px;
-      color: var(--gold);
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      margin-bottom: 20px;
+      padding: 5px 15px;
+      border: 1px solid rgba(201, 168, 76, 0.32);
+      border-radius: var(--radius-pill);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--text-dim);
       font-family: "Inter", sans-serif;
-      font-size: 11px;
+      font-size: 0.6rem;
       font-weight: 500;
-      letter-spacing: 3px;
+      letter-spacing: 0.16em;
+      text-indent: 0.16em;
       text-transform: uppercase;
+    }
+
+    .section-label::before {
+      content: "";
+      width: 5px;
+      height: 5px;
+      flex: none;
+      transform: rotate(45deg);
+      background: var(--gold);
+      box-shadow: 0 0 9px rgba(201, 168, 76, 0.6);
     }
 
     .content-narrow {
@@ -872,17 +936,18 @@
     }
 
     h1 {
-      font-size: clamp(2.7rem, 7vw, 5.6rem);
-      margin-bottom: 20px;
-    }
-
-    h2 {
-      font-size: clamp(2rem, 5vw, 3.8rem);
+      font-size: clamp(1.95rem, 3.15vw, 2.9rem);
       margin-bottom: 18px;
     }
 
+    h2 {
+      font-size: clamp(1.65rem, 2.5vw, 2.35rem);
+      line-height: 1.14;
+      margin-bottom: 16px;
+    }
+
     h3 {
-      font-size: 1.15rem;
+      font-size: 1.04rem;
       margin-bottom: 6px;
     }
 
@@ -967,7 +1032,7 @@
       min-height: 61px;
       padding-left: 34px;
       padding-right: 34px;
-      border-radius: 10px;
+      border-radius: var(--radius-btn);
       font-size: 0.76rem;
     }
 
@@ -1094,8 +1159,8 @@
     .vsl-card {
       position: relative;
       overflow: hidden;
-      border: 1px solid rgba(201, 168, 76, 0.2);
-      border-radius: 28px;
+      border: 1px solid var(--line-gold-strong);
+      border-radius: var(--radius-card);
       background:
         radial-gradient(circle at top right, rgba(201, 168, 76, 0.08), transparent 28%),
         linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.01)),
@@ -1144,7 +1209,7 @@
       position: relative;
       width: 100%;
       aspect-ratio: 16 / 9;
-      border-radius: 16px;
+      border-radius: var(--radius-card);
       overflow: hidden;
       background: #101010;
       box-shadow: 0 30px 90px rgba(0, 0, 0, 0.55);
@@ -1178,7 +1243,7 @@
 
     .vsl-popup.is-mini .vsl-popup-frame {
       border: 1px solid rgba(201, 168, 76, 0.28);
-      border-radius: 14px;
+      border-radius: var(--radius-card);
       box-shadow: 0 18px 54px rgba(0, 0, 0, 0.56);
     }
 
@@ -1290,7 +1355,7 @@
       position: relative;
       min-height: 520px;
       overflow: hidden;
-      border-radius: 24px;
+      border-radius: var(--radius-card);
       box-shadow: var(--shadow);
     }
 
@@ -1457,8 +1522,8 @@
       position: relative;
       aspect-ratio: 4 / 5;
       overflow: hidden;
-      border: 1px solid rgba(201, 168, 76, 0.16);
-      border-radius: 20px;
+      border: 1px solid var(--line-gold);
+      border-radius: var(--radius-card);
       background: #111111;
       box-shadow: var(--shadow);
     }
@@ -1501,7 +1566,7 @@
       max-height: 86vh;
       width: auto;
       height: auto;
-      border-radius: 12px;
+      border-radius: var(--radius-btn);
       box-shadow: 0 30px 90px rgba(0, 0, 0, 0.55);
     }
 
@@ -1627,7 +1692,7 @@
     .sensitive-warning button {
       margin-top: 6px;
       padding: 9px 18px;
-      border-radius: 999px;
+      border-radius: var(--radius-pill);
       border: 1px solid rgba(255, 255, 255, 0.32);
       background: rgba(255, 255, 255, 0.08);
       color: #ffffff;
@@ -1763,8 +1828,8 @@
 
     .authority-pill {
       padding: 10px 14px;
-      border: 1px solid rgba(201, 168, 76, 0.16);
-      border-radius: 999px;
+      border: 1px solid var(--line-gold);
+      border-radius: var(--radius-pill);
       color: var(--text);
       font-size: 0.82rem;
       text-transform: uppercase;
@@ -1781,8 +1846,8 @@
       display: flex;
       flex-direction: column;
       height: 100%;
-      border: 1px solid rgba(201, 168, 76, 0.16);
-      border-radius: 24px;
+      border: 1px solid var(--line-gold);
+      border-radius: var(--radius-card);
       overflow: hidden;
       background:
         linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0)),
@@ -1932,8 +1997,8 @@
       flex-direction: column;
       gap: 16px;
       padding: 32px;
-      border: 1px solid rgba(201, 168, 76, 0.14);
-      border-radius: 24px;
+      border: 1px solid var(--line-gold);
+      border-radius: var(--radius-card);
       min-height: 100%;
       background:
         linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0)),
@@ -1979,7 +2044,7 @@
       width: fit-content;
       padding: 7px 10px;
       border: 1px solid rgba(201, 168, 76, 0.18);
-      border-radius: 999px;
+      border-radius: var(--radius-pill);
       color: #9f978e;
       font-family: monospace;
       font-size: 10px;
@@ -2101,7 +2166,7 @@
       margin: 0 auto;
       padding: 48px;
       border: 1px solid rgba(201, 168, 76, 0.26);
-      border-radius: 28px;
+      border-radius: var(--radius-card);
       background:
         radial-gradient(circle at 50% 0%, rgba(201, 168, 76, 0.18), transparent 34%),
         radial-gradient(circle at 100% 18%, rgba(255, 255, 255, 0.06), transparent 26%),
@@ -2157,7 +2222,7 @@
       margin-bottom: 16px;
       padding: 8px 14px;
       border: 1px solid rgba(201, 168, 76, 0.22);
-      border-radius: 999px;
+      border-radius: var(--radius-pill);
       background: rgba(201, 168, 76, 0.06);
     }
 
@@ -2167,7 +2232,7 @@
       justify-content: center;
       gap: 10px;
       padding: 10px 14px;
-      border-radius: 999px;
+      border-radius: var(--radius-pill);
       background: rgba(255, 255, 255, 0.035);
       color: var(--gold);
       font-size: 11px;
@@ -2195,8 +2260,8 @@
       max-width: 560px;
       margin: 30px auto 0;
       padding: 26px 26px 22px;
-      border: 1px solid rgba(201, 168, 76, 0.2);
-      border-radius: 24px;
+      border: 1px solid var(--line-gold-strong);
+      border-radius: var(--radius-card);
       background:
         linear-gradient(135deg, rgba(201, 168, 76, 0.1), rgba(255, 255, 255, 0.018)),
         rgba(8, 8, 8, 0.42);
@@ -2274,7 +2339,7 @@
       align-items: start;
       padding: 17px 18px;
       border: 1px solid rgba(201, 168, 76, 0.13);
-      border-radius: 18px;
+      border-radius: var(--radius-card);
       color: var(--text);
       background:
         linear-gradient(180deg, rgba(255, 255, 255, 0.026), rgba(255, 255, 255, 0)),
@@ -2334,8 +2399,8 @@
       gap: 22px;
       align-items: start;
       padding: 36px;
-      border: 1px solid rgba(201, 168, 76, 0.16);
-      border-radius: 24px;
+      border: 1px solid var(--line-gold);
+      border-radius: var(--radius-card);
       background:
         linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0)),
         rgba(255, 255, 255, 0.012);
@@ -2383,8 +2448,8 @@
       flex: 0 0 360px;
       width: 360px;
       padding: 28px;
-      border: 1px solid rgba(201, 168, 76, 0.14);
-      border-radius: 22px;
+      border: 1px solid var(--line-gold);
+      border-radius: var(--radius-card);
       background:
         linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0)),
         rgba(255, 255, 255, 0.012);
@@ -2595,7 +2660,7 @@
     .whatsapp-pulse {
       position: absolute;
       inset: 0;
-      border-radius: 999px;
+      border-radius: var(--radius-pill);
       background: rgba(43, 224, 122, 0.55);
       animation: whatsapp-pulse 2.2s ease-out infinite;
       pointer-events: none;
@@ -2873,14 +2938,14 @@
       }
 
       h1 {
-        font-size: clamp(2rem, 9.6vw, 3.1rem);
-        line-height: 1;
+        font-size: clamp(1.9rem, 9vw, 2.4rem);
+        line-height: 1.06;
         margin-bottom: 14px;
       }
 
       h2 {
-        font-size: clamp(1.9rem, 10vw, 3rem);
-        line-height: 1.02;
+        font-size: clamp(1.4rem, 7.2vw, 1.85rem);
+        line-height: 1.12;
       }
 
       p,
@@ -3041,7 +3106,7 @@
       .testimonial,
       .investment-card,
       .guarantee-box {
-        border-radius: 20px;
+        border-radius: var(--radius-card);
       }
 
       .vsl-copy {
@@ -3110,7 +3175,7 @@
       }
 
       .case-photo {
-        border-radius: 18px;
+        border-radius: var(--radius-card);
       }
 
       .authority-note {
@@ -3191,7 +3256,7 @@
 
       .investment-card {
         padding: 32px 18px 28px;
-        border-radius: 24px;
+        border-radius: var(--radius-card);
       }
 
       .investment-card .section-label {
@@ -3202,7 +3267,7 @@
       .price-box {
         margin-top: 24px;
         padding: 22px 16px 18px;
-        border-radius: 20px;
+        border-radius: var(--radius-card);
       }
 
       .price-value {
@@ -3417,7 +3482,7 @@
       <section class="section" id="metodo">
         <div class="container two-column">
           <div class="story-copy content-narrow">
-            <span class="section-label">—— Nº 01</span>
+            <span class="section-label">A origem</span>
             <h2>Da experiência clínica ao método</h2>
             <blockquote class="story-quote">“Como referência em procedimentos cirúrgicos e injetáveis, com atuação em harmonização facial, cirurgias estéticas da face, intercorrências e traumas, percebi que toda a experiência adquirida ao longo da minha trajetória precisava ser compartilhada.”</blockquote>
             <p>Transformar mais de 7.000 vidas por meio do meu trabalho é motivo de muito orgulho. Mas também entendi que poderia contribuir com colegas de diferentes áreas, ajudando a formar profissionais cada vez mais preparados.</p>
@@ -3442,7 +3507,7 @@
       <section class="section">
         <div class="container two-column">
           <div class="content-narrow">
-            <span class="section-label">—— Nº 02</span>
+            <span class="section-label">O diferencial</span>
             <h2>O que faz este método ser diferente</h2>
             <p class="lead">Não é apenas alguns minutos falando sobre a cirurgia ou o procedimento. São aulões completos e dinâmicos, com passo a passo, além da oportunidade de assistir ao procedimento filmado e narrado em cada detalhe.</p>
           </div>
@@ -3490,7 +3555,7 @@
       <section class="section">
         <div class="container two-column">
           <div class="content-narrow">
-            <span class="section-label">—— Nº 03</span>
+            <span class="section-label">Estrutura</span>
             <h2>Como o curso é estruturado</h2>
             <p class="lead">Uma sequência pensada para evoluir do olhar ao procedimento, e do procedimento ao posicionamento.</p>
           </div>
@@ -3531,7 +3596,7 @@
       <section class="section">
         <div class="container two-column">
           <div class="content-narrow">
-            <span class="section-label">—— Nº 04</span>
+            <span class="section-label">Para quem é</span>
             <h2>Este curso é para você que:</h2>
           </div>
 
@@ -3567,7 +3632,7 @@
       <section class="section">
         <div class="container">
           <div class="content-narrow">
-            <span class="section-label">—— Nº 06</span>
+            <span class="section-label">Resultados</span>
             <h2>Galeria de resultados</h2>
             <p class="lead">Uma amostra do padrão de excelência que você vai aprender a entregar.</p>
             <div class="results-note">Resultados transformadores, leitura facial apurada e execução com previsibilidade</div>
@@ -3728,7 +3793,7 @@
       <section class="section">
         <div class="container">
           <div class="content-narrow">
-            <span class="section-label">—— Nº 07</span>
+            <span class="section-label">Alunos</span>
             <h2>Alunos que passaram pelo presencial</h2>
             <p class="lead diploma-intro">Antes de chegar ao digital, este método foi refinado ao vivo, em sala, com acompanhamento próximo. Alunos saíram da imersão presencial com diploma nas mãos e mais segurança para aplicar o método.</p>
             <p class="authority-note">Mais de <strong>400 alunos</strong> já passaram pelas formações presenciais do Dr. Lopez antes da expansão para o digital.</p>
@@ -3811,7 +3876,7 @@
       <section class="section">
         <div class="container">
           <div class="content-narrow">
-            <span class="section-label">—— Nº 08</span>
+            <span class="section-label">Imprensa</span>
             <h2>Dr. Lopez na imprensa</h2>
             <p class="lead press-intro">UOL, Tô na Folha, Conectado com Você, EGOBrazil, Cool Magazine, O Buxixo, Cutucast e Podbext reforçam a presença do Dr. Lopez na mídia e em podcasts, conectando sua trajetória clínica à formação de profissionais da face.</p>
           </div>
@@ -3880,7 +3945,7 @@
       <section class="section">
         <div class="container">
           <div class="content-narrow">
-            <span class="section-label">—— Nº 09</span>
+            <span class="section-label">O que inclui</span>
             <h2>O que está incluído</h2>
           </div>
 
@@ -3924,7 +3989,7 @@
       <section class="section" id="checkout">
         <div class="container">
           <div class="investment-card">
-            <span class="section-label">Nº 10 — INVESTIMENTO</span>
+            <span class="section-label">Investimento</span>
             <div class="investment-topline">Acesso imediato + suporte durante 1 ano</div>
             <h2>Garanta sua vaga <span class="gold-shimmer-slow">hoje</span></h2>
             <div class="price-box">
@@ -3968,7 +4033,7 @@
       <section class="section">
         <div class="container">
           <div class="content-narrow">
-            <span class="section-label">—— Nº 11</span>
+            <span class="section-label">Módulos avulsos</span>
             <h2>Prefere apenas um módulo?</h2>
             <p class="lead">Cada aulão do Método Esculpindo Faces também pode ser adquirido separadamente — com o mesmo padrão de cirurgia filmada e narrada passo a passo. Escolha os módulos individualmente e acrescente procedimentos bônus ao seu combo ou módulo, montando a formação de acordo com os seus objetivos. Ainda assim, o Combo Completo continua sendo a opção com a melhor relação entre conteúdo e investimento.</p>
             <div class="module-preview">
@@ -3990,7 +4055,7 @@
       <section class="section">
         <div class="container">
           <div class="content-narrow">
-            <span class="section-label">—— Nº 12</span>
+            <span class="section-label">Depoimentos</span>
             <h2>Quem já passou pelo método</h2>
           </div>
 
@@ -4070,7 +4135,7 @@
       <section class="section">
         <div class="container">
           <div class="content-narrow">
-            <span class="section-label">—— Nº 13</span>
+            <span class="section-label">Dúvidas</span>
             <h2>Perguntas frequentes</h2>
           </div>
 
