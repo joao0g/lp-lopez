@@ -1333,6 +1333,86 @@
       }
     }
 
+    /* ===========================================================
+       Perfis
+       Cinco descricoes paralelas: a pessoa precisa achar a dela, entao
+       todas ficam visiveis de uma vez, em vez de escondidas num trilho.
+       =========================================================== */
+    .perfis {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 16px;
+      margin-top: 36px;
+    }
+
+    .perfil-card {
+      display: grid;
+      grid-template-columns: 30px 1fr;
+      gap: 15px;
+      padding: 24px 22px;
+      border: 1px solid var(--line-gold);
+      border-radius: var(--radius-card);
+      background:
+        linear-gradient(180deg, rgba(201, 168, 76, 0.05), rgba(255, 255, 255, 0.01)),
+        rgba(255, 255, 255, 0.015);
+      transition: border-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .perfil-card:hover {
+      border-color: var(--line-gold-strong);
+      transform: translateY(-3px);
+    }
+
+    .perfil-marca {
+      display: grid;
+      place-items: center;
+      width: 30px;
+      height: 30px;
+      border: 1px solid rgba(201, 168, 76, 0.34);
+      border-radius: var(--radius-pill);
+      background: rgba(201, 168, 76, 0.1);
+      color: var(--gold);
+    }
+
+    .perfil-marca svg {
+      width: 15px;
+      height: 15px;
+    }
+
+    .perfil-card p {
+      font-size: 0.94rem;
+      line-height: 1.62;
+    }
+
+    @media (max-width: 767px) {
+      .perfis {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        margin-top: 28px;
+      }
+
+      .perfil-card {
+        padding: 18px 17px;
+        gap: 13px;
+        grid-template-columns: 26px 1fr;
+      }
+
+      .perfil-marca {
+        width: 26px;
+        height: 26px;
+      }
+
+      .perfil-card p {
+        font-size: 0.89rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .perfil-card:hover {
+        transform: none;
+      }
+    }
+
     .section-label {
       display: inline-flex;
       align-items: center;
@@ -1906,27 +1986,7 @@
       margin-bottom: 8px;
     }
 
-    .for-you-list {
-      display: grid;
-      gap: 0;
-    }
-
-    .for-you-item {
-      display: grid;
-      grid-template-columns: 24px 1fr;
-      gap: 18px;
-      padding: 20px 0;
-      border-bottom: 1px solid rgba(201, 168, 76, 0.1);
-    }
-
-    .for-you-line {
-      width: 24px;
-      height: 1px;
-      background: var(--gold);
-      margin-top: 16px;
-    }
-
-    .for-you-item span {
+    .perfil-card p span {
       color: var(--gold);
     }
 
@@ -3429,17 +3489,6 @@
         font-size: 2rem;
       }
 
-      .for-you-item {
-        grid-template-columns: 18px 1fr;
-        gap: 12px;
-        padding: 16px 0;
-      }
-
-      .for-you-line {
-        width: 18px;
-        margin-top: 14px;
-      }
-
 
       .testimonials-viewport {
         margin-top: 28px;
@@ -3871,37 +3920,38 @@
       </section>
 
       <section class="section">
-        <div class="container two-column">
+        <div class="container">
           <div class="content-narrow">
             <span class="section-label">Para quem é</span>
             <h2>Este curso é para você que:</h2>
           </div>
 
-          <div class="for-you-list">
-            <article class="for-you-item">
-              <div class="for-you-line"></div>
+          <div class="perfis">
+            <article class="perfil-card">
+              <span class="perfil-marca" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4.5 4.5L19 7"/></svg></span>
               <p>Já atua na área e quer <span>se aperfeiçoar, se atualizar e elevar o padrão dos seus resultados.</span></p>
             </article>
-            <article class="for-you-item">
-              <div class="for-you-line"></div>
+            <article class="perfil-card">
+              <span class="perfil-marca" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4.5 4.5L19 7"/></svg></span>
               <p>É recém-formado e busca iniciar da melhor forma sua carreira com <span>conhecimento prático, direcionado e com investimento acessível para começar com mais segurança.</span></p>
             </article>
-            <article class="for-you-item">
-              <div class="for-you-line"></div>
+            <article class="perfil-card">
+              <span class="perfil-marca" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4.5 4.5L19 7"/></svg></span>
               <p>Sente que tem uma missão e propósito com seus pacientes: <span>proporcionar mudança, autoestima e qualidade de vida.</span></p>
             </article>
-            <article class="for-you-item">
-              <div class="for-you-line"></div>
+            <article class="perfil-card">
+              <span class="perfil-marca" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4.5 4.5L19 7"/></svg></span>
               <p>Quer entregar resultados transformadores e duradouros — não o <span>exagero que sai de moda em um ano.</span></p>
             </article>
-            <article class="for-you-item">
-              <div class="for-you-line"></div>
+            <article class="perfil-card">
+              <span class="perfil-marca" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4.5 4.5L19 7"/></svg></span>
               <p>Quer fazer parte de uma comunidade de profissionais que <span>leva a profissão a sério.</span></p>
             </article>
-            <div class="section-cta">
-              <a class="cta-button" href="#checkout">QUERO INVESTIR EM MIM</a>
-              <div class="section-cta-note">Uma formação para transformar técnica em segurança, assinatura estética e percepção de valor.</div>
-            </div>
+          </div>
+
+          <div class="section-cta">
+            <a class="cta-button" href="#checkout">QUERO INVESTIR EM MIM</a>
+            <div class="section-cta-note">Uma formação para transformar técnica em segurança, assinatura estética e percepção de valor.</div>
           </div>
         </div>
       </section>
