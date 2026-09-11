@@ -1237,6 +1237,102 @@
       }
     }
 
+    /* ===========================================================
+       Mostruario de casos
+       Duas fileiras correndo em sentidos opostos. A foto ja traz o
+       antes e depois; a legenda diz so o procedimento.
+       =========================================================== */
+    .mostruario {
+      display: grid;
+      gap: 18px;
+      margin: 36px 0 0;
+      /* sangra ate as bordas da tela */
+      margin-inline: calc(50% - 50vw);
+      -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+      mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+    }
+
+    .mostruario-fila {
+      display: flex;
+      gap: 18px;
+      overflow-x: auto;
+      overscroll-behavior-x: contain;
+      scrollbar-width: none;
+      padding: 2px 0;
+    }
+
+    .mostruario-fila::-webkit-scrollbar {
+      display: none;
+    }
+
+    .caso-foto {
+      position: relative;
+      flex: 0 0 clamp(260px, 27vw, 420px);
+      margin: 0;
+      overflow: hidden;
+      border: 1px solid var(--line-gold);
+      border-radius: var(--radius-card);
+      background: #101010;
+      aspect-ratio: 4 / 3;
+      cursor: zoom-in;
+    }
+
+    .caso-foto img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.3, 1);
+    }
+
+    .caso-foto:hover img {
+      transform: scale(1.04);
+    }
+
+    .caso-foto figcaption {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 34px 16px 14px;
+      background: linear-gradient(180deg, transparent, rgba(11, 11, 11, 0.86) 58%, rgba(11, 11, 11, 0.95));
+      color: var(--white);
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      line-height: 1.35;
+      pointer-events: none;
+    }
+
+    @media (max-width: 767px) {
+      .mostruario {
+        gap: 12px;
+        margin-top: 28px;
+      }
+
+      .mostruario-fila {
+        gap: 12px;
+      }
+
+      .caso-foto {
+        flex-basis: 70vw;
+      }
+
+      .caso-foto figcaption {
+        padding: 28px 13px 11px;
+        font-size: 0.72rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .caso-foto img {
+        transition: none;
+      }
+
+      .caso-foto:hover img {
+        transform: none;
+      }
+    }
+
     .section-label {
       display: inline-flex;
       align-items: center;
@@ -1498,8 +1594,7 @@
       line-height: 1.55;
     }
 
-    .image-placeholder,
-    .case-placeholder {
+    .image-placeholder {
       background: var(--panel);
       border: 1px solid var(--gold-soft);
       display: grid;
@@ -1867,34 +1962,6 @@
       text-transform: uppercase;
     }
 
-    .case-photo {
-      position: relative;
-      aspect-ratio: 4 / 5;
-      overflow: hidden;
-      border: 1px solid var(--line-gold);
-      border-radius: var(--radius-card);
-      background: #111111;
-      box-shadow: var(--shadow);
-    }
-
-    .case-photo::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(180deg, rgba(11, 11, 11, 0), rgba(11, 11, 11, 0.12)),
-        linear-gradient(0deg, rgba(201, 168, 76, 0.03), rgba(201, 168, 76, 0));
-      pointer-events: none;
-    }
-
-    .case-photo img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      display: block;
-      cursor: zoom-in;
-    }
-
     .lightbox {
       display: none;
       position: fixed;
@@ -1981,29 +2048,6 @@
       }
     }
 
-    .case-carousel {
-      position: absolute;
-      inset: 0;
-    }
-
-    .case-carousel img {
-      position: absolute;
-      inset: 0;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.4s ease;
-    }
-
-    .case-carousel img.is-active {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .case-carousel img[data-sensitive="true"]:not(.is-revealed) {
-      filter: blur(28px);
-      cursor: default;
-    }
-
     .sensitive-warning {
       position: absolute;
       left: 0;
@@ -2063,88 +2107,6 @@
       position: fixed;
       inset: 0;
       background: none;
-    }
-
-    .case-carousel-arrow {
-      position: absolute;
-      top: 42%;
-      transform: translateY(-50%);
-      z-index: 4;
-      width: 32px;
-      height: 32px;
-      border: none;
-      border-radius: 50%;
-      background: rgba(11, 11, 11, 0.55);
-      color: #ffffff;
-      font-size: 1.3rem;
-      line-height: 1;
-      display: grid;
-      place-items: center;
-      cursor: pointer;
-      transition: background 0.2s ease;
-    }
-
-    .case-carousel-arrow:hover,
-    .case-carousel-arrow:focus-visible {
-      background: rgba(11, 11, 11, 0.82);
-    }
-
-    .case-carousel-prev {
-      left: 10px;
-    }
-
-    .case-carousel-next {
-      right: 10px;
-    }
-
-    .case-carousel-dots {
-      display: flex;
-      gap: 6px;
-      margin-bottom: 10px;
-    }
-
-    .case-carousel-dots button {
-      width: 6px;
-      height: 6px;
-      padding: 0;
-      border: none;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.35);
-      cursor: pointer;
-      transition: background 0.2s ease, transform 0.2s ease;
-    }
-
-    .case-carousel-dots button.is-active {
-      background: var(--gold);
-      transform: scale(1.3);
-    }
-
-    .case-photo-caption {
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      z-index: 1;
-      padding: 32px 16px 16px;
-      background: linear-gradient(180deg, rgba(11, 11, 11, 0) 0%, rgba(11, 11, 11, 0.86) 55%, rgba(11, 11, 11, 0.94) 100%);
-      pointer-events: none;
-    }
-
-    .case-carousel-dots {
-      pointer-events: auto;
-    }
-
-    .case-caption-title {
-      color: var(--white);
-      font-size: 0.92rem;
-      font-weight: 500;
-      margin-bottom: 4px;
-    }
-
-    .case-caption-text {
-      color: rgba(255, 255, 255, 0.75);
-      font-size: 0.82rem;
-      line-height: 1.5;
     }
 
     .diploma-intro {
@@ -3493,10 +3455,6 @@
         width: 280px;
       }
 
-      .case-photo {
-        border-radius: var(--radius-card);
-      }
-
       .authority-note {
         margin-top: 20px;
         margin-bottom: 28px;
@@ -3961,161 +3919,108 @@
             </a>
           </div>
 
-          <div class="rail-wrap">
-            <button class="rail-nav rail-prev" type="button" aria-label="Anterior" data-rail-prev>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
-            </button>
-            <div class="rail">
-            <div class="case-photo">
-              <div class="case-carousel" data-carousel>
-                <img src="./casos/contorno-mandibular.jpeg" alt="Caso 1 de lipoescultura HD de papada e pescoço com comparação de perfil antes e depois" class="is-active" loading="lazy" decoding="async">
-                <img src="./casos/lipohd2.jpeg" alt="Caso 2 de lipoescultura HD de papada e pescoço com comparação antes e depois" loading="lazy" decoding="async">
-                <img src="./casos/lipohd3.jpeg" alt="Caso 3 de lipoescultura HD de papada e pescoço com comparação antes e depois" loading="lazy" decoding="async">
-              </div>
-              <button class="case-carousel-arrow case-carousel-prev" type="button" aria-label="Foto anterior">‹</button>
-              <button class="case-carousel-arrow case-carousel-next" type="button" aria-label="Próxima foto">›</button>
-              <div class="case-photo-caption">
-                <div class="case-carousel-dots">
-                  <button class="is-active" type="button" aria-label="Foto 1"></button>
-                  <button type="button" aria-label="Foto 2"></button>
-                  <button type="button" aria-label="Foto 3"></button>
-                </div>
-                <div class="case-caption-title">Lipoescultura HD de Papada e Pescoço</div>
-                <div class="case-caption-text">Aspiração de gordura com escultura, definição e marcação mandibular — leitura de perfil e definição estrutural com resultado mais limpo no terço inferior.</div>
-              </div>
+          <div class="mostruario">
+            <div class="mostruario-fila" data-sentido="ida">
+                <figure class="caso-foto">
+                  <img src="./casos/contorno-mandibular.jpeg" alt="Caso 1 de lipoescultura HD de papada e pescoço com comparação de perfil antes e depois" loading="lazy" decoding="async">
+                  <figcaption>Lipoescultura HD de Papada e Pescoço</figcaption>
+                </figure>
+                <figure class="caso-foto">
+                  <img src="./casos/rino.jpeg" alt="Caso 1 de rino definitiva com fios com comparação de perfil nasal antes e depois" loading="lazy" decoding="async">
+                  <figcaption>Rino Definitiva com Fios</figcaption>
+                </figure>
+                <figure class="caso-foto">
+                  <img src="./casos/orelha.jpeg" alt="Caso 1 de otomodelação de orelha de abano com comparação antes e depois" loading="lazy" decoding="async">
+                  <figcaption>Otomodelação</figcaption>
+                </figure>
+                <figure class="caso-foto">
+                  <img src="./casos/asa-nasal.jpeg" alt="Caso 1 de alectomia com diminuição das asas nasais antes e depois" loading="lazy" decoding="async">
+                  <figcaption>Alectomia — Diminuição das Asas Nasais</figcaption>
+                </figure>
+                <figure class="caso-foto">
+                  <img src="./casos/bichectomia1.jpeg" alt="Caso 1 de bichectomia com bioplastia facial antes e depois" loading="lazy" decoding="async">
+                  <figcaption>Bichectomia: Bioplastia Facial</figcaption>
+                </figure>
+                <figure class="caso-foto">
+                  <img src="./casos/preenchimento-labial.jpeg" alt="Caso 1 de preenchimento labial antes e depois" loading="lazy" decoding="async">
+                  <figcaption>Preenchimento Labial</figcaption>
+                </figure>
+                <figure class="caso-foto">
+                  <img src="./casos/harmonizacao.jpg" alt="Caso 1 de harmonização orofacial masculina com comparação antes e depois" loading="lazy" decoding="async">
+                  <figcaption>Harmonização Orofacial (Preenchimentos e Botox)</figcaption>
+                </figure>
+                <figure class="caso-foto">
+                  <img src="./casos/lipohd2.jpeg" alt="Caso 2 de lipoescultura HD de papada e pescoço com comparação antes e depois" loading="lazy" decoding="async">
+                  <figcaption>Lipoescultura HD de Papada e Pescoço</figcaption>
+                </figure>
+                <figure class="caso-foto">
+                  <img src="./casos/rino1.jpeg" alt="Caso 2 de rino definitiva com fios com comparação de perfil nasal antes e depois" loading="lazy" decoding="async">
+                  <figcaption>Rino Definitiva com Fios</figcaption>
+                </figure>
+                <figure class="caso-foto">
+                  <img src="./casos/orelha1.jpeg" alt="Caso 2 de otomodelação de orelha de abano com comparação antes e depois" loading="lazy" decoding="async">
+                  <figcaption>Otomodelação</figcaption>
+                </figure>
+                <figure class="caso-foto">
+                  <img src="./casos/asanasal1.jpeg" alt="Caso 2 de alectomia com diminuição das asas nasais antes e depois" loading="lazy" decoding="async">
+                  <figcaption>Alectomia — Diminuição das Asas Nasais</figcaption>
+                </figure>
+                <figure class="caso-foto">
+                  <img src="./casos/bichectomia2.jpeg" alt="Caso 2 de bichectomia com bioplastia facial antes e depois" loading="lazy" decoding="async">
+                  <figcaption>Bichectomia: Bioplastia Facial</figcaption>
+                </figure>
             </div>
-            <div class="case-photo">
-              <div class="case-carousel" data-carousel>
-                <img src="./casos/rino.jpeg" alt="Caso 1 de rino definitiva com fios com comparação de perfil nasal antes e depois" class="is-active" loading="lazy" decoding="async">
-                <img src="./casos/rino1.jpeg" alt="Caso 2 de rino definitiva com fios com comparação de perfil nasal antes e depois" loading="lazy" decoding="async">
-                <img src="./casos/rino2.jpeg" alt="Caso 3 de rino definitiva com fios com comparação de perfil nasal antes e depois" loading="lazy" decoding="async">
-              </div>
-              <button class="case-carousel-arrow case-carousel-prev" type="button" aria-label="Foto anterior">‹</button>
-              <button class="case-carousel-arrow case-carousel-next" type="button" aria-label="Próxima foto">›</button>
-              <div class="case-photo-caption">
-                <div class="case-carousel-dots">
-                  <button class="is-active" type="button" aria-label="Foto 1"></button>
-                  <button type="button" aria-label="Foto 2"></button>
-                  <button type="button" aria-label="Foto 3"></button>
-                </div>
-                <div class="case-caption-title">Rino Definitiva com Fios</div>
-                <div class="case-caption-text">Elevação de ponta e correção de giba nasal (ossinho) com foco em naturalidade e harmonia facial.</div>
-              </div>
+            <div class="mostruario-fila" data-sentido="volta">
+                <figure class="caso-foto">
+                  <img src="./casos/preenchimento-labial3.jpeg" alt="Caso 2 de preenchimento labial antes e depois" loading="lazy" decoding="async">
+                  <figcaption>Preenchimento Labial</figcaption>
+                </figure>
+                <figure class="caso-foto">
+                  <img src="./casos/harmonizacao2.jpeg" alt="Caso 2 de harmonização orofacial masculina com comparação antes e depois" loading="lazy" decoding="async">
+                  <figcaption>Harmonização Orofacial (Preenchimentos e Botox)</figcaption>
+                </figure>
+                <figure class="caso-foto">
+                  <img src="./casos/lipohd3.jpeg" alt="Caso 3 de lipoescultura HD de papada e pescoço com comparação antes e depois" loading="lazy" decoding="async">
+                  <figcaption>Lipoescultura HD de Papada e Pescoço</figcaption>
+                </figure>
+                <figure class="caso-foto">
+                  <img src="./casos/rino2.jpeg" alt="Caso 3 de rino definitiva com fios com comparação de perfil nasal antes e depois" loading="lazy" decoding="async">
+                  <figcaption>Rino Definitiva com Fios</figcaption>
+                </figure>
+                <figure class="caso-foto">
+                  <img src="./casos/orelha2.jpeg" alt="Caso 3 de otomodelação de orelha de abano com comparação antes e depois" loading="lazy" decoding="async">
+                  <figcaption>Otomodelação</figcaption>
+                </figure>
+                <figure class="caso-foto">
+                  <img src="./casos/asanasal2.jpeg" alt="Caso 3 de alectomia com marcação cirúrgica das asas nasais" loading="lazy" decoding="async">
+                  <figcaption>Alectomia — Diminuição das Asas Nasais</figcaption>
+                </figure>
+                <figure class="caso-foto">
+                  <img src="./casos/bichectomia3.jpeg" alt="Caso 3 de bichectomia com bioplastia facial antes e depois" loading="lazy" decoding="async">
+                  <figcaption>Bichectomia: Bioplastia Facial</figcaption>
+                </figure>
+                <figure class="caso-foto">
+                  <img src="./casos/preenchimento-labial2.jpeg" alt="Caso 3 de preenchimento labial antes e depois" loading="lazy" decoding="async">
+                  <figcaption>Preenchimento Labial</figcaption>
+                </figure>
+                <figure class="caso-foto">
+                  <img src="./casos/harmonizacao3.jpeg" alt="Caso 3 de preenchimento de mandíbula feminino com comparação antes e depois" loading="lazy" decoding="async">
+                  <figcaption>Harmonização Orofacial (Preenchimentos e Botox)</figcaption>
+                </figure>
+                <figure class="caso-foto">
+                  <img src="./casos/asanasal3.jpeg" alt="Caso 4 de alectomia com detalhe da sutura em um dos lados" loading="lazy" decoding="async">
+                  <figcaption>Alectomia — Diminuição das Asas Nasais</figcaption>
+                </figure>
+                <figure class="caso-foto">
+                  <img src="./casos/asanasal4.jpeg" alt="Caso 5 de alectomia com resultado do lado já operado" loading="lazy" decoding="async">
+                  <figcaption>Alectomia — Diminuição das Asas Nasais</figcaption>
+                </figure>
+                <figure class="caso-foto">
+                  <img src="./casos/asanasal5.jpeg" alt="Caso 6 de alectomia com vista frontal do resultado em um dos lados" loading="lazy" decoding="async">
+                  <figcaption>Alectomia — Diminuição das Asas Nasais</figcaption>
+                </figure>
             </div>
-            <div class="case-photo">
-              <div class="case-carousel" data-carousel>
-                <img src="./casos/orelha.jpeg" alt="Caso 1 de otomodelação de orelha de abano com comparação antes e depois" class="is-active" loading="lazy" decoding="async">
-                <img src="./casos/orelha1.jpeg" alt="Caso 2 de otomodelação de orelha de abano com comparação antes e depois" loading="lazy" decoding="async">
-                <img src="./casos/orelha2.jpeg" alt="Caso 3 de otomodelação de orelha de abano com comparação antes e depois" loading="lazy" decoding="async">
-              </div>
-              <button class="case-carousel-arrow case-carousel-prev" type="button" aria-label="Foto anterior">‹</button>
-              <button class="case-carousel-arrow case-carousel-next" type="button" aria-label="Próxima foto">›</button>
-              <div class="case-photo-caption">
-                <div class="case-carousel-dots">
-                  <button class="is-active" type="button" aria-label="Foto 1"></button>
-                  <button type="button" aria-label="Foto 2"></button>
-                  <button type="button" aria-label="Foto 3"></button>
-                </div>
-                <div class="case-caption-title">Otomodelação</div>
-                <div class="case-caption-text">Correção e diminuição das orelhas abertas e projetadas, trazendo mais harmonia para a face e autoestima.</div>
-              </div>
-            </div>
-            <div class="case-photo">
-              <div class="case-carousel" data-carousel>
-                <img src="./casos/asa-nasal.jpeg" alt="Caso 1 de alectomia com diminuição das asas nasais antes e depois" class="is-active" loading="lazy" decoding="async">
-                <img src="./casos/asanasal1.jpeg" alt="Caso 2 de alectomia com diminuição das asas nasais antes e depois" loading="lazy" decoding="async">
-                <img src="./casos/asanasal2.jpeg" alt="Caso 3 de alectomia com marcação cirúrgica das asas nasais" loading="lazy" decoding="async">
-                <img src="./casos/asanasal3.jpeg" alt="Caso 4 de alectomia com detalhe da sutura em um dos lados" loading="lazy" decoding="async">
-                <img src="./casos/asanasal4.jpeg" alt="Caso 5 de alectomia com resultado do lado já operado" loading="lazy" decoding="async">
-                <img src="./casos/asanasal5.jpeg" alt="Caso 6 de alectomia com vista frontal do resultado em um dos lados" loading="lazy" decoding="async">
-              </div>
-              <button class="case-carousel-arrow case-carousel-prev" type="button" aria-label="Foto anterior">‹</button>
-              <button class="case-carousel-arrow case-carousel-next" type="button" aria-label="Próxima foto">›</button>
-              <div class="case-photo-caption">
-                <div class="case-carousel-dots">
-                  <button class="is-active" type="button" aria-label="Foto 1"></button>
-                  <button type="button" aria-label="Foto 2"></button>
-                  <button type="button" aria-label="Foto 3"></button>
-                  <button type="button" aria-label="Foto 4"></button>
-                  <button type="button" aria-label="Foto 5"></button>
-                  <button type="button" aria-label="Foto 6"></button>
-                </div>
-                <div class="case-caption-title">Alectomia — Diminuição das Asas Nasais</div>
-                <div class="case-caption-text">Refinamento das asas nasais com resultado discreto e cicatrização bem conduzida.</div>
-              </div>
-            </div>
-            <div class="case-photo">
-              <div class="case-carousel" data-carousel>
-                <img src="./casos/bichectomia1.jpeg" alt="Caso 1 de bichectomia com bioplastia facial antes e depois" class="is-active" loading="lazy" decoding="async">
-                <img src="./casos/bichectomia2.jpeg" alt="Caso 2 de bichectomia com bioplastia facial antes e depois" loading="lazy" decoding="async">
-                <img src="./casos/bichectomia3.jpeg" alt="Caso 3 de bichectomia com bioplastia facial antes e depois" loading="lazy" decoding="async">
-                <img src="./casos/bichectomia4.jpeg" alt="Registro cirúrgico do procedimento de bichectomia" data-sensitive="true" loading="lazy" decoding="async">
-              </div>
-              <div class="sensitive-warning" data-sensitive-warning>
-                <div class="sensitive-warning-title">⚠ Conteúdo sensível</div>
-                <div class="sensitive-warning-text">Esta foto mostra um registro cirúrgico e pode ser sensível para alguns visitantes.</div>
-                <button type="button">Ver mesmo assim</button>
-              </div>
-              <button class="case-carousel-arrow case-carousel-prev" type="button" aria-label="Foto anterior">‹</button>
-              <button class="case-carousel-arrow case-carousel-next" type="button" aria-label="Próxima foto">›</button>
-              <div class="case-photo-caption">
-                <div class="case-carousel-dots">
-                  <button class="is-active" type="button" aria-label="Foto 1"></button>
-                  <button type="button" aria-label="Foto 2"></button>
-                  <button type="button" aria-label="Foto 3"></button>
-                  <button type="button" aria-label="Foto 4"></button>
-                </div>
-                <div class="case-caption-title">Bichectomia: Bioplastia Facial</div>
-                <div class="case-caption-text">Melhores contornos de face, efeito blush e top model look de malar (maçã do rosto) para pacientes com rosto mais arredondado ou que mordem as bochechas. Mais harmonia e qualidade de vida.</div>
-              </div>
-            </div>
-            <div class="case-photo">
-              <div class="case-carousel" data-carousel>
-                <img src="./casos/preenchimento-labial.jpeg" alt="Caso 1 de preenchimento labial antes e depois" class="is-active" loading="lazy" decoding="async">
-                <img src="./casos/preenchimento-labial3.jpeg" alt="Caso 2 de preenchimento labial antes e depois" loading="lazy" decoding="async">
-                <img src="./casos/preenchimento-labial2.jpeg" alt="Caso 3 de preenchimento labial antes e depois" loading="lazy" decoding="async">
-              </div>
-              <button class="case-carousel-arrow case-carousel-prev" type="button" aria-label="Foto anterior">‹</button>
-              <button class="case-carousel-arrow case-carousel-next" type="button" aria-label="Próxima foto">›</button>
-              <div class="case-photo-caption">
-                <div class="case-carousel-dots">
-                  <button class="is-active" type="button" aria-label="Foto 1"></button>
-                  <button type="button" aria-label="Foto 2"></button>
-                  <button type="button" aria-label="Foto 3"></button>
-                </div>
-                <div class="case-caption-title">Preenchimento Labial</div>
-                <div class="case-caption-text">Anatomia, delineamento, volume e contorno ideais, com resultado transformador que respeita a proporção do rosto.</div>
-              </div>
-            </div>
-            <div class="case-photo">
-              <div class="case-carousel" data-carousel>
-                <img src="./casos/harmonizacao.jpg" alt="Caso 1 de harmonização orofacial masculina com comparação antes e depois" class="is-active" loading="lazy" decoding="async">
-                <img src="./casos/harmonizacao2.jpeg" alt="Caso 2 de harmonização orofacial masculina com comparação antes e depois" loading="lazy" decoding="async">
-                <img src="./casos/harmonizacao3.jpeg" alt="Caso 3 de preenchimento de mandíbula feminino com comparação antes e depois" loading="lazy" decoding="async">
-              </div>
-              <button class="case-carousel-arrow case-carousel-prev" type="button" aria-label="Foto anterior">‹</button>
-              <button class="case-carousel-arrow case-carousel-next" type="button" aria-label="Próxima foto">›</button>
-              <div class="case-photo-caption">
-                <div class="case-carousel-dots">
-                  <button class="is-active" type="button" aria-label="Foto 1"></button>
-                  <button type="button" aria-label="Foto 2"></button>
-                  <button type="button" aria-label="Foto 3"></button>
-                </div>
-                <div class="case-caption-title">Harmonização Orofacial (Preenchimentos e Botox)</div>
-                <div class="case-caption-text">Harmonia da face com quantidades ideais em pontos estratégicos para valorizar o paciente — sutileza que transforma, rejuvenesce e esculpe.</div>
-              </div>
-            </div>
-          </div>
-            <button class="rail-nav rail-next" type="button" aria-label="Próximo" data-rail-next>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
-            </button>
-          </div>
-          <div class="section-cta is-centered">
-            <a class="cta-button" href="#checkout">QUERO PROPORCIONAR ESTES RESULTADOS</a>
-            <div class="section-cta-note">Aprenda a construir resultados transformadores com leitura facial, intenção técnica e execução precisa.</div>
-          </div>
-        </div>
-      </section>
+          </div></section>
 
       <section class="section">
         <div class="container">
@@ -4681,13 +4586,59 @@
       });
     })();
 
+
+    (() => {
+      const semMovimento = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const filas = document.querySelectorAll(".mostruario-fila");
+      if (!filas.length || semMovimento) return;
+
+      filas.forEach((fila) => {
+        if (fila.scrollWidth <= fila.clientWidth + 4) return;
+
+        // duplica para o laço não ter emenda
+        [...fila.children].forEach((no) => {
+          const copia = no.cloneNode(true);
+          copia.setAttribute("aria-hidden", "true");
+          fila.appendChild(copia);
+        });
+
+        const metade = () => fila.scrollWidth / 2;
+        const paraTras = fila.dataset.sentido === "volta";
+        const VELOCIDADE = 26; // px por segundo
+        let anteriorT = 0;
+        let retomarEm = 0;
+
+        if (paraTras) fila.scrollLeft = metade();
+
+        const parado = (t) =>
+          document.hidden || t < retomarEm || fila.matches(":hover");
+
+        const quadro = (t) => {
+          const dt = anteriorT ? Math.min(t - anteriorT, 48) : 0;
+          anteriorT = t;
+          if (!parado(t)) {
+            fila.scrollLeft += ((paraTras ? -1 : 1) * VELOCIDADE * dt) / 1000;
+            const m = metade();
+            if (fila.scrollLeft >= m) fila.scrollLeft -= m;
+            else if (fila.scrollLeft <= 0) fila.scrollLeft += m;
+          }
+          requestAnimationFrame(quadro);
+        };
+        requestAnimationFrame(quadro);
+
+        const adiar = () => (retomarEm = performance.now() + 4000);
+        fila.addEventListener("touchstart", adiar, { passive: true });
+        fila.addEventListener("touchmove", adiar, { passive: true });
+      });
+    })();
+
     (() => {
       const semMovimento = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       if (semMovimento) return;
 
       // Elementos que ja tem transform proprio (carrosseis, faixa rolante)
       // nao podem receber o reveal, senao a animacao deles quebra.
-      const NAO_ANIMAR = ".testimonials-track, .brand-marquee-track, .case-carousel, .lightbox, .vsl-popup";
+      const NAO_ANIMAR = ".testimonials-track, .brand-marquee-track, .mostruario-fila, .lightbox, .vsl-popup";
       // Blocos com varios filhos entram escalonados, item a item.
       const EH_GRADE = /grid|track|viewport|module-preview|press-|results-|diploma-/;
 
@@ -4755,40 +4706,6 @@
       }
     })();
 
-    document.querySelectorAll("[data-carousel]").forEach((carousel) => {
-      const card = carousel.closest(".case-photo");
-      const imgs = carousel.querySelectorAll("img");
-      const dots = card.querySelectorAll(".case-carousel-dots button");
-      const warning = card.querySelector("[data-sensitive-warning]");
-      let index = 0;
-
-      function updateWarning() {
-        if (!warning) return;
-        const activeImg = imgs[index];
-        const isSensitive = activeImg.dataset.sensitive === "true" && !activeImg.classList.contains("is-revealed");
-        warning.classList.toggle("is-shown", isSensitive);
-      }
-
-      function show(next) {
-        index = (next + imgs.length) % imgs.length;
-        imgs.forEach((img, i) => img.classList.toggle("is-active", i === index));
-        dots.forEach((dot, i) => dot.classList.toggle("is-active", i === index));
-        updateWarning();
-      }
-
-      card.querySelector(".case-carousel-prev").addEventListener("click", () => show(index - 1));
-      card.querySelector(".case-carousel-next").addEventListener("click", () => show(index + 1));
-      dots.forEach((dot, i) => dot.addEventListener("click", () => show(i)));
-
-      if (warning) {
-        warning.querySelector("button").addEventListener("click", () => {
-          imgs[index].classList.add("is-revealed");
-          updateWarning();
-        });
-        updateWarning();
-      }
-    });
-
     const lightbox = document.getElementById("lightbox");
     const lightboxImg = lightbox.querySelector(".lightbox-img");
     const lightboxPrev = lightbox.querySelector(".lightbox-prev");
@@ -4824,12 +4741,24 @@
       document.body.style.overflow = "";
     }
 
-    document.querySelectorAll(".case-photo").forEach((card) => {
-      const imgs = Array.from(card.querySelectorAll("img"));
-      imgs.forEach((img, i) => {
-        img.addEventListener("click", () => openLightbox(imgs, i));
+    // no mostruário, clicar em qualquer foto abre a galeria inteira.
+    // as cópias do laço ficam de fora para não repetir na navegação.
+    (() => {
+      const mostruario = document.querySelector(".mostruario");
+      if (!mostruario) return;
+      const originais = () =>
+        Array.from(mostruario.querySelectorAll(".caso-foto")).filter(
+          (f) => !f.hasAttribute("aria-hidden")
+        ).map((f) => f.querySelector("img"));
+      mostruario.addEventListener("click", (e) => {
+        const figura = e.target.closest(".caso-foto");
+        if (!figura) return;
+        const lista = originais();
+        const alvo = figura.querySelector("img");
+        const i = lista.findIndex((x) => x.currentSrc === alvo.currentSrc);
+        openLightbox(lista, i < 0 ? 0 : i);
       });
-    });
+    })();
 
     lightboxWarning.querySelector("button").addEventListener("click", () => {
       lightboxImages[lightboxIndex].classList.add("is-revealed");
