@@ -1930,6 +1930,42 @@
     .included-list.confere.is-in .included-item:nth-child(7) .check { transition-delay: 0.74s; }
     .included-list.confere.is-in .included-item:nth-child(8) .check { transition-delay: 0.83s; }
 
+    /* A secao de investimento era das mais paradas da pagina, e e nela
+       que a pessoa decide pagar. Os blocos entram em sequencia quando
+       o card aparece. Quem esconde e o JS. */
+    .investment-card.entra > * {
+      opacity: 0;
+      transform: translateY(18px);
+      transition:
+        opacity 0.6s cubic-bezier(0.2, 0.7, 0.3, 1),
+        transform 0.6s cubic-bezier(0.2, 0.7, 0.3, 1);
+    }
+
+    .investment-card.entra.is-in > * {
+      opacity: 1;
+      transform: none;
+    }
+
+    .investment-card.entra.is-in > *:nth-child(1) { transition-delay: 0.04s; }
+    .investment-card.entra.is-in > *:nth-child(2) { transition-delay: 0.12s; }
+    .investment-card.entra.is-in > *:nth-child(3) { transition-delay: 0.20s; }
+    .investment-card.entra.is-in > *:nth-child(4) { transition-delay: 0.30s; }
+    .investment-card.entra.is-in > *:nth-child(5) { transition-delay: 0.40s; }
+    .investment-card.entra.is-in > *:nth-child(6) { transition-delay: 0.50s; }
+    .investment-card.entra.is-in > *:nth-child(7) { transition-delay: 0.58s; }
+    .investment-card.entra.is-in > *:nth-child(8) { transition-delay: 0.66s; }
+    .investment-card.entra.is-in > *:nth-child(9) { transition-delay: 0.74s; }
+
+    /* o preco chega um pouco depois e com um leve avanco de escala */
+    .investment-card.entra .price-box {
+      transform: translateY(18px) scale(0.97);
+    }
+
+    .investment-card.entra.is-in .price-box {
+      transform: none;
+      transition-duration: 0.7s;
+    }
+
     .section-label {
       display: inline-flex;
       align-items: center;
@@ -3407,7 +3443,9 @@
       animation: testimonials-scroll 36s linear infinite;
     }
 
-    .testimonials-viewport:hover .testimonials-track {
+    /* pausa so enquanto o ponteiro se mexe: com :hover, um cursor
+       esquecido sobre a area congelava o carrossel indefinidamente */
+    .testimonials-viewport.pausado .testimonials-track {
       animation-play-state: paused;
     }
 
@@ -5781,6 +5819,44 @@
       }
 
 
+
+
+
+      // card de investimento: os blocos entram em sequencia
+      const oferta = document.querySelector(".investment-card");
+      if (oferta) {
+        oferta.classList.add("entra");
+        const mostrar = () => oferta.classList.add("is-in");
+        const obs = new IntersectionObserver((entradas) => {
+          for (const e of entradas) {
+            if (!e.isIntersecting) continue;
+            mostrar();
+            obs.disconnect();
+          }
+        }, { threshold: 0.15 });
+        obs.observe(oferta);
+        // rede de segurança: é a seção onde a venda acontece, então ela
+        // aparece de qualquer jeito se o observador falhar
+        setTimeout(mostrar, 4000);
+      }
+
+      // depoimentos: pausa enquanto o ponteiro se mexe, solta 1,6s depois
+      const depoimentos = document.querySelector(".testimonials-viewport");
+      if (depoimentos) {
+        let soltarEm = 0;
+        const segurar = (ms) => {
+          soltarEm = performance.now() + ms;
+          depoimentos.classList.add("pausado");
+          clearTimeout(depoimentos._t);
+          depoimentos._t = setTimeout(() => {
+            if (performance.now() >= soltarEm) depoimentos.classList.remove("pausado");
+          }, ms + 40);
+        };
+        depoimentos.addEventListener("pointermove", (e) => {
+          if (e.pointerType === "mouse") segurar(1600);
+        }, { passive: true });
+        depoimentos.addEventListener("touchstart", () => segurar(4000), { passive: true });
+      }
 
       // "O que esta incluido": os itens entram em sequencia e o check
       // aparece logo depois de cada um. Quem esconde e o JS, entao uma
