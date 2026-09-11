@@ -4537,12 +4537,19 @@
           const paradoAgora = (t) =>
             document.hidden || t < retomarEm || caixa.matches(":focus-within");
 
+          // mesma razao do mostruario: o acumulador guarda a fracao
+          // que o scrollLeft do Safari descartaria a cada quadro
+          let pos = trilho.scrollLeft;
+
           const quadro = (t) => {
             const dt = anteriorT ? Math.min(t - anteriorT, 48) : 0;
             anteriorT = t;
             if (!paradoAgora(t) && metade > 0) {
-              trilho.scrollLeft += (VELOCIDADE * dt) / 1000;
-              if (trilho.scrollLeft >= metade) trilho.scrollLeft -= metade;
+              pos += (VELOCIDADE * dt) / 1000;
+              if (pos >= metade) pos -= metade;
+              trilho.scrollLeft = pos;
+            } else {
+              pos = trilho.scrollLeft;
             }
             requestAnimationFrame(quadro);
           };
@@ -4612,7 +4619,12 @@
         let anteriorT = 0;
         let retomarEm = 0;
 
-        if (paraTras) fila.scrollLeft = metade();
+        // A posicao e guardada aqui, em vez de somada direto no
+        // scrollLeft. O Safari arredonda scrollLeft para inteiro, entao
+        // os 0,9px de cada quadro se perdiam na leitura e a fileira
+        // nunca saia do lugar.
+        let pos = paraTras ? metade() : 0;
+        fila.scrollLeft = pos;
 
         // Pausa so quando o ponteiro se mexe sobre a fileira. Usar
         // :hover fazia a fileira sob o cursor congelar enquanto a
@@ -4623,10 +4635,14 @@
           const dt = anteriorT ? Math.min(t - anteriorT, 48) : 0;
           anteriorT = t;
           if (!parado(t)) {
-            fila.scrollLeft += ((paraTras ? -1 : 1) * VELOCIDADE * dt) / 1000;
             const m = metade();
-            if (fila.scrollLeft >= m) fila.scrollLeft -= m;
-            else if (fila.scrollLeft <= 0) fila.scrollLeft += m;
+            pos += ((paraTras ? -1 : 1) * VELOCIDADE * dt) / 1000;
+            if (pos >= m) pos -= m;
+            else if (pos <= 0) pos += m;
+            fila.scrollLeft = pos;
+          } else {
+            // se a pessoa arrastou, o laco continua de onde ela parou
+            pos = fila.scrollLeft;
           }
           requestAnimationFrame(quadro);
         };
