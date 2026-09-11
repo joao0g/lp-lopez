@@ -1913,14 +1913,58 @@
         0 -10px 26px rgba(93, 65, 8, 0.22) inset;
     }
 
+    /* O brilho existia, mas so acontecia no hover: num CTA vale a pena
+       ele passar sozinho, com uma pausa longa entre as passadas para
+       chamar atencao sem virar pisca-pisca. */
+    @keyframes ctaBrilho {
+      0%,
+      64% {
+        transform: translateX(-120%);
+      }
+      88%,
+      100% {
+        transform: translateX(120%);
+      }
+    }
+
+    @keyframes ctaRespira {
+      0%,
+      100% {
+        box-shadow:
+          0 22px 58px rgba(201, 168, 76, 0.32),
+          0 0 0 0 rgba(201, 168, 76, 0),
+          0 1px 0 rgba(255, 255, 255, 0.38) inset,
+          0 -10px 26px rgba(93, 65, 8, 0.22) inset;
+      }
+      50% {
+        box-shadow:
+          0 22px 64px rgba(201, 168, 76, 0.46),
+          0 0 0 7px rgba(201, 168, 76, 0.07),
+          0 1px 0 rgba(255, 255, 255, 0.38) inset,
+          0 -10px 26px rgba(93, 65, 8, 0.22) inset;
+      }
+    }
+
+    .cta-button {
+      animation: ctaRespira 3.4s ease-in-out infinite;
+    }
+
     .cta-button::before {
       content: "";
       position: absolute;
       inset: 0;
       background: linear-gradient(110deg, transparent 0%, rgba(255, 255, 255, 0.45) 46%, transparent 58%);
       transform: translateX(-120%);
-      transition: transform 0.6s ease;
+      animation: ctaBrilho 4.6s ease-in-out infinite;
       pointer-events: none;
+    }
+
+
+    @media (prefers-reduced-motion: reduce) {
+      .cta-button,
+      .cta-button::before {
+        animation: none;
+      }
     }
 
     .cta-button::after {
@@ -1933,8 +1977,11 @@
       transition: transform 0.25s ease;
     }
 
+    /* no hover a animacao sai de cena: quem ja achou o botao nao
+       precisa mais ser chamado, e o estado de hover aparece inteiro */
     .cta-button:hover,
     .cta-button:focus-visible {
+      animation: none;
       background:
         linear-gradient(135deg, #ffe19a 0%, #d8b653 44%, #b88f2d 100%);
       box-shadow:
