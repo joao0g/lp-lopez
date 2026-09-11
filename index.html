@@ -1883,6 +1883,53 @@
       }
     }
 
+    /* Os itens do "o que esta incluido" entram em sequencia, com o
+       check aparecendo antes do texto, como uma lista sendo conferida. */
+    .included-list.confere .included-item {
+      opacity: 0;
+      transform: translateY(16px);
+      transition:
+        opacity 0.55s cubic-bezier(0.2, 0.7, 0.3, 1),
+        transform 0.55s cubic-bezier(0.2, 0.7, 0.3, 1);
+    }
+
+    .included-list.confere .included-item .check {
+      transform: scale(0.4);
+      opacity: 0;
+      transition:
+        transform 0.45s cubic-bezier(0.3, 1.5, 0.5, 1),
+        opacity 0.35s ease;
+    }
+
+    .included-list.confere.is-in .included-item {
+      opacity: 1;
+      transform: none;
+    }
+
+    .included-list.confere.is-in .included-item .check {
+      transform: none;
+      opacity: 1;
+    }
+
+    .included-list.confere.is-in .included-item:nth-child(1) { transition-delay: 0.05s; }
+    .included-list.confere.is-in .included-item:nth-child(2) { transition-delay: 0.14s; }
+    .included-list.confere.is-in .included-item:nth-child(3) { transition-delay: 0.23s; }
+    .included-list.confere.is-in .included-item:nth-child(4) { transition-delay: 0.32s; }
+    .included-list.confere.is-in .included-item:nth-child(5) { transition-delay: 0.41s; }
+    .included-list.confere.is-in .included-item:nth-child(6) { transition-delay: 0.50s; }
+    .included-list.confere.is-in .included-item:nth-child(7) { transition-delay: 0.59s; }
+    .included-list.confere.is-in .included-item:nth-child(8) { transition-delay: 0.68s; }
+
+    /* o check entra um pouco depois do proprio item */
+    .included-list.confere.is-in .included-item:nth-child(1) .check { transition-delay: 0.20s; }
+    .included-list.confere.is-in .included-item:nth-child(2) .check { transition-delay: 0.29s; }
+    .included-list.confere.is-in .included-item:nth-child(3) .check { transition-delay: 0.38s; }
+    .included-list.confere.is-in .included-item:nth-child(4) .check { transition-delay: 0.47s; }
+    .included-list.confere.is-in .included-item:nth-child(5) .check { transition-delay: 0.56s; }
+    .included-list.confere.is-in .included-item:nth-child(6) .check { transition-delay: 0.65s; }
+    .included-list.confere.is-in .included-item:nth-child(7) .check { transition-delay: 0.74s; }
+    .included-list.confere.is-in .included-item:nth-child(8) .check { transition-delay: 0.83s; }
+
     .section-label {
       display: inline-flex;
       align-items: center;
@@ -4391,11 +4438,11 @@
             <ul class="hero-trust">
               <li>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 10 12 5 2 10l10 5 10-5Z"/><path d="M6 12v5c0 1 2.7 2.5 6 2.5s6-1.5 6-2.5v-5"/></svg>
-                <span class="hero-trust-text"><span>Alunos formados</span><strong>+400</strong></span>
+                <span class="hero-trust-text"><span>Alunos formados</span><strong data-contar="400" data-prefixo="+">+400</strong></span>
               </li>
               <li>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.5 14.9 8.6l6.6.9-4.8 4.7 1.2 6.6L12 17.6l-5.9 3.2 1.2-6.6L2.5 9.5l6.6-.9L12 2.5Z"/></svg>
-                <span class="hero-trust-text"><span>Procedimentos</span><strong>+7.000</strong></span>
+                <span class="hero-trust-text"><span>Procedimentos</span><strong data-contar="7000" data-prefixo="+">+7.000</strong></span>
               </li>
               <li>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 4 13.5h6.5L11 22l9-11.5h-6.5L13 2Z"/></svg>
@@ -4453,15 +4500,15 @@
 
             <ul class="marcos">
               <li>
-                <span class="marcos-num">+7.000</span>
+                <span class="marcos-num" data-contar="7000" data-prefixo="+">+7.000</span>
                 <span class="marcos-txt">vidas transformadas em cirurgias e procedimentos</span>
               </li>
               <li>
-                <span class="marcos-num">140</span>
+                <span class="marcos-num" data-contar="140">140</span>
                 <span class="marcos-txt">turmas presenciais já formadas</span>
               </li>
               <li>
-                <span class="marcos-num">+400</span>
+                <span class="marcos-num" data-contar="400" data-prefixo="+">+400</span>
                 <span class="marcos-txt">alunos, sempre em grupos pequenos</span>
               </li>
             </ul>
@@ -5731,6 +5778,53 @@
             obs.disconnect();
           }
         }, { threshold: 0.15 }).observe(vitrine);
+      }
+
+
+
+      // "O que esta incluido": os itens entram em sequencia e o check
+      // aparece logo depois de cada um. Quem esconde e o JS, entao uma
+      // falha de script deixa a lista visivel.
+      const incluidos = document.querySelector(".included-list");
+      if (incluidos) {
+        incluidos.classList.add("confere");
+        new IntersectionObserver((entradas, obs) => {
+          for (const e of entradas) {
+            if (!e.isIntersecting) continue;
+            e.target.classList.add("is-in");
+            obs.disconnect();
+          }
+        }, { threshold: 0.2 }).observe(incluidos);
+      }
+
+      // Numeros que contam ao entrar na tela. O valor final ja esta no
+      // HTML: se o script nao rodar, o numero aparece normalmente.
+      const contadores = document.querySelectorAll("[data-contar]");
+      if (contadores.length) {
+        const formata = (n) => n.toLocaleString("pt-BR");
+        const animar = (el) => {
+          const alvo = Number(el.dataset.contar);
+          const prefixo = el.dataset.prefixo || "";
+          const inicio = performance.now();
+          const duracao = 1400;
+          const passo = (t) => {
+            const f = Math.min((t - inicio) / duracao, 1);
+            // desacelera no fim, para o numero "assentar"
+            const suave = 1 - Math.pow(1 - f, 3);
+            el.textContent = prefixo + formata(Math.round(alvo * suave));
+            if (f < 1) requestAnimationFrame(passo);
+          };
+          requestAnimationFrame(passo);
+        };
+
+        const obs = new IntersectionObserver((entradas) => {
+          for (const e of entradas) {
+            if (!e.isIntersecting) continue;
+            animar(e.target);
+            obs.unobserve(e.target);
+          }
+        }, { threshold: 0.6 });
+        contadores.forEach((el) => obs.observe(el));
       }
 
       // a trilha do curso se preenche quando entra na tela
