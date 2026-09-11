@@ -1518,6 +1518,151 @@
       }
     }
 
+    /* ===========================================================
+       Historia
+       Eram seis paragrafos seguidos, com os numeros mais fortes do
+       site perdidos no meio das frases. A citacao passa a abrir a
+       secao e os numeros viram marcos.
+       =========================================================== */
+    .story-quote {
+      position: relative;
+      margin: 0 0 26px;
+      padding-left: 26px;
+      border-left: 2px solid rgba(201, 168, 76, 0.45);
+      color: var(--white);
+      font-family: "Playfair Display", serif;
+      font-size: clamp(1.15rem, 1.7vw, 1.5rem);
+      font-style: italic;
+      line-height: 1.52;
+    }
+
+    .marcos {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin: 0 0 28px;
+      padding: 22px 0;
+      border-top: 1px solid var(--line-gold);
+      border-bottom: 1px solid var(--line-gold);
+      list-style: none;
+    }
+
+    .marcos li {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .marcos-num {
+      color: var(--gold);
+      font-family: "Playfair Display", serif;
+      font-size: clamp(1.5rem, 2.2vw, 2rem);
+      font-style: italic;
+      line-height: 1;
+    }
+
+    .marcos-txt {
+      color: var(--text-dim);
+      font-size: 0.76rem;
+      line-height: 1.4;
+    }
+
+    .story-fecho {
+      color: var(--white);
+      font-family: "Playfair Display", serif;
+      font-size: 1.14rem;
+      font-style: italic;
+    }
+
+    .story-fecho strong {
+      font-weight: 700;
+    }
+
+    .signature {
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      margin-top: 26px;
+      color: var(--gold);
+      font-family: "Inter", sans-serif;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .signature::before {
+      content: "";
+      width: 30px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold));
+    }
+
+    @media (max-width: 767px) {
+      .marcos {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        padding: 18px 0;
+        margin-bottom: 24px;
+      }
+
+      .marcos li {
+        flex-direction: row;
+        align-items: baseline;
+        gap: 11px;
+      }
+
+      .marcos-num {
+        flex: none;
+        min-width: 84px;
+      }
+
+      .story-quote {
+        padding-left: 18px;
+      }
+    }
+
+    .story-lado {
+      display: grid;
+      align-content: start;
+      gap: 20px;
+    }
+
+    /* na lateral os marcos empilham, preenchendo o espaco que sobrava
+       abaixo da foto em vez de somar altura a coluna de texto */
+    .story-lado .marcos {
+      grid-template-columns: 1fr;
+      gap: 15px;
+      margin: 0;
+      padding: 20px 22px;
+      border: 1px solid var(--line-gold);
+      border-radius: var(--radius-card);
+      background:
+        linear-gradient(180deg, rgba(201, 168, 76, 0.05), rgba(255, 255, 255, 0.01)),
+        rgba(255, 255, 255, 0.015);
+    }
+
+    .story-lado .marcos li {
+      flex-direction: row;
+      align-items: baseline;
+      gap: 13px;
+    }
+
+    .story-lado .marcos-num {
+      flex: none;
+      min-width: 92px;
+    }
+
+    @media (max-width: 767px) {
+      .story-lado .marcos {
+        padding: 17px 16px;
+      }
+
+      .story-lado .marcos-num {
+        min-width: 84px;
+      }
+    }
+
     .section-label {
       display: inline-flex;
       align-items: center;
@@ -2052,22 +2197,6 @@
     .story-copy strong {
       color: var(--white);
       font-weight: 500;
-    }
-
-    .story-quote {
-      margin: 0 0 28px;
-      color: var(--white);
-      font-size: 1.4rem;
-      font-style: italic;
-      line-height: 1.5;
-    }
-
-    .signature {
-      margin-top: 28px;
-      color: var(--gold);
-      font-family: monospace;
-      font-size: 11px;
-      letter-spacing: 3px;
     }
 
     .pillar-item {
@@ -3923,12 +4052,12 @@
             <span class="section-label">A origem</span>
             <h2>Da experiência clínica ao método</h2>
             <blockquote class="story-quote">“Como referência em procedimentos cirúrgicos e injetáveis, com atuação em harmonização facial, cirurgias estéticas da face, intercorrências e traumas, percebi que toda a experiência adquirida ao longo da minha trajetória precisava ser compartilhada.”</blockquote>
-            <p>Transformar mais de 7.000 vidas por meio do meu trabalho é motivo de muito orgulho. Mas também entendi que poderia contribuir com colegas de diferentes áreas, ajudando a formar profissionais cada vez mais preparados.</p>
-            <p>Filho de professores e de uma mãe que abriu mão do sonho de ser cirurgiã para cuidar dos filhos, encontrei no ensino uma forma de honrar esse legado. Já formei mais de 140 turmas presenciais, sempre com grupos pequenos, proporcionando uma experiência individualizada e imersiva.</p>
+            <p>Transformar tantas vidas por meio do meu trabalho é motivo de muito orgulho. Mas também entendi que poderia contribuir com colegas de diferentes áreas, ajudando a formar profissionais cada vez mais preparados.</p>
+            <p>Filho de professores e de uma mãe que abriu mão do sonho de ser cirurgiã para cuidar dos filhos, encontrei no ensino uma forma de honrar esse legado. Já formei turmas presenciais sempre com grupos pequenos, proporcionando uma experiência individualizada e imersiva.</p>
             <p>Para levar esse conhecimento a ainda mais profissionais, nasceu o <strong>Método Esculpindo Faces</strong>: um projeto educacional criado para compartilhar técnicas, experiências e resultados em escala, de forma clara, prática e acessível.</p>
             <p>O objetivo é contribuir tanto com profissionais recém-formados, que desejam começar com uma base sólida, quanto com aqueles que já possuem experiência e buscam aperfeiçoar seus resultados.</p>
             <p>Um sonho meu, para uma demanda de profissionais e de um mercado que necessitam de bons profissionais. Vocês pediram muito. Este é o meu presente e a minha contribuição para a nossa comunidade profissional.</p>
-            <p>Sejam bem-vindos ao <strong>Método Esculpindo Faces</strong>.</p>
+            <p class="story-fecho">Sejam bem-vindos ao <strong>Método Esculpindo Faces</strong>.</p>
             <div class="signature">Dr. Lopez — direção clínica e artística</div>
             <div class="section-cta">
               <a class="cta-button" href="#checkout">QUERO PARTICIPAR</a>
@@ -3936,8 +4065,25 @@
             </div>
           </div>
 
-          <div class="story-photo">
-            <img src="./ft%20historia.jpg" alt="Dr. Lopez em retrato profissional representando a construção do Método Esculpindo Faces" loading="lazy" decoding="async">
+          <div class="story-lado">
+            <div class="story-photo">
+              <img src="./historia-lopez.jpg" alt="Dr. Lopez em ambiente cirúrgico, durante procedimento" loading="lazy" decoding="async" width="853" height="1280">
+            </div>
+
+            <ul class="marcos">
+              <li>
+                <span class="marcos-num">+7.000</span>
+                <span class="marcos-txt">vidas transformadas em cirurgias e procedimentos</span>
+              </li>
+              <li>
+                <span class="marcos-num">140</span>
+                <span class="marcos-txt">turmas presenciais já formadas</span>
+              </li>
+              <li>
+                <span class="marcos-num">+400</span>
+                <span class="marcos-txt">alunos, sempre em grupos pequenos</span>
+              </li>
+            </ul>
           </div>
         </div>
       </section>
