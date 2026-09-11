@@ -1663,6 +1663,54 @@
       }
     }
 
+    /* fotos de aluno sao retratos: a proporcao muda, e sem legenda
+       porque todas diriam a mesma coisa */
+    .mostruario--alunos .mostruario-fila {
+      gap: 14px;
+    }
+
+    .aluno-foto {
+      position: relative;
+      flex: 0 0 clamp(150px, 13vw, 195px);
+      margin: 0;
+      overflow: hidden;
+      border: 1px solid var(--line-gold);
+      border-radius: var(--radius-card);
+      background: #101010;
+      aspect-ratio: 3 / 4;
+    }
+
+    .aluno-foto img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.3, 1);
+    }
+
+    .aluno-foto:hover img {
+      transform: scale(1.04);
+    }
+
+    @media (max-width: 767px) {
+      .mostruario--alunos .mostruario-fila {
+        gap: 10px;
+      }
+
+      .aluno-foto {
+        flex-basis: 38vw;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .aluno-foto img {
+        transition: none;
+      }
+
+      .aluno-foto:hover img {
+        transform: none;
+      }
+    }
+
     .section-label {
       display: inline-flex;
       align-items: center;
@@ -4217,6 +4265,114 @@
       <section class="section">
         <div class="container">
           <div class="content-narrow">
+            <span class="section-label">Alunos</span>
+            <h2>Alunos que passaram pelo presencial</h2>
+            <p class="lead diploma-intro">Antes de chegar ao digital, este método foi refinado ao vivo, em sala, com acompanhamento próximo. Alunos saíram da imersão presencial com diploma nas mãos e mais segurança para aplicar o método.</p>
+            <p class="authority-note">Mais de <strong>400 alunos</strong> já passaram pelas formações presenciais do Dr. Lopez antes da expansão para o digital.</p>
+          </div>
+
+          <div class="authority-strip">
+            <div class="authority-pill">Imersão presencial validada</div>
+            <div class="authority-pill">Aplicação prática supervisionada</div>
+            <div class="authority-pill">Método lapidado em campo real</div>
+            <div class="authority-pill">+7.000 cirurgias e procedimentos realizados</div>
+          </div>
+
+          <div class="mostruario mostruario--alunos">
+            <div class="mostruario-fila" data-sentido="ida">
+                <figure class="aluno-foto">
+                  <img src="./alunos/principal-01.jpeg" alt="Dr. Lopez ao lado de aluna com certificados da formação presencial" loading="lazy" decoding="async">
+                </figure>
+                <figure class="aluno-foto">
+                  <img src="./alunos/principal-02.jpeg" alt="Dr. Lopez ao lado de aluna com certificados da formação presencial" loading="lazy" decoding="async">
+                </figure>
+                <figure class="aluno-foto">
+                  <img src="./alunos/principal-03.jpeg" alt="Dr. Lopez ao lado de aluna com certificado da formação presencial" loading="lazy" decoding="async">
+                </figure>
+                <figure class="aluno-foto">
+                  <img src="./alunos/principal-05.jpeg" alt="Dr. Lopez ao lado de aluno com certificado da formação presencial" loading="lazy" decoding="async">
+                </figure>
+                <figure class="aluno-foto">
+                  <img src="./alunos/principal-04.jpeg" alt="Dr. Lopez ao lado de turma presencial com certificados" loading="lazy" decoding="async">
+                </figure>
+                <figure class="aluno-foto">
+                  <img src="./alunos/PHOTO-2026-04-23-13-47-43.jpg" alt="Dr. Lopez ao lado de aluna com certificados da formação presencial" loading="lazy" decoding="async">
+                </figure>
+                <figure class="aluno-foto">
+                  <img src="./alunos/PHOTO-2026-04-23-13-46-32.jpg" alt="Dr. Lopez ao lado de aluna segurando certificado da formação presencial" loading="lazy" decoding="async">
+                </figure>
+                <figure class="aluno-foto">
+                  <img src="./alunos/PHOTO-2026-04-23-13-46-31.jpg" alt="Dr. Lopez ao lado de aluno com certificado de conclusão" loading="lazy" decoding="async">
+                </figure>
+                <figure class="aluno-foto">
+                  <img src="./alunos/aluno-04.jpeg" alt="Dr. Lopez ao lado de aluno segurando certificado de lipoescultura HD de papada e pescoço" loading="lazy" decoding="async">
+                </figure>
+                <figure class="aluno-foto">
+                  <img src="./alunos/aluno-05.jpeg" alt="Dr. Lopez ao lado de aluna segurando certificado de otomodelação" loading="lazy" decoding="async">
+                </figure>
+                <figure class="aluno-foto">
+                  <img src="./alunos/aluno-06.jpeg" alt="Dr. Lopez ao lado de aluna segurando certificado de otomodelação" loading="lazy" decoding="async">
+                </figure>
+                <figure class="aluno-foto">
+                  <img src="./alunos/aluno-07.jpeg" alt="Dr. Lopez ao lado de alunas em clínica parceira da formação presencial" loading="lazy" decoding="async">
+                </figure>
+                <figure class="aluno-foto">
+                  <img src="./alunos/aluno-08.jpeg" alt="Dr. Lopez ao lado de aluno segurando certificado de cirurgia de emagrecimento facial" loading="lazy" decoding="async">
+                </figure>
+            </div>
+            <div class="mostruario-fila" data-sentido="volta">
+                <figure class="aluno-foto">
+                  <img src="./alunos/aluno-09.jpeg" alt="Dr. Lopez ao lado de aluna segurando certificado de otomodelação" loading="lazy" decoding="async">
+                </figure>
+                <figure class="aluno-foto">
+                  <img src="./alunos/aluno-10.jpeg" alt="Dr. Lopez ao lado de aluna segurando certificado de lipoescultura de papada e pescoço" loading="lazy" decoding="async">
+                </figure>
+                <figure class="aluno-foto">
+                  <img src="./alunos/aluno-11.jpeg" alt="Dr. Lopez ao lado de aluna segurando certificado de lipoescultura de papada e pescoço" loading="lazy" decoding="async">
+                </figure>
+                <figure class="aluno-foto">
+                  <img src="./alunos/aluno-12.jpeg" alt="Dr. Lopez ao lado de duas alunas certificadas em clínica parceira" loading="lazy" decoding="async">
+                </figure>
+                <figure class="aluno-foto">
+                  <img src="./alunos/aluno-13.jpeg" alt="Dr. Lopez ao lado de quatro alunas certificadas em clínica parceira" loading="lazy" decoding="async">
+                </figure>
+                <figure class="aluno-foto">
+                  <img src="./alunos/aluno-14.jpeg" alt="Dr. Lopez ao lado de aluna segurando certificado de lipoescultura de papada e pescoço" loading="lazy" decoding="async">
+                </figure>
+                <figure class="aluno-foto">
+                  <img src="./alunos/aluno-15.jpeg" alt="Dr. Lopez ao lado de aluna segurando três certificados de otomodelação" loading="lazy" decoding="async">
+                </figure>
+                <figure class="aluno-foto">
+                  <img src="./alunos/aluno-16.jpeg" alt="Dr. Lopez ao lado de aluna segurando certificado de lipoescultura de papada e pescoço" loading="lazy" decoding="async">
+                </figure>
+                <figure class="aluno-foto">
+                  <img src="./alunos/aluno-17.jpeg" alt="Dr. Lopez ao lado de aluna segurando certificado de otomodelação" loading="lazy" decoding="async">
+                </figure>
+                <figure class="aluno-foto">
+                  <img src="./alunos/aluno-18.jpeg" alt="Dr. Lopez ao lado de aluna segurando certificado de otomodelação" loading="lazy" decoding="async">
+                </figure>
+                <figure class="aluno-foto">
+                  <img src="./alunos/aluno-19.jpeg" alt="Dr. Lopez ao lado de aluna segurando certificado de otomodelação" loading="lazy" decoding="async">
+                </figure>
+                <figure class="aluno-foto">
+                  <img src="./alunos/aluno-20.jpeg" alt="Dr. Lopez ao lado de aluna segurando dois certificados da formação presencial" loading="lazy" decoding="async">
+                </figure>
+                <figure class="aluno-foto">
+                  <img src="./alunos/aluno-21.jpeg" alt="Instrutores da formação segurando certificado de otomodelação de aluna" loading="lazy" decoding="async">
+                </figure>
+            </div>
+          </div>
+
+          <div class="section-cta is-centered">
+            <a class="cta-button" href="#checkout">QUERO MINHA VAGA</a>
+            <div class="section-cta-note">Mais de 400 alunos já passaram pelas formações presenciais antes da expansão para o digital.</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="content-narrow">
             <span class="section-label">Resultados</span>
             <h2>Galeria de resultados</h2>
             <p class="lead">Uma amostra do padrão de excelência que você vai aprender a entregar.</p>
@@ -4329,98 +4485,6 @@
                 </figure>
             </div>
           </div></section>
-
-      <section class="section">
-        <div class="container">
-          <div class="content-narrow">
-            <span class="section-label">Alunos</span>
-            <h2>Alunos que passaram pelo presencial</h2>
-            <p class="lead diploma-intro">Antes de chegar ao digital, este método foi refinado ao vivo, em sala, com acompanhamento próximo. Alunos saíram da imersão presencial com diploma nas mãos e mais segurança para aplicar o método.</p>
-            <p class="authority-note">Mais de <strong>400 alunos</strong> já passaram pelas formações presenciais do Dr. Lopez antes da expansão para o digital.</p>
-          </div>
-
-          <div class="authority-strip">
-            <div class="authority-pill">Imersão presencial validada</div>
-            <div class="authority-pill">Aplicação prática supervisionada</div>
-            <div class="authority-pill">Método lapidado em campo real</div>
-            <div class="authority-pill">+7.000 cirurgias e procedimentos realizados</div>
-          </div>
-
-          <div class="rail-wrap">
-            <button class="rail-nav rail-prev" type="button" aria-label="Anterior" data-rail-prev>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
-            </button>
-            <div class="rail">
-            <article class="diploma-card">
-              <div class="diploma-photo">
-                <img src="./alunos/principal-01.jpeg" alt="Dr. Lopez ao lado de aluna com certificados da formação presencial" loading="lazy" decoding="async">
-              </div>
-              <div class="diploma-copy">
-                <div class="diploma-name">Aluna certificada</div>
-                <div class="diploma-role">Turma presencial</div>
-                <p>Formação concluída com certificação em mãos e validação prática do método no presencial.</p>
-                <div class="diploma-proof">Diploma entregue ao vivo</div>
-              </div>
-            </article>
-            <article class="diploma-card">
-              <div class="diploma-photo">
-                <img src="./alunos/principal-02.jpeg" alt="Dr. Lopez ao lado de aluna com certificados da formação presencial" loading="lazy" decoding="async">
-              </div>
-              <div class="diploma-copy">
-                <div class="diploma-name">Aluna formada</div>
-                <div class="diploma-role">Turma presencial</div>
-                <p>Mais uma profissional formada no presencial com domínio técnico e confiança para aplicar.</p>
-                <div class="diploma-proof">Método testado em sala</div>
-              </div>
-            </article>
-            <article class="diploma-card">
-              <div class="diploma-photo">
-                <img src="./alunos/principal-03.jpeg" alt="Dr. Lopez ao lado de aluna com certificado da formação presencial" loading="lazy" decoding="async">
-              </div>
-              <div class="diploma-copy">
-                <div class="diploma-name">Aluna certificada</div>
-                <div class="diploma-role">Formação concluída</div>
-                <p>Autoridade construída no presencial com acompanhamento próximo e entrega real de resultado.</p>
-                <div class="diploma-proof">Evolução acompanhada de perto</div>
-              </div>
-            </article>
-            <article class="diploma-card">
-              <div class="diploma-photo">
-                <img src="./alunos/principal-05.jpeg" alt="Dr. Lopez ao lado de aluno com certificado da formação presencial" loading="lazy" decoding="async">
-              </div>
-              <div class="diploma-copy">
-                <div class="diploma-name">Aluno certificado</div>
-                <div class="diploma-role">Turma presencial</div>
-                <p>Profissionais que passaram pelo método presencial e saíram mais preparados para aplicar.</p>
-                <div class="diploma-proof">Certificação entregue em sala</div>
-              </div>
-            </article>
-            <article class="diploma-card">
-              <div class="diploma-photo">
-                <img src="./alunos/principal-04.jpeg" alt="Dr. Lopez ao lado de turma presencial com certificados" loading="lazy" decoding="async">
-              </div>
-              <div class="diploma-copy">
-                <div class="diploma-name">Turma certificada</div>
-                <div class="diploma-role">Imersão presencial</div>
-                <p>Uma foto que mostra a força das turmas presenciais e a confiança construída em sala.</p>
-                <div class="diploma-proof">Formação validada ao vivo</div>
-              </div>
-            </article>
-          </div>
-            <button class="rail-nav rail-next" type="button" aria-label="Próximo" data-rail-next>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
-            </button>
-          </div>
-          <div class="diploma-actions">
-            <a class="secondary-link" href="./alunos">Ver mais</a>
-          </div>
-          <div class="section-cta is-centered">
-            <a class="cta-button" href="#checkout">QUERO MINHA VAGA</a>
-            <div class="section-cta-note">Mais de 400 alunos já passaram pelas formações presenciais antes da expansão para o digital.</div>
-          </div>
-        </div>
-      </section>
-
       <section class="section">
         <div class="container">
           <div class="content-narrow">
