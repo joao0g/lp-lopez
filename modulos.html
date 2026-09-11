@@ -591,7 +591,48 @@
         font-size: 0.78rem;
       }
     }
+
+    /* Entrada escalonada dos cards, igual a home. Quem esconde e o JS:
+       sem script, tudo aparece normalmente. */
+    .revelar {
+      opacity: 0;
+      transform: translateY(22px);
+      transition:
+        opacity 0.7s cubic-bezier(0.2, 0.7, 0.3, 1),
+        transform 0.7s cubic-bezier(0.2, 0.7, 0.3, 1);
+    }
+
+    .revelar.is-in {
+      opacity: 1;
+      transform: none;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .revelar {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+    }
   </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Módulos avulsos do Método Esculpindo Faces",
+    "url": "https://metodo.drlopez.com.br/modulos",
+    "numberOfItems": 6,
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Lipoescultura HD" },
+      { "@type": "ListItem", "position": 2, "name": "Otomodelação (Orelha de Abano)" },
+      { "@type": "ListItem", "position": 3, "name": "Rino Definitiva com Fios" },
+      { "@type": "ListItem", "position": 4, "name": "Bioplastia Facial (Bichectomia)" },
+      { "@type": "ListItem", "position": 5, "name": "Preenchimentos e Botox" },
+      { "@type": "ListItem", "position": 6, "name": "Alectomia" }
+    ]
+  }
+  </script>
 </head>
 <body>
   <header class="topbar">
@@ -734,5 +775,33 @@
       </div>
     </section>
   </main>
+
+  <script>
+    (() => {
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+      const alvos = document.querySelectorAll(".module-card, .student-card, .meta-pill");
+      if (!alvos.length) return;
+
+      const obs = new IntersectionObserver((entradas) => {
+        for (const e of entradas) {
+          if (!e.isIntersecting) continue;
+          e.target.classList.add("is-in");
+          obs.unobserve(e.target);
+        }
+      }, { threshold: 0.12, rootMargin: "0px 0px -6% 0px" });
+
+      // conta por grupo: senao o primeiro card herdava o atraso dos
+      // pills que vem antes dele e entrava por ultimo
+      const contagem = {};
+      alvos.forEach((el) => {
+        const grupo = el.className.split(" ")[0];
+        contagem[grupo] = (contagem[grupo] || 0) + 1;
+        el.classList.add("revelar");
+        el.style.transitionDelay = ((contagem[grupo] - 1) % 4) * 90 + "ms";
+        obs.observe(el);
+      });
+    })();
+  </script>
 </body>
 </html>

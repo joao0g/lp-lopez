@@ -414,7 +414,46 @@
         font-size: 0.78rem;
       }
     }
+
+    /* Entrada escalonada dos cards, igual a home. Quem esconde e o JS:
+       sem script, tudo aparece normalmente. */
+    .revelar {
+      opacity: 0;
+      transform: translateY(22px);
+      transition:
+        opacity 0.7s cubic-bezier(0.2, 0.7, 0.3, 1),
+        transform 0.7s cubic-bezier(0.2, 0.7, 0.3, 1);
+    }
+
+    .revelar.is-in {
+      opacity: 1;
+      transform: none;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .revelar {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+    }
   </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "Alunos presenciais do Método Esculpindo Faces",
+    "url": "https://metodo.drlopez.com.br/alunos",
+    "description": "Galeria de alunos que concluíram as formações presenciais do Dr. Lopez.",
+    "inLanguage": "pt-BR",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "Método Esculpindo Faces",
+      "url": "https://metodo.drlopez.com.br/"
+    }
+  }
+  </script>
 </head>
 <body>
   <header class="topbar">
@@ -687,5 +726,33 @@
       </div>
     </section>
   </main>
+
+  <script>
+    (() => {
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+      const alvos = document.querySelectorAll(".module-card, .student-card, .meta-pill");
+      if (!alvos.length) return;
+
+      const obs = new IntersectionObserver((entradas) => {
+        for (const e of entradas) {
+          if (!e.isIntersecting) continue;
+          e.target.classList.add("is-in");
+          obs.unobserve(e.target);
+        }
+      }, { threshold: 0.12, rootMargin: "0px 0px -6% 0px" });
+
+      // conta por grupo: senao o primeiro card herdava o atraso dos
+      // pills que vem antes dele e entrava por ultimo
+      const contagem = {};
+      alvos.forEach((el) => {
+        const grupo = el.className.split(" ")[0];
+        contagem[grupo] = (contagem[grupo] || 0) + 1;
+        el.classList.add("revelar");
+        el.style.transitionDelay = ((contagem[grupo] - 1) % 4) * 90 + "ms";
+        obs.observe(el);
+      });
+    })();
+  </script>
 </body>
 </html>
