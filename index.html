@@ -3269,6 +3269,46 @@
       height: 58px;
     }
 
+    .guarantee-box {
+      margin-top: 26px;
+      text-align: left;
+      grid-template-columns: 58px 1fr;
+    }
+
+    .guarantee-icon {
+      color: var(--gold);
+    }
+
+    .guarantee-title {
+      margin-bottom: 6px;
+      color: var(--white);
+      font-family: "Playfair Display", serif;
+      font-size: 1.18rem;
+      font-weight: 700;
+    }
+
+    .guarantee-text {
+      color: var(--text-dim);
+      font-size: 0.88rem;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 767px) {
+      .guarantee-box {
+        gap: 14px;
+        padding: 22px;
+        margin-top: 22px;
+      }
+
+      .guarantee-title {
+        font-size: 1.06rem;
+      }
+
+      .guarantee-text {
+        font-size: 0.84rem;
+      }
+    }
+
     .testimonials-viewport {
       margin-top: 30px;
       overflow: hidden;
@@ -4214,6 +4254,46 @@
       }
     }
   </style>
+
+  <!-- ===================================================================
+       RASTREAMENTO
+       Troque SEU_PIXEL_ID pelo numero do seu Pixel (Gerenciador de
+       Eventos do Meta > Fontes de dados). Enquanto o marcador estiver
+       ai, nada e enviado: o codigo confere antes de disparar.
+       =================================================================== -->
+  <script>
+    window.PIXEL_META_ID = "SEU_PIXEL_ID";
+    window.GA_ID = "";               // opcional, formato G-XXXXXXXXXX
+  </script>
+
+  <script>
+    (() => {
+      const id = window.PIXEL_META_ID;
+      if (!id || id === "SEU_PIXEL_ID") return;   // ainda nao configurado
+
+      !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+      n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+      document,'script','https://connect.facebook.net/en_US/fbevents.js');
+
+      fbq("init", id);
+      fbq("track", "PageView");
+    })();
+
+    (() => {
+      const ga = window.GA_ID;
+      if (!ga) return;
+      const t = document.createElement("script");
+      t.async = true;
+      t.src = "https://www.googletagmanager.com/gtag/js?id=" + ga;
+      document.head.appendChild(t);
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function () { dataLayer.push(arguments); };
+      gtag("js", new Date());
+      gtag("config", ga);
+    })();
+  </script>
 </head>
 <body>
   <div class="page-shell">
@@ -5002,6 +5082,17 @@
               </li>
             </ul>
 
+            <div class="guarantee-box">
+              <svg class="guarantee-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 2.6 4.2 6v5.6c0 4.8 3.3 8.7 7.8 10.1 4.5-1.4 7.8-5.3 7.8-10.1V6L12 2.6Z"/>
+                <path d="m8.7 12.1 2.3 2.3 4.3-4.6"/>
+              </svg>
+              <div>
+                <div class="guarantee-title">7 dias de garantia</div>
+                <p class="guarantee-text">Você entra, assiste e avalia sem pressa. Se concluir que não é para você, basta pedir o reembolso em até 7 dias da compra e devolvemos o valor integral, sem burocracia.</p>
+              </div>
+            </div>
+
             <div class="card-footer">Acesso imediato após a confirmação do pagamento.</div>
             <p class="card-footer presencial-note">Prefere investir ainda mais em você mesmo e aprender pessoalmente com o Dr. Lopez? <a href="https://wa.me/5511941736368?text=Ol%C3%A1%2C%20quero%20saber%20mais%20sobre%20as%20turmas%20presenciais%20do%20Dr%20Lopez%20M%C3%A9todo%20Esculpindo%20Faces" target="_blank" rel="noreferrer">Fale sobre as turmas presenciais</a>.</p>
           </div>
@@ -5118,6 +5209,51 @@
           </div>
 
           <div class="faq-list content-narrow">
+            <article class="faq-item">
+              <button class="faq-trigger" type="button" aria-expanded="false">
+                <span class="faq-question">E se eu não gostar do curso?</span>
+                <span class="faq-icon" aria-hidden="true"></span>
+              </button>
+              <div class="faq-answer">
+                <p>Você tem 7 dias de garantia a partir da compra. Entra, assiste e avalia com calma: se concluir que não é para você, é só pedir o reembolso dentro desse prazo e devolvemos o valor integral.</p>
+              </div>
+            </article>
+            <article class="faq-item">
+              <button class="faq-trigger" type="button" aria-expanded="false">
+                <span class="faq-question">Vale a pena levar o combo ou comprar módulo por módulo?</span>
+                <span class="faq-icon" aria-hidden="true"></span>
+              </button>
+              <div class="faq-answer">
+                <p>Os seis módulos comprados separadamente somam R$ 2.384,70. O Combo Completo sai por R$ 1.997,90 e ainda inclui os bônus e o suporte de 1 ano — uma economia de R$ 386,80 em relação a montar a formação avulsa.</p>
+              </div>
+            </article>
+            <article class="faq-item">
+              <button class="faq-trigger" type="button" aria-expanded="false">
+                <span class="faq-question">Sou recém-formado. O conteúdo não vai ser avançado demais?</span>
+                <span class="faq-icon" aria-hidden="true"></span>
+              </button>
+              <div class="faq-answer">
+                <p>Não. A sequência começa nos fundamentos de leitura facial antes de chegar ao procedimento, justamente para quem está construindo a base. E o suporte de 1 ano com o Dr. Lopez existe para as dúvidas que aparecem na aplicação.</p>
+              </div>
+            </article>
+            <article class="faq-item">
+              <button class="faq-trigger" type="button" aria-expanded="false">
+                <span class="faq-question">Como recebo o acesso depois de comprar?</span>
+                <span class="faq-icon" aria-hidden="true"></span>
+              </button>
+              <div class="faq-answer">
+                <p>O acesso é liberado assim que o pagamento é confirmado, na plataforma do curso. Não há espera nem turma para abrir.</p>
+              </div>
+            </article>
+            <article class="faq-item">
+              <button class="faq-trigger" type="button" aria-expanded="false">
+                <span class="faq-question">Posso parcelar?</span>
+                <span class="faq-icon" aria-hidden="true"></span>
+              </button>
+              <div class="faq-answer">
+                <p>Sim, em até 12x de R$ 206,26 no cartão, ou à vista por R$ 1.997,90.</p>
+              </div>
+            </article>
             <article class="faq-item">
               <button class="faq-trigger" type="button" aria-expanded="false">
                 <span class="faq-question">Quais formações preciso ter para adquirir o Método Esculpindo Faces?</span>
@@ -5328,6 +5464,45 @@
     })();
 
 
+
+
+    // Eventos de conversao. So disparam quando o pixel estiver
+    // configurado; sem ID, fbq nem existe e nada acontece.
+    (() => {
+      const conta = (evento, dados) => {
+        if (typeof fbq === "function") fbq("track", evento, dados);
+        if (typeof gtag === "function") gtag("event", evento, dados || {});
+      };
+
+      // clique em qualquer botao de compra
+      document.querySelectorAll(".cta-button, .sticky-cta-button, .topbar-cta").forEach((b) => {
+        b.addEventListener("click", () => {
+          const vaiParaCheckout = /cakto|socializepay|pay\./i.test(b.href || "");
+          conta(vaiParaCheckout ? "InitiateCheckout" : "Lead", {
+            content_name: "Método Esculpindo Faces",
+            value: 1997.9,
+            currency: "BRL",
+          });
+        });
+      });
+
+      // abriu o video de apresentacao
+      document.querySelectorAll("[data-open-vsl]").forEach((b) => {
+        b.addEventListener("click", () => conta("ViewContent", { content_name: "VSL" }));
+      });
+
+      // chegou na secao de preco: sinal forte de intencao
+      const checkout = document.getElementById("checkout");
+      if (checkout) {
+        new IntersectionObserver((entradas, obs) => {
+          for (const e of entradas) {
+            if (!e.isIntersecting) continue;
+            conta("ViewContent", { content_name: "Investimento" });
+            obs.disconnect();
+          }
+        }, { threshold: 0.4 }).observe(checkout);
+      }
+    })();
 
     (() => {
       const fila = document.querySelector(".modulos-fila");
