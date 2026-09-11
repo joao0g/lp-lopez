@@ -1793,9 +1793,14 @@
       transition: border-color 0.35s ease, transform 0.35s ease;
     }
 
+    /* o foco escreve transform a cada quadro, entao o hover so muda a borda */
     .modulo-card:hover {
-      border-color: rgba(201, 168, 76, 0.6);
-      transform: translateY(-4px);
+      border-color: rgba(201, 168, 76, 0.75);
+    }
+
+    .modulos-fila.is-in .modulo-card {
+      transform-origin: center center;
+      transition: border-color 0.3s ease;
     }
 
     /* escurece a base para o texto ficar legivel sobre a foto */
@@ -5552,6 +5557,24 @@
       let retomarEm = 0;
       const VELOCIDADE = 30; // px por segundo
 
+      // o card mais proximo do centro da tela fica em foco; os das
+      // laterais recuam em escala e brilho, como numa vitrine
+      const cards = [...fila.querySelectorAll(".modulo-card")];
+      const focar = () => {
+        if (!fila.classList.contains("is-in")) return; // espera a entrada terminar
+        const centro = innerWidth / 2;
+        for (const card of cards) {
+          const k = card.getBoundingClientRect();
+          const d = Math.abs(k.left + k.width / 2 - centro);
+          // a curva ao quadrado faz o foco cair rapido nas laterais;
+          // linear deixava todos os cards visiveis quase iguais
+          const perto = Math.max(0, 1 - d / (innerWidth * 0.42));
+          const foco = perto * perto;
+          card.style.transform = `scale(${(0.84 + foco * 0.16).toFixed(3)})`;
+          card.style.filter = `brightness(${(0.4 + foco * 0.6).toFixed(3)})`;
+        }
+      };
+
       const quadro = (t) => {
         const dt = anteriorT ? Math.min(t - anteriorT, 48) : 0;
         anteriorT = t;
@@ -5563,6 +5586,7 @@
         } else {
           pos = fila.scrollLeft;
         }
+        focar();
         requestAnimationFrame(quadro);
       };
       requestAnimationFrame(quadro);
