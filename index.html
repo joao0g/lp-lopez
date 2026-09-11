@@ -1023,6 +1023,26 @@
       font-size: 1rem;
     }
 
+    /* Os pilares eram linhas empilhadas com divisoria entre elas.
+       No trilho cada um vira card, entao a divisoria sai e a borda entra. */
+    .pillar-rail .pillar-item {
+      display: block;
+      padding: 26px 24px;
+      border: 1px solid var(--line-gold);
+      border-radius: var(--radius-card);
+      background:
+        linear-gradient(180deg, rgba(201, 168, 76, 0.05), rgba(255, 255, 255, 0.01)),
+        rgba(255, 255, 255, 0.015);
+    }
+
+    .pillar-rail .pillar-num {
+      margin-bottom: 12px;
+    }
+
+    .pillar-rail .pillar-item p {
+      font-size: 0.92rem;
+    }
+
     .section-label {
       display: inline-flex;
       align-items: center;
@@ -3610,14 +3630,18 @@
       </section>
 
       <section class="section">
-        <div class="container two-column">
+        <div class="container">
           <div class="content-narrow">
             <span class="section-label">O diferencial</span>
             <h2>O que faz este método ser diferente</h2>
             <p class="lead">Não é apenas alguns minutos falando sobre a cirurgia ou o procedimento. São aulões completos e dinâmicos, com passo a passo, além da oportunidade de assistir ao procedimento filmado e narrado em cada detalhe.</p>
           </div>
 
-          <div class="pillar-list">
+          <div class="rail-wrap">
+            <button class="rail-nav rail-prev" type="button" aria-label="Anterior" data-rail-prev>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+            </button>
+            <div class="rail pillar-rail">
             <article class="pillar-item">
               <div class="pillar-num">1</div>
               <div>
@@ -3653,6 +3677,10 @@
                 <p>Possibilidade de adquirir quantos módulos quiser ou o pacote completo. Você escolhe o que quer aprender.</p>
               </div>
             </article>
+          </div>
+            <button class="rail-nav rail-next" type="button" aria-label="Próximo" data-rail-next>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+            </button>
           </div>
         </div>
       </section>
@@ -4370,11 +4398,13 @@
 
 
     (() => {
+      const semMovimento = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
       document.querySelectorAll(".rail-wrap").forEach((caixa) => {
         const trilho = caixa.querySelector(".rail");
         const anterior = caixa.querySelector("[data-rail-prev]");
         const proximo = caixa.querySelector("[data-rail-next]");
-        if (!trilho || !anterior || !proximo) return;
+        if (!trilho) return;
 
         const passo = () => {
           const item = trilho.firstElementChild;
@@ -4383,14 +4413,82 @@
           return item.getBoundingClientRect().width + gap;
         };
 
+        // ---------- laço contínuo ----------
+        // os itens são duplicados: quando a rolagem passa da metade,
+        // ela volta esse tanto e o emendado fica invisível.
+        let metade = 0;
+        const podeRolar = trilho.scrollWidth > trilho.clientWidth + 4;
+
+        if (podeRolar && !semMovimento) {
+          [...trilho.children].forEach((no) => {
+            const copia = no.cloneNode(true);
+            copia.setAttribute("aria-hidden", "true");
+            copia.querySelectorAll("a, button, [tabindex]").forEach((f) => (f.tabIndex = -1));
+            trilho.appendChild(copia);
+          });
+          metade = trilho.scrollWidth / 2;
+
+          // o laço precisa de rolagem livre; snap e suavização atrapalham
+          trilho.style.scrollSnapType = "none";
+          trilho.style.scrollBehavior = "auto";
+
+          const VELOCIDADE = 34; // px por segundo
+          let retomarEm = 0;
+          let anteriorT = 0;
+
+          // O estado de pausa e lido do proprio navegador a cada quadro
+          // (:hover e :focus-within). Guardar isso numa variavel seria
+          // fragil: um pointerup fora da janela, por exemplo, deixaria o
+          // laco parado para sempre.
+          const paradoAgora = (t) =>
+            document.hidden ||
+            t < retomarEm ||
+            caixa.matches(":hover") ||
+            caixa.matches(":focus-within");
+
+          const quadro = (t) => {
+            const dt = anteriorT ? Math.min(t - anteriorT, 48) : 0;
+            anteriorT = t;
+            if (!paradoAgora(t) && metade > 0) {
+              trilho.scrollLeft += (VELOCIDADE * dt) / 1000;
+              if (trilho.scrollLeft >= metade) trilho.scrollLeft -= metade;
+            }
+            requestAnimationFrame(quadro);
+          };
+          requestAnimationFrame(quadro);
+
+          // depois de tocar ou clicar numa seta, o laco espera um pouco
+          const adiar = (ms) => (retomarEm = performance.now() + ms);
+          trilho.addEventListener("touchstart", () => adiar(4000), { passive: true });
+          trilho.addEventListener("touchmove", () => adiar(4000), { passive: true });
+          if (anterior) anterior.addEventListener("click", () => adiar(3500));
+          if (proximo) proximo.addEventListener("click", () => adiar(3500));
+        }
+
+        if (!anterior || !proximo) return;
+
+        const rolarPara = (delta) => {
+          const antes = trilho.style.scrollBehavior;
+          trilho.style.scrollBehavior = semMovimento ? "auto" : "smooth";
+          trilho.scrollBy({ left: delta });
+          setTimeout(() => (trilho.style.scrollBehavior = antes), 600);
+        };
+
+        anterior.addEventListener("click", () => rolarPara(-passo()));
+        proximo.addEventListener("click", () => rolarPara(passo()));
+
+        // com o laço ligado nunca se chega a um fim: as setas ficam sempre ativas
+        if (metade > 0) {
+          anterior.disabled = false;
+          proximo.disabled = false;
+          return;
+        }
+
         const atualizar = () => {
           const fim = trilho.scrollWidth - trilho.clientWidth;
           anterior.disabled = trilho.scrollLeft < 8;
           proximo.disabled = trilho.scrollLeft > fim - 8;
         };
-
-        anterior.addEventListener("click", () => trilho.scrollBy({ left: -passo() }));
-        proximo.addEventListener("click", () => trilho.scrollBy({ left: passo() }));
         trilho.addEventListener("scroll", atualizar, { passive: true });
         addEventListener("resize", atualizar, { passive: true });
         atualizar();
