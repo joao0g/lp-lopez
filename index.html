@@ -1266,15 +1266,20 @@
       display: none;
     }
 
+    /* Os antes/depois vem em formatos diferentes: uns quadrados lado a
+       lado, outros verticais com dois pares empilhados. Um quadro fixo
+       cortava metade das faces, entao a altura e que e constante e cada
+       card fica com a largura da propria foto. Nada e cortado. */
     .caso-foto {
       position: relative;
-      flex: 0 0 clamp(260px, 27vw, 420px);
+      flex: 0 0 auto;
+      height: clamp(280px, 25vw, 390px);
+      aspect-ratio: var(--ar, 4 / 3);
       margin: 0;
       overflow: hidden;
       border: 1px solid var(--line-gold);
       border-radius: var(--radius-card);
       background: #101010;
-      aspect-ratio: 4 / 3;
       cursor: zoom-in;
     }
 
@@ -1315,7 +1320,7 @@
       }
 
       .caso-foto {
-        flex-basis: 70vw;
+        height: 300px;
       }
 
       .caso-foto figcaption {
@@ -5082,102 +5087,102 @@
 
           <div class="mostruario">
             <div class="mostruario-fila" data-sentido="ida">
-                <figure class="caso-foto">
-                  <img src="./casos/contorno-mandibular.jpeg" alt="Caso 1 de lipoescultura HD de papada e pescoço com comparação de perfil antes e depois" loading="lazy" decoding="async">
+                <figure class="caso-foto" style="--ar: 1000 / 1000">
+                  <img src="./casos/contorno-mandibular.jpeg" alt="Caso 1 de lipoescultura HD de papada e pescoço com comparação de perfil antes e depois" loading="lazy" decoding="async" width="1000" height="1000">
                   <figcaption>Lipoescultura HD de Papada e Pescoço</figcaption>
                 </figure>
-                <figure class="caso-foto">
-                  <img src="./casos/rino.jpeg" alt="Caso 1 de rino definitiva com fios com comparação de perfil nasal antes e depois" loading="lazy" decoding="async">
+                <figure class="caso-foto" style="--ar: 1000 / 1000">
+                  <img src="./casos/rino.jpeg" alt="Caso 1 de rino definitiva com fios com comparação de perfil nasal antes e depois" loading="lazy" decoding="async" width="1000" height="1000">
                   <figcaption>Rino Definitiva com Fios</figcaption>
                 </figure>
-                <figure class="caso-foto">
-                  <img src="./casos/orelha.jpeg" alt="Caso 1 de otomodelação de orelha de abano com comparação antes e depois" loading="lazy" decoding="async">
+                <figure class="caso-foto" style="--ar: 562 / 1000">
+                  <img src="./casos/orelha.jpeg" alt="Caso 1 de otomodelação de orelha de abano com comparação antes e depois" loading="lazy" decoding="async" width="562" height="1000">
                   <figcaption>Otomodelação</figcaption>
                 </figure>
-                <figure class="caso-foto">
-                  <img src="./casos/asa-nasal.jpeg" alt="Caso 1 de alectomia com diminuição das asas nasais antes e depois" loading="lazy" decoding="async">
+                <figure class="caso-foto" style="--ar: 1000 / 1000">
+                  <img src="./casos/asa-nasal.jpeg" alt="Caso 1 de alectomia com diminuição das asas nasais antes e depois" loading="lazy" decoding="async" width="1000" height="1000">
                   <figcaption>Alectomia — Diminuição das Asas Nasais</figcaption>
                 </figure>
-                <figure class="caso-foto">
-                  <img src="./casos/bichectomia1.jpeg" alt="Caso 1 de bichectomia com bioplastia facial antes e depois" loading="lazy" decoding="async">
+                <figure class="caso-foto" style="--ar: 591 / 504">
+                  <img src="./casos/bichectomia1.jpeg" alt="Caso 1 de bichectomia com bioplastia facial antes e depois" loading="lazy" decoding="async" width="591" height="504">
                   <figcaption>Bichectomia: Bioplastia Facial</figcaption>
                 </figure>
-                <figure class="caso-foto">
-                  <img src="./casos/preenchimento-labial.jpeg" alt="Caso 1 de preenchimento labial antes e depois" loading="lazy" decoding="async">
+                <figure class="caso-foto" style="--ar: 562 / 1000">
+                  <img src="./casos/preenchimento-labial.jpeg" alt="Caso 1 de preenchimento labial antes e depois" loading="lazy" decoding="async" width="562" height="1000">
                   <figcaption>Preenchimento Labial</figcaption>
                 </figure>
-                <figure class="caso-foto">
-                  <img src="./casos/harmonizacao.jpg" alt="Caso 1 de harmonização orofacial masculina com comparação antes e depois" loading="lazy" decoding="async">
+                <figure class="caso-foto" style="--ar: 412 / 665">
+                  <img src="./casos/harmonizacao.jpg" alt="Caso 1 de harmonização orofacial masculina com comparação antes e depois" loading="lazy" decoding="async" width="412" height="665">
                   <figcaption>Harmonização Orofacial (Preenchimentos e Botox)</figcaption>
                 </figure>
-                <figure class="caso-foto">
-                  <img src="./casos/lipohd2.jpeg" alt="Caso 2 de lipoescultura HD de papada e pescoço com comparação antes e depois" loading="lazy" decoding="async">
+                <figure class="caso-foto" style="--ar: 1000 / 1000">
+                  <img src="./casos/lipohd2.jpeg" alt="Caso 2 de lipoescultura HD de papada e pescoço com comparação antes e depois" loading="lazy" decoding="async" width="1000" height="1000">
                   <figcaption>Lipoescultura HD de Papada e Pescoço</figcaption>
                 </figure>
-                <figure class="caso-foto">
-                  <img src="./casos/rino1.jpeg" alt="Caso 2 de rino definitiva com fios com comparação de perfil nasal antes e depois" loading="lazy" decoding="async">
+                <figure class="caso-foto" style="--ar: 1000 / 1000">
+                  <img src="./casos/rino1.jpeg" alt="Caso 2 de rino definitiva com fios com comparação de perfil nasal antes e depois" loading="lazy" decoding="async" width="1000" height="1000">
                   <figcaption>Rino Definitiva com Fios</figcaption>
                 </figure>
-                <figure class="caso-foto">
-                  <img src="./casos/orelha1.jpeg" alt="Caso 2 de otomodelação de orelha de abano com comparação antes e depois" loading="lazy" decoding="async">
+                <figure class="caso-foto" style="--ar: 562 / 1000">
+                  <img src="./casos/orelha1.jpeg" alt="Caso 2 de otomodelação de orelha de abano com comparação antes e depois" loading="lazy" decoding="async" width="562" height="1000">
                   <figcaption>Otomodelação</figcaption>
                 </figure>
-                <figure class="caso-foto">
-                  <img src="./casos/asanasal1.jpeg" alt="Caso 2 de alectomia com diminuição das asas nasais antes e depois" loading="lazy" decoding="async">
+                <figure class="caso-foto" style="--ar: 562 / 1000">
+                  <img src="./casos/asanasal1.jpeg" alt="Caso 2 de alectomia com diminuição das asas nasais antes e depois" loading="lazy" decoding="async" width="562" height="1000">
                   <figcaption>Alectomia — Diminuição das Asas Nasais</figcaption>
                 </figure>
-                <figure class="caso-foto">
-                  <img src="./casos/bichectomia2.jpeg" alt="Caso 2 de bichectomia com bioplastia facial antes e depois" loading="lazy" decoding="async">
+                <figure class="caso-foto" style="--ar: 591 / 465">
+                  <img src="./casos/bichectomia2.jpeg" alt="Caso 2 de bichectomia com bioplastia facial antes e depois" loading="lazy" decoding="async" width="591" height="465">
                   <figcaption>Bichectomia: Bioplastia Facial</figcaption>
                 </figure>
             </div>
             <div class="mostruario-fila" data-sentido="volta">
-                <figure class="caso-foto">
-                  <img src="./casos/preenchimento-labial3.jpeg" alt="Caso 2 de preenchimento labial antes e depois" loading="lazy" decoding="async">
+                <figure class="caso-foto" style="--ar: 750 / 1000">
+                  <img src="./casos/preenchimento-labial3.jpeg" alt="Caso 2 de preenchimento labial antes e depois" loading="lazy" decoding="async" width="750" height="1000">
                   <figcaption>Preenchimento Labial</figcaption>
                 </figure>
-                <figure class="caso-foto">
-                  <img src="./casos/harmonizacao2.jpeg" alt="Caso 2 de harmonização orofacial masculina com comparação antes e depois" loading="lazy" decoding="async">
+                <figure class="caso-foto" style="--ar: 739 / 739">
+                  <img src="./casos/harmonizacao2.jpeg" alt="Caso 2 de harmonização orofacial masculina com comparação antes e depois" loading="lazy" decoding="async" width="739" height="739">
                   <figcaption>Harmonização Orofacial (Preenchimentos e Botox)</figcaption>
                 </figure>
-                <figure class="caso-foto">
-                  <img src="./casos/lipohd3.jpeg" alt="Caso 3 de lipoescultura HD de papada e pescoço com comparação antes e depois" loading="lazy" decoding="async">
+                <figure class="caso-foto" style="--ar: 1000 / 1000">
+                  <img src="./casos/lipohd3.jpeg" alt="Caso 3 de lipoescultura HD de papada e pescoço com comparação antes e depois" loading="lazy" decoding="async" width="1000" height="1000">
                   <figcaption>Lipoescultura HD de Papada e Pescoço</figcaption>
                 </figure>
-                <figure class="caso-foto">
-                  <img src="./casos/rino2.jpeg" alt="Caso 3 de rino definitiva com fios com comparação de perfil nasal antes e depois" loading="lazy" decoding="async">
+                <figure class="caso-foto" style="--ar: 1000 / 1000">
+                  <img src="./casos/rino2.jpeg" alt="Caso 3 de rino definitiva com fios com comparação de perfil nasal antes e depois" loading="lazy" decoding="async" width="1000" height="1000">
                   <figcaption>Rino Definitiva com Fios</figcaption>
                 </figure>
-                <figure class="caso-foto">
-                  <img src="./casos/orelha2.jpeg" alt="Caso 3 de otomodelação de orelha de abano com comparação antes e depois" loading="lazy" decoding="async">
+                <figure class="caso-foto" style="--ar: 562 / 1000">
+                  <img src="./casos/orelha2.jpeg" alt="Caso 3 de otomodelação de orelha de abano com comparação antes e depois" loading="lazy" decoding="async" width="562" height="1000">
                   <figcaption>Otomodelação</figcaption>
                 </figure>
-                <figure class="caso-foto">
-                  <img src="./casos/asanasal2.jpeg" alt="Caso 3 de alectomia com marcação cirúrgica das asas nasais" loading="lazy" decoding="async">
+                <figure class="caso-foto" style="--ar: 646 / 1000">
+                  <img src="./casos/asanasal2.jpeg" alt="Caso 3 de alectomia com marcação cirúrgica das asas nasais" loading="lazy" decoding="async" width="646" height="1000">
                   <figcaption>Alectomia — Diminuição das Asas Nasais</figcaption>
                 </figure>
-                <figure class="caso-foto">
-                  <img src="./casos/bichectomia3.jpeg" alt="Caso 3 de bichectomia com bioplastia facial antes e depois" loading="lazy" decoding="async">
+                <figure class="caso-foto" style="--ar: 591 / 511">
+                  <img src="./casos/bichectomia3.jpeg" alt="Caso 3 de bichectomia com bioplastia facial antes e depois" loading="lazy" decoding="async" width="591" height="511">
                   <figcaption>Bichectomia: Bioplastia Facial</figcaption>
                 </figure>
-                <figure class="caso-foto">
-                  <img src="./casos/preenchimento-labial2.jpeg" alt="Caso 3 de preenchimento labial antes e depois" loading="lazy" decoding="async">
+                <figure class="caso-foto" style="--ar: 562 / 1000">
+                  <img src="./casos/preenchimento-labial2.jpeg" alt="Caso 3 de preenchimento labial antes e depois" loading="lazy" decoding="async" width="562" height="1000">
                   <figcaption>Preenchimento Labial</figcaption>
                 </figure>
-                <figure class="caso-foto">
-                  <img src="./casos/harmonizacao3.jpeg" alt="Caso 3 de preenchimento de mandíbula feminino com comparação antes e depois" loading="lazy" decoding="async">
+                <figure class="caso-foto" style="--ar: 527 / 1000">
+                  <img src="./casos/harmonizacao3.jpeg" alt="Caso 3 de preenchimento de mandíbula feminino com comparação antes e depois" loading="lazy" decoding="async" width="527" height="1000">
                   <figcaption>Harmonização Orofacial (Preenchimentos e Botox)</figcaption>
                 </figure>
-                <figure class="caso-foto">
-                  <img src="./casos/asanasal3.jpeg" alt="Caso 4 de alectomia com detalhe da sutura em um dos lados" loading="lazy" decoding="async">
+                <figure class="caso-foto" style="--ar: 750 / 1000">
+                  <img src="./casos/asanasal3.jpeg" alt="Caso 4 de alectomia com detalhe da sutura em um dos lados" loading="lazy" decoding="async" width="750" height="1000">
                   <figcaption>Alectomia — Diminuição das Asas Nasais</figcaption>
                 </figure>
-                <figure class="caso-foto">
-                  <img src="./casos/asanasal4.jpeg" alt="Caso 5 de alectomia com resultado do lado já operado" loading="lazy" decoding="async">
+                <figure class="caso-foto" style="--ar: 750 / 1000">
+                  <img src="./casos/asanasal4.jpeg" alt="Caso 5 de alectomia com resultado do lado já operado" loading="lazy" decoding="async" width="750" height="1000">
                   <figcaption>Alectomia — Diminuição das Asas Nasais</figcaption>
                 </figure>
-                <figure class="caso-foto">
-                  <img src="./casos/asanasal5.jpeg" alt="Caso 6 de alectomia com vista frontal do resultado em um dos lados" loading="lazy" decoding="async">
+                <figure class="caso-foto" style="--ar: 750 / 1000">
+                  <img src="./casos/asanasal5.jpeg" alt="Caso 6 de alectomia com vista frontal do resultado em um dos lados" loading="lazy" decoding="async" width="750" height="1000">
                   <figcaption>Alectomia — Diminuição das Asas Nasais</figcaption>
                 </figure>
             </div>
