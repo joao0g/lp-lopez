@@ -59,7 +59,7 @@
       --radius-pill: 999px;
       --container: 1160px;
       --text-width: 560px;
-      --section-space: 80px;
+      --section-space: 62px;
       --side-pad: 28px;
     }
 
@@ -882,6 +882,147 @@
       }
     }
 
+    /* ===========================================================
+       Trilho horizontal
+       Grades de 3 colunas viravam 2 ou 3 linhas empilhadas e
+       esticavam a pagina. Aqui os itens correm na horizontal,
+       com arraste, snap e setas.
+       =========================================================== */
+    .rail-wrap {
+      position: relative;
+    }
+
+    .rail {
+      display: flex;
+      gap: 18px;
+      margin-top: 32px;
+      overflow-x: auto;
+      overscroll-behavior-x: contain;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      /* respiro para a sombra e o hover dos cards nao serem cortados */
+      padding: 8px 0 20px;
+      scrollbar-width: none;
+    }
+
+    .rail::-webkit-scrollbar {
+      display: none;
+    }
+
+    .rail > * {
+      flex: 0 0 clamp(250px, 30%, 340px);
+      scroll-snap-align: start;
+    }
+
+    .rail-nav {
+      position: absolute;
+      top: 50%;
+      z-index: 3;
+      display: grid;
+      place-items: center;
+      width: 44px;
+      height: 44px;
+      transform: translateY(-50%);
+      border: 1px solid var(--line-gold-strong);
+      border-radius: var(--radius-pill);
+      background: rgba(14, 12, 9, 0.88);
+      backdrop-filter: blur(10px);
+      color: var(--gold);
+      cursor: pointer;
+      transition: border-color 0.25s ease, color 0.25s ease, opacity 0.25s ease;
+    }
+
+    .rail-nav:hover,
+    .rail-nav:focus-visible {
+      border-color: var(--gold);
+      color: var(--white);
+    }
+
+    .rail-nav[disabled] {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .rail-prev {
+      left: -14px;
+    }
+
+    .rail-next {
+      right: -14px;
+    }
+
+    .rail-nav svg {
+      width: 17px;
+      height: 17px;
+    }
+
+    @media (max-width: 899px) {
+      .rail-nav {
+        display: none;
+      }
+
+      .rail {
+        gap: 14px;
+        padding-bottom: 16px;
+        /* o trilho sangra ate a borda da tela no celular */
+        margin-inline: calc(var(--side-pad) * -1);
+        padding-inline: var(--side-pad);
+        scroll-padding-left: var(--side-pad);
+      }
+
+      .rail > * {
+        flex: 0 0 82%;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .rail {
+        scroll-behavior: auto;
+      }
+    }
+
+    /* Listas de 5 a 8 itens ocupavam uma coluna so e esticavam a pagina.
+       No desktop passam a duas colunas; a divisoria de cada item segura
+       a leitura no lugar da borda unica do topo. */
+    @media (min-width: 900px) {
+      /* so a included-list ocupa a largura cheia; as outras tres vivem
+         dentro de secoes que ja sao de duas colunas, e subdividi-las
+         deixava cada item com 243px, quebrando o texto e crescendo. */
+      .included-list {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        column-gap: 48px;
+        border-top: 0;
+      }
+
+      .included-list.content-narrow {
+        width: 100%;
+      }
+    }
+
+    /* Dentro do trilho os cards ficam todos com a altura do maior,
+       entao as fotos e os textos passam a ter teto. */
+    .rail .diploma-photo {
+      aspect-ratio: 4 / 3;
+    }
+
+    .rail .press-card {
+      padding: 26px;
+      gap: 13px;
+    }
+
+    .rail .press-card.is-featured .press-title {
+      font-size: clamp(1.3rem, 2vw, 1.65rem);
+    }
+
+    .rail .press-excerpt {
+      display: -webkit-box;
+      -webkit-line-clamp: 5;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      font-size: 1rem;
+    }
+
     .section-label {
       display: inline-flex;
       align-items: center;
@@ -1480,12 +1621,6 @@
       color: var(--gold);
     }
 
-    .results-grid {
-      display: grid;
-      gap: 18px;
-      margin-top: 36px;
-    }
-
     .results-note {
       margin-top: 14px;
       color: #8d877f;
@@ -1837,11 +1972,6 @@
       background: rgba(255, 255, 255, 0.01);
     }
 
-    .diploma-grid {
-      display: grid;
-      gap: 18px;
-    }
-
     .diploma-card {
       display: flex;
       flex-direction: column;
@@ -1982,12 +2112,6 @@
 
     .press-intro {
       max-width: 720px;
-    }
-
-    .press-grid {
-      display: grid;
-      gap: 18px;
-      margin-top: 36px;
     }
 
     .press-card {
@@ -2719,21 +2843,8 @@
     }
 
     @media (min-width: 860px) {
-      .two-column,
-      .results-grid,
-      .diploma-grid,
-      .press-grid {
+      .two-column {
         grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      .results-grid,
-      .diploma-grid,
-      .press-grid {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-      }
-
-      .press-card.is-featured {
-        grid-column: span 2;
       }
 
       .guarantee-box {
@@ -2872,7 +2983,7 @@
 
     @media (max-width: 767px) {
       :root {
-        --section-space: 56px;
+        --section-space: 44px;
         --side-pad: 20px;
       }
 
@@ -3153,12 +3264,6 @@
         margin-top: 14px;
       }
 
-      .results-grid,
-      .diploma-grid,
-      .press-grid {
-        gap: 14px;
-        margin-top: 28px;
-      }
 
       .testimonials-viewport {
         margin-top: 28px;
@@ -3642,7 +3747,11 @@
             </a>
           </div>
 
-          <div class="results-grid">
+          <div class="rail-wrap">
+            <button class="rail-nav rail-prev" type="button" aria-label="Anterior" data-rail-prev>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+            </button>
+            <div class="rail">
             <div class="case-photo">
               <div class="case-carousel" data-carousel>
                 <img src="./casos/contorno-mandibular.jpeg" alt="Caso 1 de lipoescultura HD de papada e pescoço com comparação de perfil antes e depois" class="is-active" loading="lazy" decoding="async">
@@ -3783,6 +3892,10 @@
               </div>
             </div>
           </div>
+            <button class="rail-nav rail-next" type="button" aria-label="Próximo" data-rail-next>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+            </button>
+          </div>
           <div class="section-cta is-centered">
             <a class="cta-button" href="#checkout">QUERO PROPORCIONAR ESTES RESULTADOS</a>
             <div class="section-cta-note">Aprenda a construir resultados transformadores com leitura facial, intenção técnica e execução precisa.</div>
@@ -3806,7 +3919,11 @@
             <div class="authority-pill">+7.000 cirurgias e procedimentos realizados</div>
           </div>
 
-          <div class="diploma-grid">
+          <div class="rail-wrap">
+            <button class="rail-nav rail-prev" type="button" aria-label="Anterior" data-rail-prev>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+            </button>
+            <div class="rail">
             <article class="diploma-card">
               <div class="diploma-photo">
                 <img src="./alunos/principal-01.jpeg" alt="Dr. Lopez ao lado de aluna com certificados da formação presencial" loading="lazy" decoding="async">
@@ -3863,6 +3980,10 @@
               </div>
             </article>
           </div>
+            <button class="rail-nav rail-next" type="button" aria-label="Próximo" data-rail-next>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+            </button>
+          </div>
           <div class="diploma-actions">
             <a class="secondary-link" href="./alunos">Ver mais</a>
           </div>
@@ -3881,7 +4002,11 @@
             <p class="lead press-intro">UOL, Tô na Folha, Conectado com Você, EGOBrazil, Cool Magazine, O Buxixo, Cutucast e Podbext reforçam a presença do Dr. Lopez na mídia e em podcasts, conectando sua trajetória clínica à formação de profissionais da face.</p>
           </div>
 
-          <div class="press-grid">
+          <div class="rail-wrap">
+            <button class="rail-nav rail-prev" type="button" aria-label="Anterior" data-rail-prev>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+            </button>
+            <div class="rail">
             <a class="press-card is-featured" href="https://cenapop.uol.com.br/noticias/zoom-pop/dr-lopez-transforma-experiencia-em-plataforma-de-ensino-para-cirurgioes-e-medicos-saiba-mais.html" target="_blank" rel="noreferrer">
               <span class="press-label">Cenapop UOL</span>
               <span class="press-meta">Educação médica</span>
@@ -3938,6 +4063,10 @@
               <p class="press-description">Um comparativo direto entre cirurgia estética e cirurgia de trauma, com a visão clínica do Dr. Lopez sobre os dois lados da mesa de cirurgia.</p>
               <span class="press-cta">Assistir no Podbext</span>
             </a>
+          </div>
+            <button class="rail-nav rail-next" type="button" aria-label="Próximo" data-rail-next>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+            </button>
           </div>
         </div>
       </section>
@@ -4237,6 +4366,35 @@
         ([entry]) => bar.classList.toggle("is-visible", !entry.isIntersecting),
         { rootMargin: "-80px 0px 0px 0px" }
       ).observe(hero);
+    })();
+
+
+    (() => {
+      document.querySelectorAll(".rail-wrap").forEach((caixa) => {
+        const trilho = caixa.querySelector(".rail");
+        const anterior = caixa.querySelector("[data-rail-prev]");
+        const proximo = caixa.querySelector("[data-rail-next]");
+        if (!trilho || !anterior || !proximo) return;
+
+        const passo = () => {
+          const item = trilho.firstElementChild;
+          if (!item) return trilho.clientWidth * 0.8;
+          const gap = parseFloat(getComputedStyle(trilho).columnGap) || 18;
+          return item.getBoundingClientRect().width + gap;
+        };
+
+        const atualizar = () => {
+          const fim = trilho.scrollWidth - trilho.clientWidth;
+          anterior.disabled = trilho.scrollLeft < 8;
+          proximo.disabled = trilho.scrollLeft > fim - 8;
+        };
+
+        anterior.addEventListener("click", () => trilho.scrollBy({ left: -passo() }));
+        proximo.addEventListener("click", () => trilho.scrollBy({ left: passo() }));
+        trilho.addEventListener("scroll", atualizar, { passive: true });
+        addEventListener("resize", atualizar, { passive: true });
+        atualizar();
+      });
     })();
 
     (() => {
