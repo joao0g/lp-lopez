@@ -4531,11 +4531,11 @@
           // (:hover e :focus-within). Guardar isso numa variavel seria
           // fragil: um pointerup fora da janela, por exemplo, deixaria o
           // laco parado para sempre.
+          // O foco do teclado segura de verdade (alguem navegando nos
+          // cards). Ja o mouse so pausa quando se mexe: com :hover, a
+          // fileira sob um cursor esquecido ficava congelada.
           const paradoAgora = (t) =>
-            document.hidden ||
-            t < retomarEm ||
-            caixa.matches(":hover") ||
-            caixa.matches(":focus-within");
+            document.hidden || t < retomarEm || caixa.matches(":focus-within");
 
           const quadro = (t) => {
             const dt = anteriorT ? Math.min(t - anteriorT, 48) : 0;
@@ -4552,6 +4552,10 @@
           const adiar = (ms) => (retomarEm = performance.now() + ms);
           trilho.addEventListener("touchstart", () => adiar(4000), { passive: true });
           trilho.addEventListener("touchmove", () => adiar(4000), { passive: true });
+          caixa.addEventListener("pointermove", (e) => {
+            if (e.pointerType === "mouse") adiar(1600);
+          }, { passive: true });
+          caixa.addEventListener("pointerdown", () => adiar(2500));
           if (anterior) anterior.addEventListener("click", () => adiar(3500));
           if (proximo) proximo.addEventListener("click", () => adiar(3500));
         }
@@ -4610,8 +4614,10 @@
 
         if (paraTras) fila.scrollLeft = metade();
 
-        const parado = (t) =>
-          document.hidden || t < retomarEm || fila.matches(":hover");
+        // Pausa so quando o ponteiro se mexe sobre a fileira. Usar
+        // :hover fazia a fileira sob o cursor congelar enquanto a
+        // pessoa apenas rolava a pagina com o mouse parado.
+        const parado = (t) => document.hidden || t < retomarEm;
 
         const quadro = (t) => {
           const dt = anteriorT ? Math.min(t - anteriorT, 48) : 0;
@@ -4626,9 +4632,13 @@
         };
         requestAnimationFrame(quadro);
 
-        const adiar = () => (retomarEm = performance.now() + 4000);
-        fila.addEventListener("touchstart", adiar, { passive: true });
-        fila.addEventListener("touchmove", adiar, { passive: true });
+        const adiar = (ms) => (retomarEm = performance.now() + ms);
+        fila.addEventListener("touchstart", () => adiar(4000), { passive: true });
+        fila.addEventListener("touchmove", () => adiar(4000), { passive: true });
+        fila.addEventListener("pointermove", (e) => {
+          if (e.pointerType === "mouse") adiar(1600);
+        }, { passive: true });
+        fila.addEventListener("pointerdown", () => adiar(2500));
       });
     })();
 
