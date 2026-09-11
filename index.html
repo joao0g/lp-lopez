@@ -179,11 +179,7 @@
     .page-shell {
       position: relative;
       z-index: 1;
-      /* "hidden" cria contexto de rolagem e mata o position:sticky de
-         todos os descendentes; "clip" corta igual sem esse efeito.
-         O hidden fica antes como reserva para navegador sem clip. */
       overflow: hidden;
-      overflow: clip;
       isolation: isolate;
     }
 
@@ -1726,47 +1722,30 @@
       margin-inline: auto;
     }
 
-    /* ===========================================================
-       Pilha de modulos
-       Cada card gruda no topo e o seguinte sobe por cima, formando um
-       baralho. O empilhamento vem do sticky; a escala e a opacidade
-       dos de tras sao aplicadas por JS conforme a rolagem.
-       =========================================================== */
-    .modulos-pilha {
-      position: relative;
-      width: min(100%, 470px);
-      margin: 40px auto 0;
-      padding: 0 var(--side-pad);
+    .modulos-vitrine {
+      margin-top: 34px;
+      overflow: hidden;
+      -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+      mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
     }
 
-    .modulos-pilha .modulo-card {
-      position: sticky;
-      /* cada card para um pouco mais abaixo, deixando a borda do
-         anterior aparecendo como num baralho */
-      top: calc(96px + var(--i) * 12px);
-      margin-bottom: 30vh;
-      transform-origin: center top;
-      will-change: transform;
+    .modulos-fila {
+      display: flex;
+      gap: 20px;
+      overflow-x: auto;
+      overscroll-behavior-x: contain;
+      scrollbar-width: none;
+      padding: 4px 0 8px;
     }
 
-    .modulos-pilha .modulo-card:last-child {
-      margin-bottom: 8vh;
-    }
-
-    @media (max-width: 767px) {
-      .modulos-pilha {
-        margin-top: 28px;
-      }
-
-      .modulos-pilha .modulo-card {
-        top: calc(78px + var(--i) * 9px);
-        margin-bottom: 26vh;
-      }
+    .modulos-fila::-webkit-scrollbar {
+      display: none;
     }
 
     .modulo-card {
       position: relative;
-      aspect-ratio: 4 / 5;
+      flex: 0 0 clamp(250px, 25vw, 360px);
+      aspect-ratio: 3 / 4;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -4550,50 +4529,100 @@
           </div>
         </div>
 
-        <div class="modulos-pilha" style="--total: 7">
-            <article class="modulo-card" style="--i: 0; background-image: url(&quot;./modulos/1-introducao.jpg&quot;)">
+        <div class="modulos-vitrine">
+          <div class="modulos-fila">
+              <article class="modulo-card" style="background-image: url(&quot;./modulos/1-introducao.jpg&quot;)">
                 <span class="modulo-selo">Introdução</span>
                 <div class="modulo-info">
                   <h3>Introdução</h3>
                   <p>Abertura do método e o que esperar de cada etapa</p>
                 </div>
               </article>
-            <article class="modulo-card" style="--i: 1; background-image: url(&quot;./modulos/2-lipoescultura-hd-de-papada.jpg&quot;)">
+              <article class="modulo-card" style="background-image: url(&quot;./modulos/2-lipoescultura-hd-de-papada.jpg&quot;)">
                 <span class="modulo-selo">Módulo 1</span>
                 <div class="modulo-info">
                   <h3>Lipoescultura HD de Papada</h3>
                   <p>Aulão completo e cirurgia filmada passo a passo</p>
                 </div>
               </article>
-            <article class="modulo-card" style="--i: 2; background-image: url(&quot;./modulos/3-rino-definitiva.jpg&quot;)">
+              <article class="modulo-card" style="background-image: url(&quot;./modulos/3-rino-definitiva.jpg&quot;)">
                 <span class="modulo-selo">Módulo 2</span>
                 <div class="modulo-info">
                   <h3>Rino Definitiva</h3>
                   <p>Elevação de ponta e correção de giba nasal</p>
                 </div>
               </article>
-            <article class="modulo-card" style="--i: 3; background-image: url(&quot;./modulos/4-correcao-de-orelha-de-abano.jpg&quot;)">
+              <article class="modulo-card" style="background-image: url(&quot;./modulos/4-correcao-de-orelha-de-abano.jpg&quot;)">
                 <span class="modulo-selo">Módulo 3</span>
                 <div class="modulo-info">
                   <h3>Correção de Orelha de Abano</h3>
                   <p>Otomodelação com técnica e resultado natural</p>
                 </div>
               </article>
-            <article class="modulo-card" style="--i: 4; background-image: url(&quot;./modulos/5-bichectomia.jpg&quot;)">
+              <article class="modulo-card" style="background-image: url(&quot;./modulos/5-bichectomia.jpg&quot;)">
                 <span class="modulo-selo">Módulo 4</span>
                 <div class="modulo-info">
                   <h3>Bichectomia</h3>
                   <p>Bioplastia facial, contorno e efeito blush</p>
                 </div>
               </article>
-            <article class="modulo-card" style="--i: 5; background-image: url(&quot;./modulos/6-preenchimentos-e-botox.jpg&quot;)">
+              <article class="modulo-card" style="background-image: url(&quot;./modulos/6-preenchimentos-e-botox.jpg&quot;)">
                 <span class="modulo-selo">Módulo 5</span>
                 <div class="modulo-info">
                   <h3>Preenchimentos &amp; Botox</h3>
                   <p>Aplicações filmadas em todas as regiões da face</p>
                 </div>
               </article>
-            <article class="modulo-card" style="--i: 6; background-image: url(&quot;./modulos/7-alectomia-bonus.jpg&quot;)">
+              <article class="modulo-card" style="background-image: url(&quot;./modulos/7-alectomia-bonus.jpg&quot;)">
+                <span class="modulo-selo">Bônus incluso</span>
+                <div class="modulo-info">
+                  <h3>Alectomia</h3>
+                  <p>Refinamento das asas nasais, já incluso no combo</p>
+                </div>
+              </article>
+              <article class="modulo-card" style="background-image: url(&quot;./modulos/1-introducao.jpg&quot;)">
+                <span class="modulo-selo">Introdução</span>
+                <div class="modulo-info">
+                  <h3>Introdução</h3>
+                  <p>Abertura do método e o que esperar de cada etapa</p>
+                </div>
+              </article>
+              <article class="modulo-card" style="background-image: url(&quot;./modulos/2-lipoescultura-hd-de-papada.jpg&quot;)">
+                <span class="modulo-selo">Módulo 1</span>
+                <div class="modulo-info">
+                  <h3>Lipoescultura HD de Papada</h3>
+                  <p>Aulão completo e cirurgia filmada passo a passo</p>
+                </div>
+              </article>
+              <article class="modulo-card" style="background-image: url(&quot;./modulos/3-rino-definitiva.jpg&quot;)">
+                <span class="modulo-selo">Módulo 2</span>
+                <div class="modulo-info">
+                  <h3>Rino Definitiva</h3>
+                  <p>Elevação de ponta e correção de giba nasal</p>
+                </div>
+              </article>
+              <article class="modulo-card" style="background-image: url(&quot;./modulos/4-correcao-de-orelha-de-abano.jpg&quot;)">
+                <span class="modulo-selo">Módulo 3</span>
+                <div class="modulo-info">
+                  <h3>Correção de Orelha de Abano</h3>
+                  <p>Otomodelação com técnica e resultado natural</p>
+                </div>
+              </article>
+              <article class="modulo-card" style="background-image: url(&quot;./modulos/5-bichectomia.jpg&quot;)">
+                <span class="modulo-selo">Módulo 4</span>
+                <div class="modulo-info">
+                  <h3>Bichectomia</h3>
+                  <p>Bioplastia facial, contorno e efeito blush</p>
+                </div>
+              </article>
+              <article class="modulo-card" style="background-image: url(&quot;./modulos/6-preenchimentos-e-botox.jpg&quot;)">
+                <span class="modulo-selo">Módulo 5</span>
+                <div class="modulo-info">
+                  <h3>Preenchimentos &amp; Botox</h3>
+                  <p>Aplicações filmadas em todas as regiões da face</p>
+                </div>
+              </article>
+              <article class="modulo-card" style="background-image: url(&quot;./modulos/7-alectomia-bonus.jpg&quot;)">
                 <span class="modulo-selo">Bônus incluso</span>
                 <div class="modulo-info">
                   <h3>Alectomia</h3>
@@ -4601,6 +4630,7 @@
                 </div>
               </article>
           </div>
+        </div>
       </section>
 
       <div class="scroll-cue">
@@ -5474,41 +5504,43 @@
       }
     })();
 
-
-    // Pilha de modulos: o card que ja foi ultrapassado encolhe e escurece,
-    // dando a sensacao de baralho. O sticky faz o empilhamento; aqui so
-    // entra a profundidade.
     (() => {
-      const pilha = document.querySelector(".modulos-pilha");
-      if (!pilha) return;
-      const cards = [...pilha.querySelectorAll(".modulo-card")];
-      if (!cards.length) return;
+      const fila = document.querySelector(".modulos-fila");
+      if (!fila) return;
 
       const semMovimento = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      if (semMovimento) return;
+      if (semMovimento || fila.scrollWidth <= fila.clientWidth + 4) return;
 
-      let agendado = false;
-      const atualizar = () => {
-        agendado = false;
-        cards.forEach((card, i) => {
-          const topo = card.getBoundingClientRect().top;
-          const parado = parseFloat(getComputedStyle(card).top) || 0;
-          // quanto o card ja passou do ponto onde gruda
-          const passou = Math.min(Math.max((parado - topo) / (innerHeight * 0.5), 0), 1);
-          const escala = 1 - passou * 0.12;
-          const brilho = 1 - passou * 0.45;
-          card.style.transform = `scale(${escala.toFixed(3)})`;
-          card.style.filter = `brightness(${brilho.toFixed(3)})`;
-        });
+      // os quadros ja vem duplicados no HTML, entao o laco so precisa
+      // voltar metade quando passa do meio
+      const metade = () => fila.scrollWidth / 2;
+      let pos = metade();
+      fila.scrollLeft = pos;
+      let anteriorT = 0;
+      let retomarEm = 0;
+      const VELOCIDADE = 30; // px por segundo
+
+      const quadro = (t) => {
+        const dt = anteriorT ? Math.min(t - anteriorT, 48) : 0;
+        anteriorT = t;
+        if (!document.hidden && t >= retomarEm) {
+          const m = metade();
+          pos -= (VELOCIDADE * dt) / 1000;
+          if (pos <= 0) pos += m;
+          fila.scrollLeft = pos;
+        } else {
+          pos = fila.scrollLeft;
+        }
+        requestAnimationFrame(quadro);
       };
+      requestAnimationFrame(quadro);
 
-      addEventListener("scroll", () => {
-        if (agendado) return;
-        agendado = true;
-        requestAnimationFrame(atualizar);
+      const adiar = (ms) => (retomarEm = performance.now() + ms);
+      fila.addEventListener("pointermove", (e) => {
+        if (e.pointerType === "mouse") adiar(1600);
       }, { passive: true });
-      addEventListener("resize", atualizar, { passive: true });
-      atualizar();
+      fila.addEventListener("touchstart", () => adiar(4000), { passive: true });
+      fila.addEventListener("touchmove", () => adiar(4000), { passive: true });
     })();
 
     (() => {
