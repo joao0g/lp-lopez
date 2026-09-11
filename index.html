@@ -219,6 +219,7 @@
 
     .section {
       position: relative;
+      isolation: isolate;
       padding: var(--section-space) 0;
       border-top: 1px solid rgba(255, 255, 255, 0.03);
     }
@@ -1410,6 +1411,110 @@
     @media (prefers-reduced-motion: reduce) {
       .perfil-card:hover {
         transform: none;
+      }
+    }
+
+    /* ===========================================================
+       Fundo
+       As camadas antigas eram todas fixas e concentradas no topo, entao
+       o fundo ficava identico enquanto a pagina rolava. Estas acompanham
+       as secoes e ecoam os arcos dourados da arte do hero.
+       =========================================================== */
+
+    /* aura que troca de lado a cada secao, dando ritmo a rolagem */
+    .section::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      background: radial-gradient(
+        ellipse 52% 62% at var(--aura-x, 12%) 42%,
+        rgba(201, 168, 76, 0.085),
+        transparent 66%
+      );
+    }
+
+    .section:nth-of-type(even)::after {
+      --aura-x: 88%;
+    }
+
+    .section:nth-of-type(3n)::after {
+      --aura-x: 50%;
+      background: radial-gradient(
+        ellipse 64% 48% at 50% 30%,
+        rgba(201, 168, 76, 0.055),
+        transparent 62%
+      );
+    }
+
+    /* arcos concentricos, os mesmos da arte do hero, bem apagados */
+    .page-shell {
+      --arcos: radial-gradient(
+          circle at 50% 50%,
+          transparent 0 38%,
+          rgba(201, 168, 76, 0.055) 38% calc(38% + 1px),
+          transparent calc(38% + 1px)
+        ),
+        radial-gradient(
+          circle at 50% 50%,
+          transparent 0 52%,
+          rgba(201, 168, 76, 0.04) 52% calc(52% + 1px),
+          transparent calc(52% + 1px)
+        ),
+        radial-gradient(
+          circle at 50% 50%,
+          transparent 0 67%,
+          rgba(201, 168, 76, 0.028) 67% calc(67% + 1px),
+          transparent calc(67% + 1px)
+        );
+    }
+
+    .arcos-fundo {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      z-index: 0;
+      width: 168vmax;
+      height: 168vmax;
+      margin: -84vmax 0 0 -84vmax;
+      background: var(--arcos);
+      pointer-events: none;
+      opacity: 0.85;
+      /* some nas bordas para nao virar um alvo desenhado na tela */
+      -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 22%, transparent 72%);
+      mask-image: radial-gradient(circle at 50% 50%, #000 22%, transparent 72%);
+      transform: translateY(var(--arcos-y, 0));
+      will-change: transform;
+    }
+
+    /* vinheta: escurece as bordas e faz o centro parecer iluminado */
+    .vinheta {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background: radial-gradient(
+        ellipse 78% 68% at 50% 45%,
+        transparent 42%,
+        rgba(0, 0, 0, 0.34) 100%
+      );
+    }
+
+    @media (max-width: 767px) {
+      .arcos-fundo {
+        width: 210vmax;
+        height: 210vmax;
+        margin: -105vmax 0 0 -105vmax;
+        opacity: 0.6;
+      }
+
+      .section::after {
+        background: radial-gradient(
+          ellipse 90% 46% at 50% 30%,
+          rgba(201, 168, 76, 0.07),
+          transparent 64%
+        );
       }
     }
 
@@ -3076,6 +3181,10 @@
         transform: none;
         transition: none;
       }
+
+      .arcos-fundo {
+        transform: none;
+      }
     }
 
     @media (min-width: 860px) {
@@ -3715,6 +3824,9 @@
 </head>
 <body>
   <div class="page-shell">
+    <div class="arcos-fundo" aria-hidden="true"></div>
+    <div class="vinheta" aria-hidden="true"></div>
+
     <div class="sticky-cta" id="stickyCta">
       <div class="container">
         <span class="sticky-cta-brand">
@@ -4748,6 +4860,25 @@
           observador.observe(el);
         });
       });
+
+      // os arcos do fundo giram devagar conforme a pagina rola, dando
+      // profundidade sem competir com o conteudo
+      const arcos = document.querySelector(".arcos-fundo");
+      if (arcos) {
+        let agendado = false;
+        const mover = () => {
+          agendado = false;
+          const total = document.body.scrollHeight - innerHeight;
+          const f = total > 0 ? window.scrollY / total : 0;
+          arcos.style.setProperty("--arcos-y", (f * -13).toFixed(2) + "vmax");
+        };
+        addEventListener("scroll", () => {
+          if (agendado) return;
+          agendado = true;
+          requestAnimationFrame(mover);
+        }, { passive: true });
+        mover();
+      }
 
       // a trilha do curso se preenche quando entra na tela
       const trilha = document.querySelector(".trilha");
