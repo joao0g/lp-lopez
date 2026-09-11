@@ -1711,6 +1711,125 @@
       }
     }
 
+    /* ===========================================================
+       Faixa de modulos
+       Fecha a pagina com os oito modulos passando para a direita.
+       Os quadros ja esperam a foto: quando ela existir, entra como
+       fundo e o nome fica por cima.
+       =========================================================== */
+    .faixa-modulos {
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+      padding: 30px 0;
+      border-top: 1px solid var(--line-gold);
+      border-bottom: 1px solid var(--line-gold);
+      background:
+        linear-gradient(180deg, rgba(201, 168, 76, 0.06), rgba(0, 0, 0, 0.22)),
+        var(--bg-alt);
+      -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+      mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+    }
+
+    .faixa-modulos-fila {
+      display: flex;
+      gap: 16px;
+      overflow-x: auto;
+      overscroll-behavior-x: contain;
+      scrollbar-width: none;
+    }
+
+    .faixa-modulos-fila::-webkit-scrollbar {
+      display: none;
+    }
+
+    .modulo-quadro {
+      position: relative;
+      flex: 0 0 clamp(140px, 13vw, 178px);
+      aspect-ratio: 1 / 1;
+      display: flex;
+      align-items: flex-end;
+      margin: 0;
+      padding: 14px;
+      overflow: hidden;
+      border: 1px solid var(--line-gold);
+      border-radius: var(--radius-card);
+      background:
+        linear-gradient(160deg, rgba(201, 168, 76, 0.1), rgba(255, 255, 255, 0.012) 52%),
+        #121212;
+      background-size: cover;
+      background-position: center;
+      transition: border-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .modulo-quadro:hover {
+      border-color: rgba(201, 168, 76, 0.55);
+      transform: translateY(-3px);
+    }
+
+    /* escurece a base para o nome ficar legivel sobre a foto */
+    .modulo-quadro::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 38%, rgba(11, 11, 11, 0.82) 82%, rgba(11, 11, 11, 0.94));
+      pointer-events: none;
+    }
+
+    .modulo-quadro.sem-foto::after {
+      opacity: 0.45;
+    }
+
+    .modulo-quadro figcaption {
+      position: relative;
+      z-index: 1;
+      color: var(--white);
+      font-size: 0.76rem;
+      font-weight: 500;
+      line-height: 1.28;
+    }
+
+    .modulo-selo {
+      position: absolute;
+      top: 11px;
+      left: 11px;
+      z-index: 1;
+      padding: 3px 9px;
+      border: 1px solid rgba(201, 168, 76, 0.42);
+      border-radius: var(--radius-pill);
+      background: rgba(11, 11, 11, 0.72);
+      color: var(--gold);
+      font-size: 0.54rem;
+      font-weight: 600;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 767px) {
+      .faixa-modulos {
+        padding: 22px 0;
+      }
+
+      .faixa-modulos-fila {
+        gap: 11px;
+      }
+
+      .modulo-quadro {
+        flex-basis: 132px;
+        padding: 11px;
+      }
+
+      .modulo-quadro figcaption {
+        font-size: 0.68rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .modulo-quadro:hover {
+        transform: none;
+      }
+    }
+
     .section-label {
       display: inline-flex;
       align-items: center;
@@ -4841,6 +4960,63 @@
       </section>
     </main>
 
+    <section class="faixa-modulos" aria-label="Módulos do método">
+      <div class="faixa-modulos-fila" data-sentido="volta">
+              <figure class="modulo-quadro" style="background-image: url(&quot;./modulos/1-introducao.jpg&quot;)">
+                <figcaption>Introdução</figcaption>
+              </figure>
+              <figure class="modulo-quadro" style="background-image: url(&quot;./modulos/2-lipoescultura-hd-de-papada.jpg&quot;)">
+                <figcaption>Lipoescultura HD de Papada</figcaption>
+              </figure>
+              <figure class="modulo-quadro" style="background-image: url(&quot;./modulos/3-rino-definitiva.jpg&quot;)">
+                <figcaption>Rino Definitiva</figcaption>
+              </figure>
+              <figure class="modulo-quadro" style="background-image: url(&quot;./modulos/4-correcao-de-orelha-de-abano.jpg&quot;)">
+                <figcaption>Correção de Orelha de Abano</figcaption>
+              </figure>
+              <figure class="modulo-quadro" style="background-image: url(&quot;./modulos/5-bichectomia.jpg&quot;)">
+                <figcaption>Bichectomia</figcaption>
+              </figure>
+              <figure class="modulo-quadro" style="background-image: url(&quot;./modulos/6-preenchimentos-e-botox.jpg&quot;)">
+                <figcaption>Preenchimentos &amp; Botox</figcaption>
+              </figure>
+              <figure class="modulo-quadro" style="background-image: url(&quot;./modulos/7-alectomia-bonus.jpg&quot;)">
+                <span class="modulo-selo">Bônus incluso</span>
+                <figcaption>Alectomia</figcaption>
+              </figure>
+              <figure class="modulo-quadro sem-foto">
+                <span class="modulo-selo">Para adquirir</span>
+                <figcaption>Casos Bônus</figcaption>
+              </figure>
+              <figure class="modulo-quadro" style="background-image: url(&quot;./modulos/1-introducao.jpg&quot;)">
+                <figcaption>Introdução</figcaption>
+              </figure>
+              <figure class="modulo-quadro" style="background-image: url(&quot;./modulos/2-lipoescultura-hd-de-papada.jpg&quot;)">
+                <figcaption>Lipoescultura HD de Papada</figcaption>
+              </figure>
+              <figure class="modulo-quadro" style="background-image: url(&quot;./modulos/3-rino-definitiva.jpg&quot;)">
+                <figcaption>Rino Definitiva</figcaption>
+              </figure>
+              <figure class="modulo-quadro" style="background-image: url(&quot;./modulos/4-correcao-de-orelha-de-abano.jpg&quot;)">
+                <figcaption>Correção de Orelha de Abano</figcaption>
+              </figure>
+              <figure class="modulo-quadro" style="background-image: url(&quot;./modulos/5-bichectomia.jpg&quot;)">
+                <figcaption>Bichectomia</figcaption>
+              </figure>
+              <figure class="modulo-quadro" style="background-image: url(&quot;./modulos/6-preenchimentos-e-botox.jpg&quot;)">
+                <figcaption>Preenchimentos &amp; Botox</figcaption>
+              </figure>
+              <figure class="modulo-quadro" style="background-image: url(&quot;./modulos/7-alectomia-bonus.jpg&quot;)">
+                <span class="modulo-selo">Bônus incluso</span>
+                <figcaption>Alectomia</figcaption>
+              </figure>
+              <figure class="modulo-quadro sem-foto">
+                <span class="modulo-selo">Para adquirir</span>
+                <figcaption>Casos Bônus</figcaption>
+              </figure>
+      </div>
+    </section>
+
     <footer>
       <div class="container">
         <div class="footer-grid">
@@ -5018,6 +5194,46 @@
       });
     })();
 
+
+
+    (() => {
+      const fila = document.querySelector(".faixa-modulos-fila");
+      if (!fila) return;
+
+      const semMovimento = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (semMovimento || fila.scrollWidth <= fila.clientWidth + 4) return;
+
+      // os quadros ja vem duplicados no HTML, entao o laco so precisa
+      // voltar metade quando passa do meio
+      const metade = () => fila.scrollWidth / 2;
+      let pos = metade();
+      fila.scrollLeft = pos;
+      let anteriorT = 0;
+      let retomarEm = 0;
+      const VELOCIDADE = 30; // px por segundo
+
+      const quadro = (t) => {
+        const dt = anteriorT ? Math.min(t - anteriorT, 48) : 0;
+        anteriorT = t;
+        if (!document.hidden && t >= retomarEm) {
+          const m = metade();
+          pos -= (VELOCIDADE * dt) / 1000;
+          if (pos <= 0) pos += m;
+          fila.scrollLeft = pos;
+        } else {
+          pos = fila.scrollLeft;
+        }
+        requestAnimationFrame(quadro);
+      };
+      requestAnimationFrame(quadro);
+
+      const adiar = (ms) => (retomarEm = performance.now() + ms);
+      fila.addEventListener("pointermove", (e) => {
+        if (e.pointerType === "mouse") adiar(1600);
+      }, { passive: true });
+      fila.addEventListener("touchstart", () => adiar(4000), { passive: true });
+      fila.addEventListener("touchmove", () => adiar(4000), { passive: true });
+    })();
 
     (() => {
       const semMovimento = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
