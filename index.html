@@ -5786,11 +5786,11 @@
       // os quadros ja vem duplicados no HTML, entao o laco so precisa
       // voltar metade quando passa do meio
       const metade = () => fila.scrollWidth / 2;
-      let pos = metade();
+      let pos = 0;
       fila.scrollLeft = pos;
       let anteriorT = 0;
       let retomarEm = 0;
-      const VELOCIDADE = 30; // px por segundo
+      const VELOCIDADE = 62; // px por segundo
 
       // o card mais proximo do centro da tela fica em foco; os das
       // laterais recuam em escala e brilho, como numa vitrine
@@ -5815,8 +5815,8 @@
         anteriorT = t;
         if (!document.hidden && t >= retomarEm) {
           const m = metade();
-          pos -= (VELOCIDADE * dt) / 1000;
-          if (pos <= 0) pos += m;
+          pos += (VELOCIDADE * dt) / 1000;
+          if (pos >= m) pos -= m;
           fila.scrollLeft = pos;
         } else {
           pos = fila.scrollLeft;
