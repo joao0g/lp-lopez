@@ -1742,6 +1742,38 @@
       display: none;
     }
 
+    /* Os cards entram um a um na primeira vez que a vitrine aparece.
+       Depois disso o laco assume e eles seguem passando. Nao muda
+       nenhuma altura: a animacao e so de opacidade e deslocamento. */
+    .modulos-fila.vai-entrar .modulo-card {
+      opacity: 0;
+      transform: translateY(30px) scale(0.97);
+      transition:
+        opacity 0.75s cubic-bezier(0.2, 0.7, 0.3, 1),
+        transform 0.75s cubic-bezier(0.2, 0.7, 0.3, 1);
+    }
+
+    .modulos-fila.vai-entrar.is-in .modulo-card {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* so os primeiros escalonam; os demais entram junto, ja fora da tela */
+    .modulos-fila.vai-entrar.is-in .modulo-card:nth-child(1) { transition-delay: 0.05s; }
+    .modulos-fila.vai-entrar.is-in .modulo-card:nth-child(2) { transition-delay: 0.16s; }
+    .modulos-fila.vai-entrar.is-in .modulo-card:nth-child(3) { transition-delay: 0.27s; }
+    .modulos-fila.vai-entrar.is-in .modulo-card:nth-child(4) { transition-delay: 0.38s; }
+    .modulos-fila.vai-entrar.is-in .modulo-card:nth-child(5) { transition-delay: 0.49s; }
+
+    /* sem a animacao, os cards nascem visiveis */
+    @media (prefers-reduced-motion: reduce) {
+      .modulos-fila.vai-entrar .modulo-card {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+    }
+
     .modulo-card {
       position: relative;
       flex: 0 0 clamp(250px, 25vw, 360px);
@@ -5661,6 +5693,20 @@
           requestAnimationFrame(mover);
         }, { passive: true });
         mover();
+      }
+
+
+      // primeira aparicao da vitrine: os cards entram escalonados
+      const vitrine = document.querySelector(".modulos-fila");
+      if (vitrine) {
+        vitrine.classList.add("vai-entrar");
+        new IntersectionObserver((entradas, obs) => {
+          for (const e of entradas) {
+            if (!e.isIntersecting) continue;
+            e.target.classList.add("is-in");
+            obs.disconnect();
+          }
+        }, { threshold: 0.15 }).observe(vitrine);
       }
 
       // a trilha do curso se preenche quando entra na tela
