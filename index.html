@@ -1966,6 +1966,81 @@
       transition-duration: 0.7s;
     }
 
+    /* A repeticao de "filmada e narrada passo a passo" saiu dos oito
+       itens e virou uma afirmacao da secao; cada item passa a ter nome
+       curto e so o que tem de proprio. */
+    .incluido-nota {
+      margin-top: 4px;
+      color: var(--gold);
+      font-size: 0.9rem;
+      font-style: italic;
+    }
+
+    .included-item {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: start;
+      gap: 14px;
+      padding: 18px 0;
+    }
+
+    .incluido-titulo {
+      margin-bottom: 3px;
+      color: var(--white);
+      font-family: "Inter", sans-serif;
+      font-size: 0.98rem;
+      font-weight: 500;
+      line-height: 1.3;
+    }
+
+    .incluido-texto p {
+      color: var(--text-dim);
+      font-size: 0.88rem;
+      line-height: 1.55;
+    }
+
+    /* o presente e o suporte sao os diferenciais: ganham selo proprio */
+    .incluido-selo {
+      flex: none;
+      align-self: center;
+      padding: 5px 13px;
+      border: 1px solid rgba(201, 168, 76, 0.38);
+      border-radius: var(--radius-pill);
+      background: rgba(201, 168, 76, 0.1);
+      color: var(--gold);
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .included-item.is-destaque .incluido-titulo {
+      color: var(--gold);
+    }
+
+    @media (max-width: 767px) {
+      .included-item {
+        grid-template-columns: auto 1fr;
+        gap: 11px;
+        padding: 15px 0;
+      }
+
+      .incluido-selo {
+        grid-column: 2;
+        justify-self: start;
+        margin-top: 8px;
+      }
+
+      .incluido-titulo {
+        font-size: 0.92rem;
+      }
+
+      .incluido-texto p {
+        font-size: 0.84rem;
+      }
+    }
+
     .section-label {
       display: inline-flex;
       align-items: center;
@@ -5119,40 +5194,68 @@
           <div class="content-narrow">
             <span class="section-label">O que inclui</span>
             <h2>O que está incluído</h2>
+          
+            <p class="lead incluido-nota">Todas as cirurgias são filmadas e narradas passo a passo.</p>
           </div>
 
           <div class="included-list content-narrow">
             <article class="included-item">
               <div class="check" aria-hidden="true"></div>
-              <p>4 aulões completos sobre Lipo HD, Orelha de Abano, Bichectomia e Preenchimentos &amp; Botox, com bônus de Ultrassom Microfocado e Bioestimulador, além de precificação, técnicas de vendas e direcionamento prático.</p>
+              <div class="incluido-texto">
+                <h3 class="incluido-titulo">4 aulões completos</h3>
+                <p>Lipo HD, Orelha de Abano, Bichectomia e Preenchimentos &amp; Botox, com bônus de Ultrassom Microfocado e Bioestimulador, além de precificação, técnicas de vendas e direcionamento prático.</p>
+              </div>
             </article>
             <article class="included-item">
               <div class="check" aria-hidden="true"></div>
-              <p>Cirurgia filmada e narrada passo a passo sobre Lipoescultura HD, com possibilidade de assistir a um caso bônus.</p>
+              <div class="incluido-texto">
+                <h3 class="incluido-titulo">Lipoescultura HD</h3>
+                <p>Com possibilidade de assistir a um caso bônus.</p>
+              </div>
             </article>
             <article class="included-item">
               <div class="check" aria-hidden="true"></div>
-              <p>Cirurgia de Otomodelação (Orelha de Abano) filmada e narrada passo a passo, com possibilidade de assistir a um caso bônus.</p>
+              <div class="incluido-texto">
+                <h3 class="incluido-titulo">Otomodelação (Orelha de Abano)</h3>
+                <p>Com possibilidade de assistir a um caso bônus.</p>
+              </div>
             </article>
             <article class="included-item">
               <div class="check" aria-hidden="true"></div>
-              <p>Cirurgia de Rino Definitiva com Fios filmada e narrada passo a passo, com demonstração prática completa.</p>
+              <div class="incluido-texto">
+                <h3 class="incluido-titulo">Rino Definitiva com Fios</h3>
+                <p>Com demonstração prática completa.</p>
+              </div>
             </article>
             <article class="included-item">
               <div class="check" aria-hidden="true"></div>
-              <p>Cirurgia de Bioplastia Facial (Bichectomia) filmada e narrada passo a passo, demonstrada em detalhe.</p>
+              <div class="incluido-texto">
+                <h3 class="incluido-titulo">Bioplastia Facial (Bichectomia)</h3>
+                <p>Demonstrada em detalhe.</p>
+              </div>
             </article>
             <article class="included-item">
               <div class="check" aria-hidden="true"></div>
-              <p>Aplicações de preenchimento filmadas e narradas passo a passo: 3 lábios, bigode chinês, olheira, malar, queixo e mandíbula, além de Botox em testa, pé de galinha, glabela e código de barra.</p>
+              <div class="incluido-texto">
+                <h3 class="incluido-titulo">Preenchimentos</h3>
+                <p>3 lábios, bigode chinês, olheira, malar, mandíbula e mento.</p>
+              </div>
             </article>
-            <article class="included-item">
+            <article class="included-item is-destaque">
               <div class="check" aria-hidden="true"></div>
-              <p><span class="bonus-tag">PRESENTE</span>: Cirurgia de Alectomia para diminuição de asa nasal filmada e narrada passo a passo, como bônus para todos que adquirirem o combo Método Esculpindo Faces.</p>
+              <div class="incluido-texto">
+                <h3 class="incluido-titulo">Alectomia</h3>
+                <p>Cirurgia para diminuição de asa nasal, incluída como presente no combo.</p>
+              </div>
+                <span class="incluido-selo">Presente</span>
             </article>
-            <article class="included-item">
+            <article class="included-item is-destaque">
               <div class="check" aria-hidden="true"></div>
-              <p>Suporte e contato do Dr. Lopez para dúvidas, avaliação de casos e acompanhamento de pós-operatórios.</p>
+              <div class="incluido-texto">
+                <h3 class="incluido-titulo">Suporte do Dr. Lopez</h3>
+                <p>Contato direto para dúvidas, avaliação de casos e acompanhamento de pós-operatórios.</p>
+              </div>
+                <span class="incluido-selo">Incluso</span>
             </article>
           </div>
         </div>
