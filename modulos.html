@@ -355,6 +355,31 @@
       flex: 1;
     }
 
+    /* a comparacao sai dos proprios precos da pagina: 6 x R$ 397,45 */
+    .module-price-ancora {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--text-dim);
+      font-size: 0.8rem;
+    }
+
+    .module-price-ancora s {
+      color: var(--text-muted);
+      text-decoration-color: rgba(201, 168, 76, 0.55);
+    }
+
+    .module-price-economia {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 6px 14px;
+      border: 1px solid rgba(201, 168, 76, 0.34);
+      border-radius: var(--radius-pill);
+      background: rgba(201, 168, 76, 0.09);
+      color: var(--gold);
+      font-size: 0.76rem;
+      font-weight: 600;
+    }
+
     .module-price {
       display: flex;
       align-items: baseline;
@@ -606,8 +631,10 @@
             <h2>Combo completo</h2>
             <p class="module-desc">Eleve seu conhecimento com uma formação completa. Dr. ou Dra., o Combo Completo é a opção mais vantajosa: mais conhecimento por um investimento mais atrativo. Todos os 6 módulos, todos os aulões e todas as cirurgias filmadas e narradas passo a passo, além do bônus já disponível de Ultrassom Microfocado, Bioestimulador e Alectomia (asa nasal), precificação, técnicas de vendas e 1 ano de suporte com o Dr. Lopez.</p>
             <div class="module-price">
+              <span class="module-price-ancora">Os 6 módulos separados somam <s>R$ 2.384,70</s></span>
               <span class="module-price-value">R$ 1.997,90</span>
               <span class="module-price-note">ou 12x de R$ 206,26</span>
+              <span class="module-price-economia">Economia de R$ 386,80</span>
             </div>
             <a class="module-cta" href="./#checkout">Ver o combo completo</a>
           </article>

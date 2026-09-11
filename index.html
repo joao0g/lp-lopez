@@ -3082,6 +3082,38 @@
       margin-inline: auto;
     }
 
+    /* a ancoragem nasce dos numeros do proprio site: 6 x R$ 397,45
+       dos modulos avulsos contra R$ 1.997,90 do combo */
+    .price-ancora {
+      margin-bottom: 10px;
+      color: var(--text-dim);
+      font-size: 0.84rem;
+      letter-spacing: 0.02em;
+    }
+
+    .price-ancora s {
+      color: var(--text-muted);
+      text-decoration-color: rgba(201, 168, 76, 0.55);
+    }
+
+    .price-economia {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      margin-top: 14px;
+      padding: 7px 16px;
+      border: 1px solid rgba(201, 168, 76, 0.34);
+      border-radius: var(--radius-pill);
+      background: rgba(201, 168, 76, 0.09);
+      color: var(--text-dim);
+      font-size: 0.78rem;
+    }
+
+    .price-economia span {
+      color: var(--gold);
+      font-weight: 600;
+    }
+
     .price-box {
       max-width: 560px;
       margin: 30px auto 0;
@@ -4931,12 +4963,20 @@
             <div class="investment-topline">Acesso imediato + suporte durante 1 ano</div>
             <h2>Garanta sua vaga <span class="gold-shimmer-slow">hoje</span></h2>
             <div class="price-box">
+              <!-- a conta sai dos precos que ja estao no site: os seis
+                   modulos avulsos custam R$ 397,45 cada -->
+              <p class="price-ancora">
+                Os 6 módulos separados somam <s>R$ 2.384,70</s>
+              </p>
               <div class="price-value">
                 <span class="price-installments">12x</span>
                 <span class="price-currency">de R$</span>
                 <span class="price-amount">206,26</span>
               </div>
               <p class="price-note">ou à vista por R$ 1.997,90</p>
+              <p class="price-economia">
+                <span>Economia de R$ 386,80</span> no combo completo
+              </p>
             </div>
             <div class="investment-points">
               <div class="investment-point"><span class="investment-check">✓</span><span>Método estruturado para profissionais de saúde com foco em resultado transformador</span></div>
