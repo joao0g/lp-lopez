@@ -1712,120 +1712,136 @@
     }
 
     /* ===========================================================
-       Faixa de modulos
-       Fecha a pagina com os oito modulos passando para a direita.
-       Os quadros ja esperam a foto: quando ela existir, entra como
-       fundo e o nome fica por cima.
+       Vitrine de modulos
+       Cards altos passando na horizontal, com o selo do modulo no
+       topo e o nome sobre a foto.
        =========================================================== */
-    .faixa-modulos {
-      position: relative;
-      z-index: 1;
-      overflow: hidden;
-      padding: 30px 0;
-      border-top: 1px solid var(--line-gold);
-      border-bottom: 1px solid var(--line-gold);
-      background:
-        linear-gradient(180deg, rgba(201, 168, 76, 0.06), rgba(0, 0, 0, 0.22)),
-        var(--bg-alt);
-      -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
-      mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+    .modulos-topo {
+      margin-bottom: 4px;
+      text-align: center;
+      margin-inline: auto;
     }
 
-    .faixa-modulos-fila {
+    .modulos-vitrine {
+      margin-top: 34px;
+      overflow: hidden;
+      -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+      mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+    }
+
+    .modulos-fila {
       display: flex;
-      gap: 16px;
+      gap: 20px;
       overflow-x: auto;
       overscroll-behavior-x: contain;
       scrollbar-width: none;
+      padding: 4px 0 8px;
     }
 
-    .faixa-modulos-fila::-webkit-scrollbar {
+    .modulos-fila::-webkit-scrollbar {
       display: none;
     }
 
-    .modulo-quadro {
+    .modulo-card {
       position: relative;
-      flex: 0 0 clamp(140px, 13vw, 178px);
-      aspect-ratio: 1 / 1;
+      flex: 0 0 clamp(250px, 25vw, 360px);
+      aspect-ratio: 3 / 4;
       display: flex;
-      align-items: flex-end;
-      margin: 0;
-      padding: 14px;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 20px;
       overflow: hidden;
       border: 1px solid var(--line-gold);
       border-radius: var(--radius-card);
       background:
-        linear-gradient(160deg, rgba(201, 168, 76, 0.1), rgba(255, 255, 255, 0.012) 52%),
+        linear-gradient(165deg, rgba(201, 168, 76, 0.12), rgba(255, 255, 255, 0.012) 55%),
         #121212;
       background-size: cover;
-      background-position: center;
-      transition: border-color 0.3s ease, transform 0.3s ease;
+      background-position: center top;
+      transition: border-color 0.35s ease, transform 0.35s ease;
     }
 
-    .modulo-quadro:hover {
-      border-color: rgba(201, 168, 76, 0.55);
-      transform: translateY(-3px);
+    .modulo-card:hover {
+      border-color: rgba(201, 168, 76, 0.6);
+      transform: translateY(-4px);
     }
 
-    /* escurece a base para o nome ficar legivel sobre a foto */
-    .modulo-quadro::after {
+    /* escurece a base para o texto ficar legivel sobre a foto */
+    .modulo-card::after {
       content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(180deg, transparent 38%, rgba(11, 11, 11, 0.82) 82%, rgba(11, 11, 11, 0.94));
+      background: linear-gradient(180deg, rgba(11, 11, 11, 0.42) 0%, transparent 26%, rgba(11, 11, 11, 0.8) 68%, rgba(11, 11, 11, 0.96) 100%);
       pointer-events: none;
     }
 
-    .modulo-quadro.sem-foto::after {
-      opacity: 0.45;
-    }
-
-    .modulo-quadro figcaption {
-      position: relative;
-      z-index: 1;
-      color: var(--white);
-      font-size: 0.76rem;
-      font-weight: 500;
-      line-height: 1.28;
+    .modulo-card.sem-foto::after {
+      background: linear-gradient(180deg, transparent 40%, rgba(11, 11, 11, 0.55) 100%);
     }
 
     .modulo-selo {
-      position: absolute;
-      top: 11px;
-      left: 11px;
+      position: relative;
       z-index: 1;
-      padding: 3px 9px;
-      border: 1px solid rgba(201, 168, 76, 0.42);
+      align-self: center;
+      padding: 6px 17px;
+      border: 1px solid rgba(201, 168, 76, 0.4);
       border-radius: var(--radius-pill);
-      background: rgba(11, 11, 11, 0.72);
+      background: rgba(11, 11, 11, 0.66);
+      backdrop-filter: blur(8px);
       color: var(--gold);
-      font-size: 0.54rem;
+      font-size: 0.6rem;
       font-weight: 600;
-      letter-spacing: 0.09em;
+      letter-spacing: 0.16em;
+      text-indent: 0.16em;
       text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .modulo-info {
+      position: relative;
+      z-index: 1;
+    }
+
+    .modulo-info h3 {
+      margin-bottom: 5px;
+      color: var(--white);
+      font-family: "Playfair Display", serif;
+      font-size: 1.34rem;
+      font-weight: 700;
+      line-height: 1.14;
+    }
+
+    .modulo-info p {
+      color: var(--text-dim);
+      font-size: 0.8rem;
+      line-height: 1.45;
     }
 
     @media (max-width: 767px) {
-      .faixa-modulos {
-        padding: 22px 0;
+      .modulos-vitrine {
+        margin-top: 26px;
       }
 
-      .faixa-modulos-fila {
-        gap: 11px;
+      .modulos-fila {
+        gap: 13px;
       }
 
-      .modulo-quadro {
-        flex-basis: 132px;
-        padding: 11px;
+      .modulo-card {
+        flex-basis: 74vw;
+        padding: 16px;
       }
 
-      .modulo-quadro figcaption {
-        font-size: 0.68rem;
+      .modulo-info h3 {
+        font-size: 1.16rem;
+      }
+
+      .modulo-info p {
+        font-size: 0.76rem;
       }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .modulo-quadro:hover {
+      .modulo-card:hover {
         transform: none;
       }
     }
@@ -4395,6 +4411,133 @@
 
       <section class="section">
         <div class="container">
+          <div class="content-narrow modulos-topo">
+            <span class="section-label">Módulos do curso</span>
+            <h2>Veja por dentro tudo que <span class="gold-shimmer-slow">você vai receber</span></h2>
+          </div>
+        </div>
+
+        <div class="modulos-vitrine">
+          <div class="modulos-fila">
+              <article class="modulo-card" style="background-image: url(&quot;./modulos/1-introducao.jpg&quot;)">
+                <span class="modulo-selo">Introdução</span>
+                <div class="modulo-info">
+                  <h3>Introdução</h3>
+                  <p>Abertura do método e o que esperar de cada etapa</p>
+                </div>
+              </article>
+              <article class="modulo-card" style="background-image: url(&quot;./modulos/2-lipoescultura-hd-de-papada.jpg&quot;)">
+                <span class="modulo-selo">Módulo 1</span>
+                <div class="modulo-info">
+                  <h3>Lipoescultura HD de Papada</h3>
+                  <p>Aulão completo e cirurgia filmada passo a passo</p>
+                </div>
+              </article>
+              <article class="modulo-card" style="background-image: url(&quot;./modulos/3-rino-definitiva.jpg&quot;)">
+                <span class="modulo-selo">Módulo 2</span>
+                <div class="modulo-info">
+                  <h3>Rino Definitiva</h3>
+                  <p>Elevação de ponta e correção de giba nasal</p>
+                </div>
+              </article>
+              <article class="modulo-card" style="background-image: url(&quot;./modulos/4-correcao-de-orelha-de-abano.jpg&quot;)">
+                <span class="modulo-selo">Módulo 3</span>
+                <div class="modulo-info">
+                  <h3>Correção de Orelha de Abano</h3>
+                  <p>Otomodelação com técnica e resultado natural</p>
+                </div>
+              </article>
+              <article class="modulo-card" style="background-image: url(&quot;./modulos/5-bichectomia.jpg&quot;)">
+                <span class="modulo-selo">Módulo 4</span>
+                <div class="modulo-info">
+                  <h3>Bichectomia</h3>
+                  <p>Bioplastia facial, contorno e efeito blush</p>
+                </div>
+              </article>
+              <article class="modulo-card" style="background-image: url(&quot;./modulos/6-preenchimentos-e-botox.jpg&quot;)">
+                <span class="modulo-selo">Módulo 5</span>
+                <div class="modulo-info">
+                  <h3>Preenchimentos &amp; Botox</h3>
+                  <p>Aplicações filmadas em todas as regiões da face</p>
+                </div>
+              </article>
+              <article class="modulo-card" style="background-image: url(&quot;./modulos/7-alectomia-bonus.jpg&quot;)">
+                <span class="modulo-selo">Bônus incluso</span>
+                <div class="modulo-info">
+                  <h3>Alectomia</h3>
+                  <p>Refinamento das asas nasais, já incluso no combo</p>
+                </div>
+              </article>
+              <article class="modulo-card sem-foto">
+                <span class="modulo-selo">Para adquirir</span>
+                <div class="modulo-info">
+                  <h3>Casos Bônus</h3>
+                  <p>Procedimentos extras para somar à sua formação</p>
+                </div>
+              </article>
+              <article class="modulo-card" style="background-image: url(&quot;./modulos/1-introducao.jpg&quot;)">
+                <span class="modulo-selo">Introdução</span>
+                <div class="modulo-info">
+                  <h3>Introdução</h3>
+                  <p>Abertura do método e o que esperar de cada etapa</p>
+                </div>
+              </article>
+              <article class="modulo-card" style="background-image: url(&quot;./modulos/2-lipoescultura-hd-de-papada.jpg&quot;)">
+                <span class="modulo-selo">Módulo 1</span>
+                <div class="modulo-info">
+                  <h3>Lipoescultura HD de Papada</h3>
+                  <p>Aulão completo e cirurgia filmada passo a passo</p>
+                </div>
+              </article>
+              <article class="modulo-card" style="background-image: url(&quot;./modulos/3-rino-definitiva.jpg&quot;)">
+                <span class="modulo-selo">Módulo 2</span>
+                <div class="modulo-info">
+                  <h3>Rino Definitiva</h3>
+                  <p>Elevação de ponta e correção de giba nasal</p>
+                </div>
+              </article>
+              <article class="modulo-card" style="background-image: url(&quot;./modulos/4-correcao-de-orelha-de-abano.jpg&quot;)">
+                <span class="modulo-selo">Módulo 3</span>
+                <div class="modulo-info">
+                  <h3>Correção de Orelha de Abano</h3>
+                  <p>Otomodelação com técnica e resultado natural</p>
+                </div>
+              </article>
+              <article class="modulo-card" style="background-image: url(&quot;./modulos/5-bichectomia.jpg&quot;)">
+                <span class="modulo-selo">Módulo 4</span>
+                <div class="modulo-info">
+                  <h3>Bichectomia</h3>
+                  <p>Bioplastia facial, contorno e efeito blush</p>
+                </div>
+              </article>
+              <article class="modulo-card" style="background-image: url(&quot;./modulos/6-preenchimentos-e-botox.jpg&quot;)">
+                <span class="modulo-selo">Módulo 5</span>
+                <div class="modulo-info">
+                  <h3>Preenchimentos &amp; Botox</h3>
+                  <p>Aplicações filmadas em todas as regiões da face</p>
+                </div>
+              </article>
+              <article class="modulo-card" style="background-image: url(&quot;./modulos/7-alectomia-bonus.jpg&quot;)">
+                <span class="modulo-selo">Bônus incluso</span>
+                <div class="modulo-info">
+                  <h3>Alectomia</h3>
+                  <p>Refinamento das asas nasais, já incluso no combo</p>
+                </div>
+              </article>
+              <article class="modulo-card sem-foto">
+                <span class="modulo-selo">Para adquirir</span>
+                <div class="modulo-info">
+                  <h3>Casos Bônus</h3>
+                  <p>Procedimentos extras para somar à sua formação</p>
+                </div>
+              </article>
+          </div>
+        </div>
+      </section>
+
+
+      <section class="section">
+        <div class="container">
           <div class="content-narrow">
             <span class="section-label">Para quem é</span>
             <h2>Este curso é para você que:</h2>
@@ -4960,63 +5103,6 @@
       </section>
     </main>
 
-    <section class="faixa-modulos" aria-label="Módulos do método">
-      <div class="faixa-modulos-fila" data-sentido="volta">
-              <figure class="modulo-quadro" style="background-image: url(&quot;./modulos/1-introducao.jpg&quot;)">
-                <figcaption>Introdução</figcaption>
-              </figure>
-              <figure class="modulo-quadro" style="background-image: url(&quot;./modulos/2-lipoescultura-hd-de-papada.jpg&quot;)">
-                <figcaption>Lipoescultura HD de Papada</figcaption>
-              </figure>
-              <figure class="modulo-quadro" style="background-image: url(&quot;./modulos/3-rino-definitiva.jpg&quot;)">
-                <figcaption>Rino Definitiva</figcaption>
-              </figure>
-              <figure class="modulo-quadro" style="background-image: url(&quot;./modulos/4-correcao-de-orelha-de-abano.jpg&quot;)">
-                <figcaption>Correção de Orelha de Abano</figcaption>
-              </figure>
-              <figure class="modulo-quadro" style="background-image: url(&quot;./modulos/5-bichectomia.jpg&quot;)">
-                <figcaption>Bichectomia</figcaption>
-              </figure>
-              <figure class="modulo-quadro" style="background-image: url(&quot;./modulos/6-preenchimentos-e-botox.jpg&quot;)">
-                <figcaption>Preenchimentos &amp; Botox</figcaption>
-              </figure>
-              <figure class="modulo-quadro" style="background-image: url(&quot;./modulos/7-alectomia-bonus.jpg&quot;)">
-                <span class="modulo-selo">Bônus incluso</span>
-                <figcaption>Alectomia</figcaption>
-              </figure>
-              <figure class="modulo-quadro sem-foto">
-                <span class="modulo-selo">Para adquirir</span>
-                <figcaption>Casos Bônus</figcaption>
-              </figure>
-              <figure class="modulo-quadro" style="background-image: url(&quot;./modulos/1-introducao.jpg&quot;)">
-                <figcaption>Introdução</figcaption>
-              </figure>
-              <figure class="modulo-quadro" style="background-image: url(&quot;./modulos/2-lipoescultura-hd-de-papada.jpg&quot;)">
-                <figcaption>Lipoescultura HD de Papada</figcaption>
-              </figure>
-              <figure class="modulo-quadro" style="background-image: url(&quot;./modulos/3-rino-definitiva.jpg&quot;)">
-                <figcaption>Rino Definitiva</figcaption>
-              </figure>
-              <figure class="modulo-quadro" style="background-image: url(&quot;./modulos/4-correcao-de-orelha-de-abano.jpg&quot;)">
-                <figcaption>Correção de Orelha de Abano</figcaption>
-              </figure>
-              <figure class="modulo-quadro" style="background-image: url(&quot;./modulos/5-bichectomia.jpg&quot;)">
-                <figcaption>Bichectomia</figcaption>
-              </figure>
-              <figure class="modulo-quadro" style="background-image: url(&quot;./modulos/6-preenchimentos-e-botox.jpg&quot;)">
-                <figcaption>Preenchimentos &amp; Botox</figcaption>
-              </figure>
-              <figure class="modulo-quadro" style="background-image: url(&quot;./modulos/7-alectomia-bonus.jpg&quot;)">
-                <span class="modulo-selo">Bônus incluso</span>
-                <figcaption>Alectomia</figcaption>
-              </figure>
-              <figure class="modulo-quadro sem-foto">
-                <span class="modulo-selo">Para adquirir</span>
-                <figcaption>Casos Bônus</figcaption>
-              </figure>
-      </div>
-    </section>
-
     <footer>
       <div class="container">
         <div class="footer-grid">
@@ -5197,7 +5283,7 @@
 
 
     (() => {
-      const fila = document.querySelector(".faixa-modulos-fila");
+      const fila = document.querySelector(".modulos-fila");
       if (!fila) return;
 
       const semMovimento = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
