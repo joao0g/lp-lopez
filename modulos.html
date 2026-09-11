@@ -68,15 +68,67 @@
     }
 
     .topbar {
-      padding: 28px 0 0;
+      padding: 22px 0 0;
+    }
+
+    .topbar .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
     }
 
     .brand {
-      display: inline-block;
-      color: var(--white);
+      display: flex;
+      flex-direction: column;
+      line-height: 1.14;
+    }
+
+    .brand-top {
+      color: var(--text-muted);
+      font-size: 0.58rem;
+      letter-spacing: 0.34em;
+      text-indent: 0.34em;
+      text-transform: uppercase;
+    }
+
+    .brand-main {
+      background: linear-gradient(180deg, #f0d080 0%, #c9a84c 52%, #8b6914 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
       font-family: "Playfair Display", serif;
-      font-size: 1.75rem;
+      font-size: 1.32rem;
       font-style: italic;
+    }
+
+    .topbar-cta {
+      flex: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border: 1px solid rgba(201, 168, 76, 0.34);
+      border-radius: 999px;
+      color: var(--gold);
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 1.3px;
+      text-transform: uppercase;
+      transition: border-color 0.25s ease, background 0.25s ease, color 0.25s ease;
+    }
+
+    .topbar-cta:hover,
+    .topbar-cta:focus-visible {
+      border-color: rgba(201, 168, 76, 0.62);
+      background: rgba(201, 168, 76, 0.1);
+      color: var(--white);
+    }
+
+    .topbar-cta svg {
+      width: 13px;
+      height: 13px;
+      flex: none;
     }
 
     .hero {
@@ -392,12 +444,27 @@
 
     @media (max-width: 767px) {
       .topbar {
-        padding-top: 20px;
+        padding-top: 16px;
       }
 
-      .brand {
-        font-size: 1.2rem;
-        line-height: 1.15;
+      .topbar .container {
+        gap: 12px;
+      }
+
+      .brand-main {
+        font-size: 1.02rem;
+      }
+
+      .brand-top {
+        font-size: 0.5rem;
+        letter-spacing: 0.24em;
+        text-indent: 0.24em;
+      }
+
+      .topbar-cta {
+        padding: 9px 14px;
+        font-size: 0.6rem;
+        letter-spacing: 0.8px;
       }
 
       .hero {
@@ -463,7 +530,14 @@
 <body>
   <header class="topbar">
     <div class="container">
-      <a class="brand" href="./">Método Esculpindo Faces — Dr. Lopez</a>
+      <a class="brand" href="./" aria-label="Método Esculpindo Faces — ir para a página inicial">
+        <span class="brand-top">Método</span>
+        <span class="brand-main">Esculpindo Faces</span>
+      </a>
+      <a class="topbar-cta" href="./#checkout">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+        <span>Combo completo</span>
+      </a>
     </div>
   </header>
 

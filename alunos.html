@@ -66,15 +66,67 @@
     }
 
     .topbar {
-      padding: 28px 0 0;
+      padding: 22px 0 0;
+    }
+
+    .topbar .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
     }
 
     .brand {
-      display: inline-block;
-      color: var(--white);
+      display: flex;
+      flex-direction: column;
+      line-height: 1.14;
+    }
+
+    .brand-top {
+      color: var(--text-muted);
+      font-size: 0.58rem;
+      letter-spacing: 0.34em;
+      text-indent: 0.34em;
+      text-transform: uppercase;
+    }
+
+    .brand-main {
+      background: linear-gradient(180deg, #f0d080 0%, #c9a84c 52%, #8b6914 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
       font-family: "Playfair Display", serif;
-      font-size: 1.75rem;
+      font-size: 1.32rem;
       font-style: italic;
+    }
+
+    .topbar-cta {
+      flex: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border: 1px solid rgba(201, 168, 76, 0.34);
+      border-radius: 999px;
+      color: var(--gold);
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 1.3px;
+      text-transform: uppercase;
+      transition: border-color 0.25s ease, background 0.25s ease, color 0.25s ease;
+    }
+
+    .topbar-cta:hover,
+    .topbar-cta:focus-visible {
+      border-color: rgba(201, 168, 76, 0.62);
+      background: rgba(201, 168, 76, 0.1);
+      color: var(--white);
+    }
+
+    .topbar-cta svg {
+      width: 13px;
+      height: 13px;
+      flex: none;
     }
 
     .hero {
@@ -240,12 +292,27 @@
 
     @media (max-width: 767px) {
       .topbar {
-        padding-top: 20px;
+        padding-top: 16px;
       }
 
-      .brand {
-        font-size: 1.2rem;
-        line-height: 1.15;
+      .topbar .container {
+        gap: 12px;
+      }
+
+      .brand-main {
+        font-size: 1.02rem;
+      }
+
+      .brand-top {
+        font-size: 0.5rem;
+        letter-spacing: 0.24em;
+        text-indent: 0.24em;
+      }
+
+      .topbar-cta {
+        padding: 9px 14px;
+        font-size: 0.6rem;
+        letter-spacing: 0.8px;
       }
 
       .hero {
@@ -311,7 +378,14 @@
 <body>
   <header class="topbar">
     <div class="container">
-      <a class="brand" href="./">Método Esculpindo Faces — Dr. Lopez</a>
+      <a class="brand" href="./" aria-label="Método Esculpindo Faces — ir para a página inicial">
+        <span class="brand-top">Método</span>
+        <span class="brand-main">Esculpindo Faces</span>
+      </a>
+      <a class="topbar-cta" href="./#checkout">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+        <span>Garantir vaga</span>
+      </a>
     </div>
   </header>
 
@@ -334,7 +408,7 @@
         <div class="gallery-grid">
           <article class="student-card">
             <div class="student-photo">
-              <img src="./alunos/PHOTO-2026-04-23-13-47-43.jpg" alt="Dr. Lopez ao lado de aluna com certificados da formação presencial">
+              <img src="./alunos/PHOTO-2026-04-23-13-47-43.jpg" alt="Dr. Lopez ao lado de aluna com certificados da formação presencial" loading="lazy" decoding="async">
             </div>
             <div class="student-copy">
               <div class="student-name">Aluna certificada</div>
@@ -345,7 +419,7 @@
 
           <article class="student-card">
             <div class="student-photo">
-              <img src="./alunos/PHOTO-2026-04-23-13-46-32.jpg" alt="Dr. Lopez ao lado de aluna segurando certificado da formação presencial">
+              <img src="./alunos/PHOTO-2026-04-23-13-46-32.jpg" alt="Dr. Lopez ao lado de aluna segurando certificado da formação presencial" loading="lazy" decoding="async">
             </div>
             <div class="student-copy">
               <div class="student-name">Aluna formada</div>
@@ -356,7 +430,7 @@
 
           <article class="student-card">
             <div class="student-photo">
-              <img src="./alunos/PHOTO-2026-04-23-13-46-31.jpg" alt="Dr. Lopez ao lado de aluno com certificado de conclusão">
+              <img src="./alunos/PHOTO-2026-04-23-13-46-31.jpg" alt="Dr. Lopez ao lado de aluno com certificado de conclusão" loading="lazy" decoding="async">
             </div>
             <div class="student-copy">
               <div class="student-name">Aluno certificado</div>
@@ -367,7 +441,7 @@
 
           <article class="student-card">
             <div class="student-photo">
-              <img src="./alunos/aluno-04.jpeg" alt="Dr. Lopez ao lado de aluno segurando certificado de lipoescultura HD de papada e pescoço">
+              <img src="./alunos/aluno-04.jpeg" alt="Dr. Lopez ao lado de aluno segurando certificado de lipoescultura HD de papada e pescoço" loading="lazy" decoding="async">
             </div>
             <div class="student-copy">
               <div class="student-name">Aluno certificado</div>
@@ -378,7 +452,7 @@
 
           <article class="student-card">
             <div class="student-photo">
-              <img src="./alunos/aluno-05.jpeg" alt="Dr. Lopez ao lado de aluna segurando certificado de otomodelação">
+              <img src="./alunos/aluno-05.jpeg" alt="Dr. Lopez ao lado de aluna segurando certificado de otomodelação" loading="lazy" decoding="async">
             </div>
             <div class="student-copy">
               <div class="student-name">Aluna certificada</div>
@@ -389,7 +463,7 @@
 
           <article class="student-card">
             <div class="student-photo">
-              <img src="./alunos/aluno-06.jpeg" alt="Dr. Lopez ao lado de aluna segurando certificado de otomodelação">
+              <img src="./alunos/aluno-06.jpeg" alt="Dr. Lopez ao lado de aluna segurando certificado de otomodelação" loading="lazy" decoding="async">
             </div>
             <div class="student-copy">
               <div class="student-name">Aluna certificada</div>
@@ -400,7 +474,7 @@
 
           <article class="student-card">
             <div class="student-photo">
-              <img src="./alunos/aluno-07.jpeg" alt="Dr. Lopez ao lado de alunas em clínica parceira da formação presencial">
+              <img src="./alunos/aluno-07.jpeg" alt="Dr. Lopez ao lado de alunas em clínica parceira da formação presencial" loading="lazy" decoding="async">
             </div>
             <div class="student-copy">
               <div class="student-name">Turma certificada</div>
@@ -411,7 +485,7 @@
 
           <article class="student-card">
             <div class="student-photo">
-              <img src="./alunos/aluno-08.jpeg" alt="Dr. Lopez ao lado de aluno segurando certificado de cirurgia de emagrecimento facial">
+              <img src="./alunos/aluno-08.jpeg" alt="Dr. Lopez ao lado de aluno segurando certificado de cirurgia de emagrecimento facial" loading="lazy" decoding="async">
             </div>
             <div class="student-copy">
               <div class="student-name">Aluno certificado</div>
@@ -422,7 +496,7 @@
 
           <article class="student-card">
             <div class="student-photo">
-              <img src="./alunos/aluno-09.jpeg" alt="Dr. Lopez ao lado de aluna segurando certificado de otomodelação">
+              <img src="./alunos/aluno-09.jpeg" alt="Dr. Lopez ao lado de aluna segurando certificado de otomodelação" loading="lazy" decoding="async">
             </div>
             <div class="student-copy">
               <div class="student-name">Aluna certificada</div>
@@ -433,7 +507,7 @@
 
           <article class="student-card">
             <div class="student-photo">
-              <img src="./alunos/aluno-10.jpeg" alt="Dr. Lopez ao lado de aluna segurando certificado de lipoescultura de papada e pescoço">
+              <img src="./alunos/aluno-10.jpeg" alt="Dr. Lopez ao lado de aluna segurando certificado de lipoescultura de papada e pescoço" loading="lazy" decoding="async">
             </div>
             <div class="student-copy">
               <div class="student-name">Aluna certificada</div>
@@ -444,7 +518,7 @@
 
           <article class="student-card">
             <div class="student-photo">
-              <img src="./alunos/aluno-11.jpeg" alt="Dr. Lopez ao lado de aluna segurando certificado de lipoescultura de papada e pescoço">
+              <img src="./alunos/aluno-11.jpeg" alt="Dr. Lopez ao lado de aluna segurando certificado de lipoescultura de papada e pescoço" loading="lazy" decoding="async">
             </div>
             <div class="student-copy">
               <div class="student-name">Aluna certificada</div>
@@ -455,7 +529,7 @@
 
           <article class="student-card">
             <div class="student-photo">
-              <img src="./alunos/aluno-12.jpeg" alt="Dr. Lopez ao lado de duas alunas certificadas em clínica parceira">
+              <img src="./alunos/aluno-12.jpeg" alt="Dr. Lopez ao lado de duas alunas certificadas em clínica parceira" loading="lazy" decoding="async">
             </div>
             <div class="student-copy">
               <div class="student-name">Turma certificada</div>
@@ -466,7 +540,7 @@
 
           <article class="student-card">
             <div class="student-photo">
-              <img src="./alunos/aluno-13.jpeg" alt="Dr. Lopez ao lado de quatro alunas certificadas em clínica parceira">
+              <img src="./alunos/aluno-13.jpeg" alt="Dr. Lopez ao lado de quatro alunas certificadas em clínica parceira" loading="lazy" decoding="async">
             </div>
             <div class="student-copy">
               <div class="student-name">Turma certificada</div>
@@ -477,7 +551,7 @@
 
           <article class="student-card">
             <div class="student-photo">
-              <img src="./alunos/aluno-14.jpeg" alt="Dr. Lopez ao lado de aluna segurando certificado de lipoescultura de papada e pescoço">
+              <img src="./alunos/aluno-14.jpeg" alt="Dr. Lopez ao lado de aluna segurando certificado de lipoescultura de papada e pescoço" loading="lazy" decoding="async">
             </div>
             <div class="student-copy">
               <div class="student-name">Aluna certificada</div>
@@ -488,7 +562,7 @@
 
           <article class="student-card">
             <div class="student-photo">
-              <img src="./alunos/aluno-15.jpeg" alt="Dr. Lopez ao lado de aluna segurando três certificados de otomodelação">
+              <img src="./alunos/aluno-15.jpeg" alt="Dr. Lopez ao lado de aluna segurando três certificados de otomodelação" loading="lazy" decoding="async">
             </div>
             <div class="student-copy">
               <div class="student-name">Aluna certificada</div>
@@ -499,7 +573,7 @@
 
           <article class="student-card">
             <div class="student-photo">
-              <img src="./alunos/aluno-16.jpeg" alt="Dr. Lopez ao lado de aluna segurando certificado de lipoescultura de papada e pescoço">
+              <img src="./alunos/aluno-16.jpeg" alt="Dr. Lopez ao lado de aluna segurando certificado de lipoescultura de papada e pescoço" loading="lazy" decoding="async">
             </div>
             <div class="student-copy">
               <div class="student-name">Aluna certificada</div>
@@ -510,7 +584,7 @@
 
           <article class="student-card">
             <div class="student-photo">
-              <img src="./alunos/aluno-17.jpeg" alt="Dr. Lopez ao lado de aluna segurando certificado de otomodelação">
+              <img src="./alunos/aluno-17.jpeg" alt="Dr. Lopez ao lado de aluna segurando certificado de otomodelação" loading="lazy" decoding="async">
             </div>
             <div class="student-copy">
               <div class="student-name">Aluna certificada</div>
@@ -521,7 +595,7 @@
 
           <article class="student-card">
             <div class="student-photo">
-              <img src="./alunos/aluno-18.jpeg" alt="Dr. Lopez ao lado de aluna segurando certificado de otomodelação">
+              <img src="./alunos/aluno-18.jpeg" alt="Dr. Lopez ao lado de aluna segurando certificado de otomodelação" loading="lazy" decoding="async">
             </div>
             <div class="student-copy">
               <div class="student-name">Aluna certificada</div>
@@ -532,7 +606,7 @@
 
           <article class="student-card">
             <div class="student-photo">
-              <img src="./alunos/aluno-19.jpeg" alt="Dr. Lopez ao lado de aluna segurando certificado de otomodelação">
+              <img src="./alunos/aluno-19.jpeg" alt="Dr. Lopez ao lado de aluna segurando certificado de otomodelação" loading="lazy" decoding="async">
             </div>
             <div class="student-copy">
               <div class="student-name">Aluna certificada</div>
@@ -543,7 +617,7 @@
 
           <article class="student-card">
             <div class="student-photo">
-              <img src="./alunos/aluno-20.jpeg" alt="Dr. Lopez ao lado de aluna segurando dois certificados da formação presencial">
+              <img src="./alunos/aluno-20.jpeg" alt="Dr. Lopez ao lado de aluna segurando dois certificados da formação presencial" loading="lazy" decoding="async">
             </div>
             <div class="student-copy">
               <div class="student-name">Aluna certificada</div>
@@ -554,7 +628,7 @@
 
           <article class="student-card">
             <div class="student-photo">
-              <img src="./alunos/aluno-21.jpeg" alt="Instrutores da formação segurando certificado de otomodelação de aluna">
+              <img src="./alunos/aluno-21.jpeg" alt="Instrutores da formação segurando certificado de otomodelação de aluna" loading="lazy" decoding="async">
             </div>
             <div class="student-copy">
               <div class="student-name">Turma certificada</div>

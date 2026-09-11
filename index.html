@@ -194,15 +194,122 @@
     .section {
       position: relative;
       padding: var(--section-space) 0;
-      opacity: 0;
-      transform: translateY(28px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
       border-top: 1px solid rgba(255, 255, 255, 0.03);
     }
 
-    .section.is-visible {
+    /* ===========================================================
+       Animacoes
+       O JS marca os alvos com [data-reveal]; nada fica escondido
+       apenas por CSS, entao se o script falhar a pagina aparece
+       inteira em vez de ficar em branco.
+       =========================================================== */
+
+    @keyframes riseIn {
+      from {
+        opacity: 0;
+        transform: translateY(26px);
+      }
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    @keyframes artIn {
+      from {
+        opacity: 0;
+        transform: scale(1.06);
+      }
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    @keyframes barIn {
+      from {
+        opacity: 0;
+        transform: translateY(-18px);
+      }
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    /* --- entrada da pagina --- */
+    .hero-art {
+      animation: artIn 1.5s cubic-bezier(0.2, 0.7, 0.3, 1) both;
+    }
+
+    .sticky-cta .container {
+      animation: barIn 0.8s cubic-bezier(0.2, 0.7, 0.3, 1) 0.1s both;
+    }
+
+    .hero-stack > * {
+      animation: riseIn 0.9s cubic-bezier(0.2, 0.7, 0.3, 1) both;
+    }
+
+    .hero-wordmark {
+      animation-delay: 0.24s;
+    }
+
+    .hero h1 {
+      animation-delay: 0.34s;
+    }
+
+    .hero-subline {
+      animation-delay: 0.44s;
+    }
+
+    .hero-divider {
+      animation-delay: 0.52s;
+    }
+
+    .hero .cta-row {
+      animation-delay: 0.58s;
+    }
+
+    .hero-vsl-replay {
+      animation-delay: 0.66s;
+    }
+
+    .hero-trust {
+      animation-delay: 0.72s;
+    }
+
+    .hero-badge {
+      animation: riseIn 0.9s cubic-bezier(0.2, 0.7, 0.3, 1) 0.8s both;
+    }
+
+    .brand-marquee {
+      animation: riseIn 0.9s cubic-bezier(0.2, 0.7, 0.3, 1) 0.86s both;
+    }
+
+    /* --- o hero desvanece conforme a pagina rola --- */
+    .hero-stack {
+      opacity: calc(1 - var(--hero-scroll, 0) * 0.85);
+      transform: translateY(calc(var(--hero-scroll, 0) * 30px));
+      will-change: opacity, transform;
+    }
+
+    /* --- reveal no scroll --- */
+    [data-reveal] {
+      opacity: 0;
+      transform: translateY(var(--reveal-shift, 26px));
+      transition:
+        opacity 0.78s cubic-bezier(0.2, 0.7, 0.3, 1),
+        transform 0.78s cubic-bezier(0.2, 0.7, 0.3, 1);
+      transition-delay: var(--reveal-delay, 0ms);
+    }
+
+    [data-reveal="zoom"] {
+      transform: translateY(18px) scale(0.965);
+    }
+
+    [data-reveal].is-in {
       opacity: 1;
-      transform: translateY(0);
+      transform: none;
     }
 
     .section:nth-of-type(odd) {
@@ -233,7 +340,14 @@
     }
 
     .hero h1 {
-      font-size: clamp(2rem, 4vw, 3.4rem);
+      font-size: clamp(1.95rem, 3.15vw, 2.9rem);
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+
+    .hero .hero-subline {
+      font-size: 0.86rem;
+      line-height: 1.6;
     }
 
     .hero-art {
@@ -290,34 +404,62 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 4px;
-      margin-bottom: 16px;
+      gap: 2px;
+      margin-bottom: 18px;
     }
 
     .hero-wordmark-top {
       color: var(--text-dim);
-      font-size: 0.66rem;
+      font-size: 0.6rem;
       font-weight: 400;
-      letter-spacing: 0.44em;
-      text-indent: 0.44em;
+      letter-spacing: 0.42em;
+      text-indent: 0.42em;
       text-transform: uppercase;
     }
 
     .hero-wordmark-main {
-      background: linear-gradient(180deg, #f0d080 0%, #c9a84c 52%, #8b6914 100%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
+      color: #fff7e8;
       font-family: "Playfair Display", serif;
-      font-size: clamp(1.55rem, 3.2vw, 2.5rem);
-      font-style: italic;
-      line-height: 1.08;
+      font-size: clamp(2.1rem, 4vw, 3.15rem);
+      font-style: normal;
+      font-weight: 700;
+      letter-spacing: 0.005em;
+      line-height: 0.96;
+      text-transform: uppercase;
+    }
+
+    .hero-wordmark-tag {
+      margin-top: 8px;
+      padding: 4px 13px;
+      border: 1px solid rgba(201, 168, 76, 0.32);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--text-dim);
+      font-size: 0.57rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-indent: 0.08em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .hero-wordmark-tag em {
+      color: var(--gold);
+      font-style: normal;
+    }
+
+    .hero-divider {
+      width: 100%;
+      height: 1px;
+      margin-top: 28px;
+      background: linear-gradient(90deg, rgba(201, 168, 76, 0.36), rgba(201, 168, 76, 0.08) 62%, transparent);
     }
 
     .hero-badge {
       position: absolute;
-      right: 0;
-      bottom: calc(100% + 26px);
+      right: var(--side-pad);
+      top: 58%;
+      z-index: 2;
       display: inline-flex;
       align-items: center;
       gap: 11px;
@@ -388,40 +530,65 @@
     .hero-trust strong {
       display: block;
       color: var(--white);
-      font-size: 0.85rem;
-      font-weight: 500;
-      line-height: 1.3;
+      font-size: 0.72rem;
+      font-weight: 700;
+      line-height: 1.25;
     }
 
     .hero-trust-text > span {
       display: block;
-      color: var(--text-muted);
-      font-size: 0.7rem;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      line-height: 1.35;
+      color: var(--text-dim);
+      font-size: 0.68rem;
+      letter-spacing: 0.02em;
+      line-height: 1.25;
     }
 
     .hero-vsl-replay {
       display: flex;
       justify-content: center;
-      margin-top: 16px;
+      margin-top: 10px;
     }
 
     .hero-vsl-replay .secondary-link {
+      min-height: 0;
+      padding: 6px 0;
+      border: 0;
       background: transparent;
+      color: var(--text-dim);
       cursor: pointer;
       font-family: inherit;
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+    }
+
+    .hero-vsl-replay .secondary-link:hover,
+    .hero-vsl-replay .secondary-link:focus-visible {
+      color: var(--white);
     }
 
     .brand-marquee {
       position: relative;
       z-index: 1;
       overflow: hidden;
-      padding: 15px 0;
-      border-top: 1px solid rgba(201, 168, 76, 0.14);
-      border-bottom: 1px solid rgba(201, 168, 76, 0.14);
-      background: linear-gradient(90deg, rgba(201, 168, 76, 0.04), rgba(201, 168, 76, 0.1), rgba(201, 168, 76, 0.04));
+      padding: 17px 0;
+      border-top: 1px solid rgba(201, 168, 76, 0.26);
+      border-bottom: 1px solid rgba(201, 168, 76, 0.26);
+      /* gradiente vertical sobre o preto: dá profundidade sem o tom
+         oliva que o gradiente horizontal amarelado produzia */
+      background:
+        linear-gradient(180deg, rgba(201, 168, 76, 0.09), rgba(201, 168, 76, 0.02) 52%, rgba(0, 0, 0, 0.25)),
+        var(--bg-alt);
+      /* o conteúdo surge e some nas laterais em vez de ser cortado */
+      -webkit-mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
+      mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
+    }
+
+    .brand-marquee::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 40% 140% at 50% 50%, rgba(201, 168, 76, 0.12), transparent 70%);
+      pointer-events: none;
     }
 
     .brand-marquee-track {
@@ -438,40 +605,72 @@
     .brand-marquee-item {
       display: inline-flex;
       align-items: center;
-      gap: 14px;
-      padding: 0 26px;
+      gap: 16px;
+      padding: 0 4px;
       white-space: nowrap;
-      color: var(--text-muted);
-      font-size: 0.78rem;
-      letter-spacing: 0.17em;
+      color: var(--text-dim);
+      font-size: 0.76rem;
+      font-weight: 400;
+      letter-spacing: 0.19em;
       text-transform: uppercase;
     }
 
+    /* losango dourado separando um item do outro */
+    .brand-marquee-item::after {
+      content: "";
+      width: 5px;
+      height: 5px;
+      margin: 0 26px;
+      flex: none;
+      transform: rotate(45deg);
+      background: var(--gold);
+      box-shadow: 0 0 10px rgba(201, 168, 76, 0.6);
+    }
+
     .brand-marquee-item em {
-      color: var(--gold);
+      background: linear-gradient(180deg, #f5e2a8, #c9a84c 60%, #9c7d26);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
       font-family: "Playfair Display", serif;
-      font-size: 1.12rem;
+      font-size: 1.24rem;
       font-style: italic;
+      font-weight: 700;
       letter-spacing: 0.01em;
       text-transform: none;
     }
 
+    .brand-marquee:hover .brand-marquee-track {
+      animation-play-state: paused;
+    }
+
+    @media (max-width: 767px) {
+      .brand-marquee {
+        padding: 13px 0;
+      }
+
+      .brand-marquee-item {
+        gap: 12px;
+        font-size: 0.66rem;
+        letter-spacing: 0.14em;
+      }
+
+      .brand-marquee-item::after {
+        margin: 0 18px;
+      }
+
+      .brand-marquee-item em {
+        font-size: 1.04rem;
+      }
+    }
+
     .sticky-cta {
       position: fixed;
-      top: 0;
+      top: 16px;
       left: 0;
       right: 0;
       z-index: 60;
-      padding: 12px 0;
-      border-bottom: 1px solid rgba(201, 168, 76, 0.16);
-      background: rgba(11, 11, 11, 0.86);
-      backdrop-filter: blur(14px);
-      transform: translateY(-100%);
-      transition: transform 0.32s ease;
-    }
-
-    .sticky-cta.is-visible {
-      transform: translateY(0);
+      pointer-events: none;
     }
 
     .sticky-cta .container {
@@ -479,6 +678,14 @@
       align-items: center;
       justify-content: space-between;
       gap: 18px;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      border: 1px solid rgba(201, 168, 76, 0.22);
+      border-radius: 999px;
+      background: rgba(16, 14, 10, 0.82);
+      backdrop-filter: blur(16px);
+      box-shadow: 0 18px 46px rgba(0, 0, 0, 0.42);
+      pointer-events: auto;
     }
 
     .sticky-cta-brand {
@@ -500,6 +707,18 @@
       font-family: "Playfair Display", serif;
       font-size: 1.12rem;
       font-style: italic;
+    }
+
+    .sticky-cta-note {
+      color: var(--text-dim);
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+    }
+
+    @media (max-width: 899px) {
+      .sticky-cta-note {
+        display: none;
+      }
     }
 
     .sticky-cta-button {
@@ -720,7 +939,19 @@
     }
 
     .hero .cta-row {
-      margin-top: 34px;
+      margin-top: 22px;
+    }
+
+    .hero .cta-button {
+      min-height: 61px;
+      padding-left: 34px;
+      padding-right: 34px;
+      border-radius: 10px;
+      font-size: 0.76rem;
+    }
+
+    .hero .cta-button::after {
+      display: none;
     }
 
     .cta-support {
@@ -2318,15 +2549,13 @@
       z-index: 4;
       display: inline-flex;
       align-items: center;
-      gap: 10px;
-      padding: 15px 22px 15px 16px;
-      border-radius: 999px;
+      justify-content: center;
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
       background: linear-gradient(135deg, #2be07a, #1fb85c);
       color: #ffffff;
-      font-size: 0.96rem;
-      font-weight: 600;
-      letter-spacing: 0.01em;
-      box-shadow: 0 14px 32px rgba(31, 184, 92, 0.38), 0 2px 8px rgba(0, 0, 0, 0.25);
+      box-shadow: 0 12px 28px rgba(31, 184, 92, 0.34), 0 2px 8px rgba(0, 0, 0, 0.25);
       transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
@@ -2337,8 +2566,8 @@
     }
 
     .whatsapp-icon {
-      width: 26px;
-      height: 26px;
+      width: 27px;
+      height: 27px;
       flex-shrink: 0;
     }
 
@@ -2381,6 +2610,26 @@
       .scroll-cue svg {
         animation: none;
       }
+
+      /* nenhuma entrada, nenhum reveal, nenhum desvanecer no scroll */
+      .hero-art,
+      .hero-stack > *,
+      .hero-badge,
+      .sticky-cta .container,
+      .brand-marquee {
+        animation: none;
+      }
+
+      .hero-stack {
+        opacity: 1;
+        transform: none;
+      }
+
+      [data-reveal] {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
     }
 
     @media (min-width: 860px) {
@@ -2409,21 +2658,43 @@
     @media (min-width: 960px) {
       .hero {
         align-items: center;
-        padding: 104px 0 76px;
+        min-height: 0;
+        padding: 118px 0 56px;
         text-align: left;
       }
 
+      /* O container recebe largura explicita e a proporcao da arte.
+         A imagem preenche 100%/100% com cover, entao nao sobra borda
+         nem depende de "width:auto", que Safari e Chrome resolvem
+         de formas diferentes. A altura passa do hero de proposito:
+         o excedente e a mesa escura, cortada pelo overflow. */
       .hero-art {
-        height: 100%;
+        left: auto;
+        right: 0;
+        width: min(78%, 1180px);
+        height: auto;
+        aspect-ratio: 1536 / 1024;
+        display: block;
       }
 
       .hero-art img {
         width: 100%;
         height: 100%;
+        max-width: none;
         object-fit: cover;
-        object-position: center right;
-        -webkit-mask-image: none;
-        mask-image: none;
+        object-position: center top;
+        -webkit-mask-image:
+          linear-gradient(90deg, transparent 0, #000 30%),
+          linear-gradient(180deg, #000 62%, transparent 92%);
+        mask-image:
+          linear-gradient(90deg, transparent 0, #000 30%),
+          linear-gradient(180deg, #000 62%, transparent 92%);
+        -webkit-mask-composite: source-in;
+        mask-composite: intersect;
+      }
+
+      .hero-art::after {
+        display: none;
       }
 
       .hero-art::after {
@@ -2445,17 +2716,15 @@
 
       .hero-wordmark {
         align-items: flex-start;
-        margin-bottom: 20px;
-      }
-
-      .hero-wordmark-main {
-        font-size: clamp(2rem, 3.6vw, 3rem);
+        margin-bottom: 18px;
       }
 
       .hero-badge {
-        right: 0;
-        bottom: auto;
-        top: 56%;
+        /* o ombro fica a ~86% da largura da arte; estes dois valores
+           poem o badge centrado nele, ancorado pela base */
+        right: 6%;
+        top: auto;
+        bottom: 28%;
       }
 
       .hero-subline {
@@ -2471,13 +2740,14 @@
       }
 
       .hero-trust {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 18px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        gap: 12px 24px;
         width: 100%;
-        margin-top: 30px;
-        padding-top: 26px;
-        border-top: 1px solid rgba(201, 168, 76, 0.16);
+        margin-top: 16px;
+        padding-top: 0;
+        border-top: 0;
       }
 
       .hero-trust li {
@@ -2533,14 +2803,13 @@
         opacity: 0.08;
       }
 
-      .section {
-        opacity: 1;
-        transform: none;
+      [data-reveal] {
+        --reveal-shift: 18px;
       }
 
       .hero {
         min-height: auto;
-        padding: calc(46vw + 132px) 0 38px;
+        padding: calc(46vw + 190px) 0 38px;
       }
 
       .hero-art {
@@ -2649,10 +2918,18 @@
         text-indent: 0.36em;
       }
 
+      .hero-wordmark-tag {
+        margin-top: 7px;
+        padding: 4px 13px;
+        font-size: 0.57rem;
+        letter-spacing: 0.13em;
+        text-indent: 0.13em;
+      }
+
       .hero-badge {
-        position: static;
-        align-self: flex-end;
-        margin-bottom: 14px;
+        top: calc(46vw + 134px);
+        right: var(--side-pad);
+        margin-bottom: 0;
         padding: 5px 14px 5px 5px;
       }
 
@@ -3013,17 +3290,13 @@
       .whatsapp-float {
         right: 14px;
         bottom: 14px;
-        padding: 13px;
-        font-size: 0.9rem;
+        width: 50px;
+        height: 50px;
       }
 
       .whatsapp-icon {
-        width: 24px;
-        height: 24px;
-      }
-
-      .whatsapp-label {
-        display: none;
+        width: 25px;
+        height: 25px;
       }
     }
   </style>
@@ -3036,6 +3309,7 @@
           <span>Método</span>
           <em>Esculpindo Faces</em>
         </span>
+        <span class="sticky-cta-note">Acesso imediato · Suporte por 1 ano</span>
         <a class="sticky-cta-button" href="#checkout">Garantir minha vaga</a>
       </div>
     </div>
@@ -3049,26 +3323,28 @@
           </picture>
         </div>
 
+        <a class="hero-badge" href="https://www.instagram.com/drlopez_/" target="_blank" rel="noreferrer">
+          <img src="./hero-lopez.jpg" alt="" aria-hidden="true">
+          <span class="hero-badge-text">
+            <span class="hero-badge-name">Dr. Lopez</span>
+            <span class="hero-badge-handle">@drlopez_</span>
+          </span>
+        </a>
+
         <div class="container">
           <div class="hero-stack">
-            <a class="hero-badge" href="https://www.instagram.com/drlopez_/" target="_blank" rel="noreferrer">
-              <img src="./hero-lopez.jpg" alt="" aria-hidden="true">
-              <span class="hero-badge-text">
-                <span class="hero-badge-name">Dr. Lopez</span>
-                <span class="hero-badge-handle">@drlopez_</span>
-              </span>
-            </a>
-
             <div class="hero-wordmark">
               <span class="hero-wordmark-top">Método</span>
               <span class="hero-wordmark-main">Esculpindo Faces</span>
+              <span class="hero-wordmark-tag">Da base <em>à excelência</em></span>
             </div>
 
-            <div class="hero-kicker">Formação presencial consolidada, agora em escala digital</div>
 
             <h1>Aprenda a <span class="gold-shimmer">Esculpir Faces</span> com Precisão Artística</h1>
 
             <p class="lead hero-subline">Um método para profissionais da saúde que querem unir técnica, visão estética e posicionamento para construir resultados transformadores.</p>
+
+            <div class="hero-divider"></div>
 
             <div class="cta-row">
               <a class="cta-button" href="#checkout">QUERO GARANTIR MINHA VAGA</a>
@@ -3081,15 +3357,15 @@
             <ul class="hero-trust">
               <li>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 10 12 5 2 10l10 5 10-5Z"/><path d="M6 12v5c0 1 2.7 2.5 6 2.5s6-1.5 6-2.5v-5"/></svg>
-                <span class="hero-trust-text"><strong>+400 alunos</strong><span>140 turmas presenciais</span></span>
+                <span class="hero-trust-text"><span>Alunos formados</span><strong>+400</strong></span>
               </li>
               <li>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.5 14.9 8.6l6.6.9-4.8 4.7 1.2 6.6L12 17.6l-5.9 3.2 1.2-6.6L2.5 9.5l6.6-.9L12 2.5Z"/></svg>
-                <span class="hero-trust-text"><strong>+7.000</strong><span>Procedimentos realizados</span></span>
+                <span class="hero-trust-text"><span>Procedimentos</span><strong>+7.000</strong></span>
               </li>
               <li>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 4 13.5h6.5L11 22l9-11.5h-6.5L13 2Z"/></svg>
-                <span class="hero-trust-text"><strong>Acesso imediato</strong><span>Suporte por 1 ano</span></span>
+                <span class="hero-trust-text"><span>Acesso</span><strong>Imediato</strong></span>
               </li>
             </ul>
           </div>
@@ -3835,7 +4111,6 @@
       <svg class="whatsapp-icon" viewBox="0 0 32 32" aria-hidden="true">
         <path fill="currentColor" d="M16.004 3C9.377 3 4 8.373 4 15c0 2.372.687 4.583 1.875 6.445L4 29l7.727-1.85A11.94 11.94 0 0 0 16.004 27C22.63 27 28 21.627 28 15S22.63 3 16.004 3Zm0 21.75a9.7 9.7 0 0 1-4.95-1.36l-.355-.21-4.585 1.098 1.12-4.47-.232-.365A9.71 9.71 0 0 1 5.25 15c0-5.93 4.823-10.75 10.754-10.75S26.75 9.07 26.75 15 21.935 24.75 16.004 24.75Zm5.55-7.98c-.303-.152-1.792-.884-2.07-.985-.278-.101-.48-.152-.682.152-.202.303-.783.985-.96 1.187-.177.202-.354.227-.657.076-.303-.152-1.28-.472-2.438-1.505-.9-.803-1.508-1.795-1.685-2.098-.177-.303-.019-.467.133-.618.137-.136.303-.354.455-.53.152-.177.202-.303.303-.505.101-.202.05-.38-.025-.53-.076-.152-.682-1.646-.935-2.253-.246-.591-.497-.511-.682-.52l-.581-.01c-.202 0-.53.076-.808.38-.278.303-1.06 1.036-1.06 2.53 0 1.494 1.086 2.937 1.237 3.14.152.202 2.137 3.263 5.178 4.575.723.312 1.287.499 1.727.639.726.231 1.386.198 1.908.12.582-.087 1.792-.733 2.045-1.44.253-.708.253-1.315.177-1.44-.076-.126-.278-.202-.581-.354Z"/>
       </svg>
-      <span class="whatsapp-label">Fale no WhatsApp</span>
     </a>
 
     <div class="lightbox" id="lightbox">
@@ -3878,18 +4153,67 @@
       ).observe(hero);
     })();
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("is-visible");
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.05 });
+    (() => {
+      const semMovimento = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (semMovimento) return;
 
-    document.querySelectorAll(".section").forEach((section, index) => {
-      if (index !== 0) observer.observe(section);
-    });
+      // Elementos que ja tem transform proprio (carrosseis, faixa rolante)
+      // nao podem receber o reveal, senao a animacao deles quebra.
+      const NAO_ANIMAR = ".testimonials-track, .brand-marquee-track, .case-carousel, .lightbox, .vsl-popup";
+      // Blocos com varios filhos entram escalonados, item a item.
+      const EH_GRADE = /grid|track|viewport|module-preview|press-|results-|diploma-/;
+
+      const alvos = (secao) => {
+        const caixa = secao.querySelector(".container") || secao;
+        const saida = [];
+        for (const filho of caixa.children) {
+          if (filho.matches(NAO_ANIMAR) || filho.closest(NAO_ANIMAR)) continue;
+          if (filho.children.length >= 2 && EH_GRADE.test(filho.className)) {
+            for (const neto of filho.children) saida.push(neto);
+          } else {
+            saida.push(filho);
+          }
+        }
+        return saida;
+      };
+
+      const observador = new IntersectionObserver((entradas) => {
+        for (const entrada of entradas) {
+          if (!entrada.isIntersecting) continue;
+          entrada.target.classList.add("is-in");
+          observador.unobserve(entrada.target);
+        }
+      }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
+
+      document.querySelectorAll(".section").forEach((secao, i) => {
+        if (i === 0) return; // o hero tem a propria animacao de entrada
+        alvos(secao).forEach((el, j) => {
+          el.setAttribute("data-reveal", el.querySelector("img") || el.tagName === "IMG" ? "zoom" : "");
+          el.style.setProperty("--reveal-delay", Math.min(j, 6) * 75 + "ms");
+          observador.observe(el);
+        });
+      });
+
+      // o conteudo do hero desvanece conforme a pagina rola
+      const hero = document.querySelector(".hero");
+      if (hero) {
+        let agendado = false;
+        const atualizar = () => {
+          agendado = false;
+          const h = hero.offsetHeight;
+          // so comeca depois de 18% do hero e termina quando ele sai:
+          // assim o texto nao apaga enquanto ainda esta bem visivel
+          const f = Math.min(Math.max((window.scrollY - h * 0.18) / (h * 0.72), 0), 1);
+          hero.style.setProperty("--hero-scroll", f.toFixed(3));
+        };
+        addEventListener("scroll", () => {
+          if (agendado) return;
+          agendado = true;
+          requestAnimationFrame(atualizar);
+        }, { passive: true });
+        atualizar();
+      }
+    })();
 
     document.querySelectorAll("[data-carousel]").forEach((carousel) => {
       const card = carousel.closest(".case-photo");
