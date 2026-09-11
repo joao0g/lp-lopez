@@ -219,31 +219,193 @@
     }
 
     .hero {
-      min-height: 100vh;
+      position: relative;
+      min-height: 100svh;
       display: flex;
-      align-items: center;
+      align-items: flex-end;
+      justify-content: center;
+      overflow: hidden;
+      padding: 50svh 0 58px;
+      text-align: center;
       background:
-        linear-gradient(180deg, rgba(15, 15, 15, 0.76), rgba(11, 11, 11, 0.98)),
-        radial-gradient(circle at 84% 16%, rgba(201, 168, 76, 0.14), transparent 28%),
-        radial-gradient(circle at 15% 12%, rgba(255, 255, 255, 0.03), transparent 20%),
+        radial-gradient(ellipse 72% 46% at 50% 34%, rgba(201, 168, 76, 0.13), transparent 72%),
         var(--bg);
     }
 
+    .hero h1 {
+      font-size: clamp(2rem, 4vw, 3.4rem);
+    }
+
+    .hero-art {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 100svh;
+      z-index: 0;
+      display: flex;
+      justify-content: center;
+      pointer-events: none;
+    }
+
+    .hero-art img {
+      height: 100%;
+      width: auto;
+      max-width: none;
+      object-fit: cover;
+      object-position: center top;
+      -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 16%, #000 84%, transparent 100%);
+      mask-image: linear-gradient(90deg, transparent 0, #000 16%, #000 84%, transparent 100%);
+    }
+
+    .hero-art::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        180deg,
+        rgba(11, 11, 11, 0) 30%,
+        rgba(11, 11, 11, 0.5) 45%,
+        rgba(11, 11, 11, 0.88) 62%,
+        var(--bg) 82%
+      );
+    }
+
     .hero .container {
-      display: grid;
-      gap: 42px;
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: center;
+    }
+
+    .hero-stack {
+      position: relative;
+      width: min(100%, 700px);
+      display: flex;
+      flex-direction: column;
       align-items: center;
     }
 
-    .hero-media {
-      display: grid;
-      gap: 18px;
-      align-items: start;
+    .hero-wordmark {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      margin-bottom: 16px;
+    }
+
+    .hero-wordmark-top {
+      color: var(--text-dim);
+      font-size: 0.66rem;
+      font-weight: 400;
+      letter-spacing: 0.44em;
+      text-indent: 0.44em;
+      text-transform: uppercase;
+    }
+
+    .hero-wordmark-main {
+      background: linear-gradient(180deg, #f0d080 0%, #c9a84c 52%, #8b6914 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-family: "Playfair Display", serif;
+      font-size: clamp(1.55rem, 3.2vw, 2.5rem);
+      font-style: italic;
+      line-height: 1.08;
+    }
+
+    .hero-badge {
+      position: absolute;
+      right: 0;
+      bottom: calc(100% + 26px);
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      padding: 6px 18px 6px 6px;
+      border: 1px solid rgba(201, 168, 76, 0.24);
+      border-radius: 999px;
+      background: rgba(20, 18, 14, 0.6);
+      backdrop-filter: blur(10px);
+      transition: border-color 0.25s ease, background 0.25s ease;
+    }
+
+    .hero-badge:hover,
+    .hero-badge:focus-visible {
+      border-color: rgba(201, 168, 76, 0.52);
+      background: rgba(28, 24, 16, 0.78);
+    }
+
+    .hero-badge img {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center 30%;
+    }
+
+    .hero-badge-text {
+      text-align: left;
+      line-height: 1.3;
+    }
+
+    .hero-badge-name {
+      display: block;
+      color: var(--white);
+      font-size: 0.84rem;
+    }
+
+    .hero-badge-handle {
+      display: block;
+      color: var(--gold);
+      font-size: 0.74rem;
+      letter-spacing: 0.03em;
+    }
+
+    .hero-trust {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 14px 32px;
+      margin: 28px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .hero-trust li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-align: left;
+    }
+
+    .hero-trust svg {
+      width: 18px;
+      height: 18px;
+      flex: none;
+      color: var(--gold);
+    }
+
+    .hero-trust strong {
+      display: block;
+      color: var(--white);
+      font-size: 0.85rem;
+      font-weight: 500;
+      line-height: 1.3;
+    }
+
+    .hero-trust-text > span {
+      display: block;
+      color: var(--text-muted);
+      font-size: 0.7rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      line-height: 1.35;
     }
 
     .hero-vsl-replay {
       display: flex;
       justify-content: center;
+      margin-top: 16px;
     }
 
     .hero-vsl-replay .secondary-link {
@@ -252,25 +414,185 @@
       font-family: inherit;
     }
 
-    .brand-bar {
+    .brand-marquee {
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+      padding: 15px 0;
+      border-top: 1px solid rgba(201, 168, 76, 0.14);
+      border-bottom: 1px solid rgba(201, 168, 76, 0.14);
+      background: linear-gradient(90deg, rgba(201, 168, 76, 0.04), rgba(201, 168, 76, 0.1), rgba(201, 168, 76, 0.04));
+    }
+
+    .brand-marquee-track {
+      display: flex;
+      width: max-content;
+      animation: marqueeSlide 38s linear infinite;
+    }
+
+    .brand-marquee-group {
+      display: flex;
+      flex: none;
+    }
+
+    .brand-marquee-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      padding: 0 26px;
+      white-space: nowrap;
+      color: var(--text-muted);
+      font-size: 0.78rem;
+      letter-spacing: 0.17em;
+      text-transform: uppercase;
+    }
+
+    .brand-marquee-item em {
+      color: var(--gold);
+      font-family: "Playfair Display", serif;
+      font-size: 1.12rem;
+      font-style: italic;
+      letter-spacing: 0.01em;
+      text-transform: none;
+    }
+
+    .sticky-cta {
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
-      z-index: 40;
-      padding: 24px 0;
-      border-bottom: 1px solid rgba(201, 168, 76, 0.12);
-      background: rgba(11, 11, 11, 0.84);
+      z-index: 60;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(201, 168, 76, 0.16);
+      background: rgba(11, 11, 11, 0.86);
       backdrop-filter: blur(14px);
-      box-shadow: 0 18px 46px rgba(0, 0, 0, 0.2);
+      transform: translateY(-100%);
+      transition: transform 0.32s ease;
     }
 
-    .brand {
+    .sticky-cta.is-visible {
+      transform: translateY(0);
+    }
+
+    .sticky-cta .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .sticky-cta-brand {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.15;
+    }
+
+    .sticky-cta-brand span {
+      color: var(--text-muted);
+      font-size: 0.58rem;
+      letter-spacing: 0.34em;
+      text-indent: 0.34em;
+      text-transform: uppercase;
+    }
+
+    .sticky-cta-brand em {
+      color: var(--gold);
       font-family: "Playfair Display", serif;
-      font-size: 1.75rem;
+      font-size: 1.12rem;
       font-style: italic;
-      font-weight: 400;
+    }
+
+    .sticky-cta-button {
+      flex: none;
+      padding: 12px 26px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #8b6914, #c9a84c 46%, #f0d080);
+      color: #14110a;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 1.4px;
+      text-transform: uppercase;
+      transition: filter 0.25s ease;
+    }
+
+    .sticky-cta-button:hover,
+    .sticky-cta-button:focus-visible {
+      filter: brightness(1.09);
+    }
+
+    @media (max-width: 767px) {
+      .sticky-cta {
+        padding: 9px 0;
+      }
+
+      .sticky-cta-brand em {
+        font-size: 0.94rem;
+      }
+
+      .sticky-cta-brand span {
+        font-size: 0.52rem;
+        letter-spacing: 0.24em;
+        text-indent: 0.24em;
+      }
+
+      .sticky-cta-button {
+        padding: 11px 16px;
+        font-size: 0.64rem;
+        letter-spacing: 1px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .sticky-cta {
+        transition: none;
+      }
+    }
+
+    .scroll-cue {
+      display: flex;
+      justify-content: center;
+      padding: 30px 0 6px;
+      background: var(--bg);
+    }
+
+    .scroll-cue a {
+      display: grid;
+      place-items: center;
+      width: 30px;
+      height: 46px;
+      border: 1px solid rgba(201, 168, 76, 0.3);
+      border-radius: 999px;
+      color: var(--gold);
+      transition: border-color 0.25s ease, color 0.25s ease;
+    }
+
+    .scroll-cue a:hover,
+    .scroll-cue a:focus-visible {
+      border-color: rgba(201, 168, 76, 0.62);
       color: var(--white);
+    }
+
+    .scroll-cue svg {
+      width: 14px;
+      height: 14px;
+      animation: scrollCueBob 1.9s ease-in-out infinite;
+    }
+
+    @keyframes scrollCueBob {
+      0%, 100% {
+        transform: translateY(-3px);
+        opacity: 0.55;
+      }
+      50% {
+        transform: translateY(3px);
+        opacity: 1;
+      }
+    }
+
+    @keyframes marqueeSlide {
+      to {
+        transform: translateX(-50%);
+      }
     }
 
     .section-label {
@@ -362,12 +684,6 @@
       font-size: 1.05rem;
     }
 
-    .hero-copy {
-      position: relative;
-      z-index: 1;
-      max-width: 620px;
-    }
-
     .hero-kicker {
       display: inline-flex;
       align-items: center;
@@ -396,46 +712,15 @@
       max-width: 34rem;
     }
 
-    .hero-meta {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
-      margin-top: 30px;
-      max-width: 700px;
-    }
-
-    .hero-stat {
-      padding: 15px 16px;
-      border: 1px solid rgba(201, 168, 76, 0.16);
-      border-radius: 18px;
-      background:
-        linear-gradient(180deg, rgba(201, 168, 76, 0.055), rgba(255, 255, 255, 0.01)),
-        rgba(255, 255, 255, 0.015);
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
-      min-height: 96px;
-    }
-
-    .hero-stat-value {
-      color: var(--gold);
-      font-family: "Playfair Display", serif;
-      font-size: 1.48rem;
-      font-style: italic;
-      margin-bottom: 6px;
-    }
-
-    .hero-stat-label {
-      color: var(--text-dim);
-      font-size: 0.76rem;
-      line-height: 1.5;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-
     .cta-row {
       display: flex;
       flex-wrap: wrap;
       gap: 16px;
       margin-top: 32px;
+    }
+
+    .hero .cta-row {
+      margin-top: 34px;
     }
 
     .cta-support {
@@ -444,21 +729,6 @@
       font-size: 0.84rem;
       letter-spacing: 0.04em;
       text-transform: uppercase;
-    }
-
-    .hero-social {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      margin-top: 16px;
-      color: var(--text);
-      font-size: 0.92rem;
-      transition: color 0.25s ease;
-    }
-
-    .hero-social:hover,
-    .hero-social:focus-visible {
-      color: var(--white);
     }
 
     .hero-social-label {
@@ -556,7 +826,6 @@
       line-height: 1.55;
     }
 
-    .hero-visual,
     .image-placeholder,
     .case-placeholder {
       background: var(--panel);
@@ -568,45 +837,6 @@
       font-family: monospace;
       letter-spacing: 2px;
       text-transform: uppercase;
-    }
-
-    .hero-visual {
-      position: relative;
-      min-height: 480px;
-      overflow: hidden;
-      border: 1.5px solid rgba(201, 168, 76, 0.45);
-      border-radius: 28px;
-      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35), 0 0 38px rgba(201, 168, 76, 0.12);
-      background: #121212;
-    }
-
-    .hero-visual::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(180deg, rgba(11, 11, 11, 0.02), rgba(11, 11, 11, 0.48)),
-        linear-gradient(90deg, rgba(11, 11, 11, 0.2), rgba(11, 11, 11, 0));
-      pointer-events: none;
-    }
-
-    .hero-visual::before {
-      content: "PRECISÃO CLÍNICA · VISÃO ARTÍSTICA";
-      position: absolute;
-      left: 20px;
-      right: 20px;
-      bottom: 20px;
-      z-index: 1;
-      padding: 12px 16px;
-      border: 1px solid rgba(201, 168, 76, 0.18);
-      border-radius: 999px;
-      background: rgba(11, 11, 11, 0.46);
-      color: var(--white);
-      font-size: 10px;
-      letter-spacing: 0.22em;
-      text-align: center;
-      text-transform: uppercase;
-      backdrop-filter: blur(8px);
     }
 
     .vsl-card {
@@ -802,14 +1032,6 @@
       font-size: 0.78rem;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-    }
-
-    .hero-visual img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center top;
-      filter: saturate(0.92) contrast(1.02);
     }
 
     .story-photo {
@@ -1760,6 +1982,32 @@
       color: var(--text-dim);
     }
 
+    .secure-badges {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px 26px;
+      margin: 18px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .secure-badges li {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-dim);
+      font-size: 0.78rem;
+      line-height: 1.3;
+    }
+
+    .secure-badges svg {
+      width: 15px;
+      height: 15px;
+      flex: none;
+      color: var(--gold);
+    }
+
     .investment-points {
       display: grid;
       gap: 12px;
@@ -2128,19 +2376,19 @@
         animation: none;
         display: none;
       }
+
+      .brand-marquee-track,
+      .scroll-cue svg {
+        animation: none;
+      }
     }
 
     @media (min-width: 860px) {
-      .hero .container,
       .two-column,
       .results-grid,
       .diploma-grid,
       .press-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      .hero .container {
-        grid-template-columns: minmax(0, 1fr) minmax(380px, 460px);
       }
 
       .results-grid,
@@ -2158,13 +2406,107 @@
       }
     }
 
-    @media (max-width: 959px) {
+    @media (min-width: 960px) {
       .hero {
-        padding-top: 120px;
+        align-items: center;
+        padding: 104px 0 76px;
+        text-align: left;
       }
 
-      .brand {
-        font-size: 1.3rem;
+      .hero-art {
+        height: 100%;
+      }
+
+      .hero-art img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center right;
+        -webkit-mask-image: none;
+        mask-image: none;
+      }
+
+      .hero-art::after {
+        background:
+          linear-gradient(90deg, var(--bg) 2%, rgba(11, 11, 11, 0.72) 24%, rgba(11, 11, 11, 0) 54%),
+          linear-gradient(180deg, rgba(11, 11, 11, 0) 74%, var(--bg) 100%);
+      }
+
+      .hero .container {
+        justify-content: flex-start;
+      }
+
+      .hero-stack {
+        position: static;
+        width: min(100%, 560px);
+        align-items: flex-start;
+        text-align: left;
+      }
+
+      .hero-wordmark {
+        align-items: flex-start;
+        margin-bottom: 20px;
+      }
+
+      .hero-wordmark-main {
+        font-size: clamp(2rem, 3.6vw, 3rem);
+      }
+
+      .hero-badge {
+        right: 0;
+        bottom: auto;
+        top: 56%;
+      }
+
+      .hero-subline {
+        max-width: 33rem;
+      }
+
+      .hero .cta-row {
+        margin-top: 30px;
+      }
+
+      .hero-vsl-replay {
+        justify-content: flex-start;
+      }
+
+      .hero-trust {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 18px;
+        width: 100%;
+        margin-top: 30px;
+        padding-top: 26px;
+        border-top: 1px solid rgba(201, 168, 76, 0.16);
+      }
+
+      .hero-trust li {
+        align-items: flex-start;
+        gap: 9px;
+      }
+
+      .hero-trust svg {
+        margin-top: 2px;
+      }
+
+      .hero-trust strong {
+        font-size: 0.82rem;
+      }
+
+      .hero-trust-text > span {
+        font-size: 0.66rem;
+        letter-spacing: 0.05em;
+      }
+    }
+
+    @media (max-width: 959px) {
+      .hero {
+        padding: 46svh 0 48px;
+      }
+
+      .hero-art img {
+        -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 8%, #000 92%, transparent 100%);
+        mask-image: linear-gradient(90deg, transparent 0, #000 8%, #000 92%, transparent 100%);
       }
 
       .footer-brand {
@@ -2196,22 +2538,34 @@
         transform: none;
       }
 
-      .brand-bar {
-        padding: 18px 0;
-      }
-
-      .brand {
-        font-size: 1.12rem;
-        line-height: 1.18;
-      }
-
       .hero {
         min-height: auto;
-        padding: 110px 0 48px;
+        padding: calc(46vw + 132px) 0 38px;
       }
 
-      .hero .container {
-        gap: 28px;
+      .hero-art {
+        height: auto;
+        bottom: 0;
+        align-items: flex-start;
+      }
+
+      .hero-art img {
+        width: 100%;
+        height: auto;
+        max-height: none;
+        object-fit: contain;
+        -webkit-mask-image: none;
+        mask-image: none;
+      }
+
+      .hero-art::after {
+        background: linear-gradient(
+          180deg,
+          rgba(11, 11, 11, 0) calc(40vw + 40px),
+          rgba(11, 11, 11, 0.62) calc(70vw + 60px),
+          rgba(11, 11, 11, 0.93) calc(104vw + 60px),
+          var(--bg) calc(132vw + 60px)
+        );
       }
 
       .section-label {
@@ -2221,18 +2575,17 @@
       }
 
       .hero-kicker {
-        width: 100%;
-        justify-content: flex-start;
-        margin-bottom: 18px;
-        padding: 10px 12px;
-        font-size: 0.72rem;
+        justify-content: center;
+        margin-bottom: 16px;
+        padding: 9px 14px;
+        font-size: 0.68rem;
         line-height: 1.5;
       }
 
       h1 {
-        font-size: clamp(2.5rem, 14vw, 4.3rem);
-        line-height: 0.95;
-        margin-bottom: 16px;
+        font-size: clamp(2rem, 9.6vw, 3.1rem);
+        line-height: 1;
+        margin-bottom: 14px;
       }
 
       h2 {
@@ -2254,26 +2607,66 @@
         width: 100%;
       }
 
-      .hero-meta {
-        grid-template-columns: 1fr;
+      .hero-trust {
+        width: 100%;
+        flex-wrap: nowrap;
         gap: 10px;
-        margin-top: 24px;
+        margin-top: 22px;
       }
 
-      .hero-stat {
-        min-height: auto;
-        padding: 12px 10px;
-        border-radius: 16px;
+      .hero-trust li {
+        flex: 1;
+        flex-direction: column;
+        gap: 5px;
+        text-align: center;
       }
 
-      .hero-stat-value {
-        font-size: 1.18rem;
+      .hero-trust svg {
+        width: 16px;
+        height: 16px;
       }
 
-      .hero-stat-label {
-        font-size: 0.62rem;
-        letter-spacing: 0.05em;
-        line-height: 1.35;
+      .hero-trust-text > span {
+        letter-spacing: 0.03em;
+      }
+
+      .hero-trust strong {
+        font-size: 0.78rem;
+      }
+
+      .hero-trust-text > span {
+        font-size: 0.64rem;
+      }
+
+      .hero-wordmark {
+        margin-bottom: 12px;
+        gap: 2px;
+      }
+
+      .hero-wordmark-top {
+        font-size: 0.6rem;
+        letter-spacing: 0.36em;
+        text-indent: 0.36em;
+      }
+
+      .hero-badge {
+        position: static;
+        align-self: flex-end;
+        margin-bottom: 14px;
+        padding: 5px 14px 5px 5px;
+      }
+
+      .hero-badge img {
+        width: 32px;
+        height: 32px;
+      }
+
+      .hero-badge-name {
+        font-size: 0.78rem;
+      }
+
+      .hero-badge-handle {
+        font-size: 0.7rem;
       }
 
       .cta-row {
@@ -2285,6 +2678,18 @@
       .cta-button,
       .secondary-link {
         width: 100%;
+      }
+
+      .hero-vsl-replay {
+        margin-top: 12px;
+      }
+
+      .hero-vsl-replay .secondary-link {
+        width: auto;
+        min-height: 0;
+        padding: 6px 2px;
+        border: 0;
+        font-size: 0.74rem;
       }
 
       .cta-button {
@@ -2321,20 +2726,17 @@
         text-align: center;
       }
 
-      .hero-social,
       .footer-social,
       .results-link {
         font-size: 0.88rem;
       }
 
-      .hero-social-label,
       .results-link-label {
         font-size: 10px;
         letter-spacing: 1.8px;
       }
 
       .vsl-card,
-      .hero-visual,
       .story-photo,
       .diploma-card,
       .press-card,
@@ -2354,19 +2756,6 @@
 
       .vsl-text {
         font-size: 0.9rem;
-      }
-
-      .hero-visual {
-        min-height: 340px;
-      }
-
-      .hero-visual::before {
-        left: 14px;
-        right: 14px;
-        bottom: 14px;
-        padding: 10px 12px;
-        font-size: 9px;
-        letter-spacing: 0.16em;
       }
 
       .story-photo {
@@ -2641,51 +3030,94 @@
 </head>
 <body>
   <div class="page-shell">
-    <header class="brand-bar">
+    <div class="sticky-cta" id="stickyCta">
       <div class="container">
-        <div class="brand">Método Esculpindo Faces — Dr. Lopez</div>
+        <span class="sticky-cta-brand">
+          <span>Método</span>
+          <em>Esculpindo Faces</em>
+        </span>
+        <a class="sticky-cta-button" href="#checkout">Garantir minha vaga</a>
       </div>
-    </header>
+    </div>
 
     <main>
       <section class="hero section is-visible">
+        <div class="hero-art">
+          <picture>
+            <source media="(min-width: 960px)" srcset="./hero-lopez-desktop.jpg" width="1536" height="1024">
+            <img src="./hero-lopez.jpg" alt="Dr. Lopez, criador do Método Esculpindo Faces" fetchpriority="high" decoding="async" width="941" height="1672">
+          </picture>
+        </div>
+
         <div class="container">
-          <div class="hero-copy">
-            <div class="hero-kicker">Formação presencial consolidada, agora em escala digital</div>
-            <h1>Aprenda a <span class="gold-shimmer">Esculpir Faces</span> com Precisão Artística</h1>
-            <p class="lead hero-subline">Um método para profissionais da saúde que querem unir técnica, visão estética e posicionamento para construir resultados transformadores.</p>
-            <div class="hero-meta">
-              <div class="hero-stat">
-                <div class="hero-stat-value">+400</div>
-                <div class="hero-stat-label">mais de 400 alunos em 140 turmas presenciais antes da expansão para o digital</div>
-              </div>
-              <div class="hero-stat">
-                <div class="hero-stat-value">+7.000</div>
-                <div class="hero-stat-label">mais de 7.000 cirurgias e procedimentos realizados construindo repertório clínico transformador e visão estética</div>
-              </div>
+          <div class="hero-stack">
+            <a class="hero-badge" href="https://www.instagram.com/drlopez_/" target="_blank" rel="noreferrer">
+              <img src="./hero-lopez.jpg" alt="" aria-hidden="true">
+              <span class="hero-badge-text">
+                <span class="hero-badge-name">Dr. Lopez</span>
+                <span class="hero-badge-handle">@drlopez_</span>
+              </span>
+            </a>
+
+            <div class="hero-wordmark">
+              <span class="hero-wordmark-top">Método</span>
+              <span class="hero-wordmark-main">Esculpindo Faces</span>
             </div>
+
+            <div class="hero-kicker">Formação presencial consolidada, agora em escala digital</div>
+
+            <h1>Aprenda a <span class="gold-shimmer">Esculpir Faces</span> com Precisão Artística</h1>
+
+            <p class="lead hero-subline">Um método para profissionais da saúde que querem unir técnica, visão estética e posicionamento para construir resultados transformadores.</p>
+
             <div class="cta-row">
               <a class="cta-button" href="#checkout">QUERO GARANTIR MINHA VAGA</a>
             </div>
-            <div class="cta-support">Acesso imediato | Investimento acessível</div>
-            <a class="hero-social" href="https://www.instagram.com/drlopez_/" target="_blank" rel="noreferrer">
-              <span class="hero-social-label">Instagram</span>
-              <span>@drlopez_</span>
-            </a>
-          </div>
 
-          <div class="hero-media">
-            <div class="hero-visual">
-              <img src="./snapinsta.com.br-6a5a7989aa3fe.jpg" alt="Dr. Lopez em ambiente cirúrgico, representando precisão e técnica no Método Esculpindo Faces">
-            </div>
             <div class="hero-vsl-replay">
               <button type="button" class="secondary-link" data-open-vsl>Assistir vídeo de apresentação</button>
             </div>
+
+            <ul class="hero-trust">
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 10 12 5 2 10l10 5 10-5Z"/><path d="M6 12v5c0 1 2.7 2.5 6 2.5s6-1.5 6-2.5v-5"/></svg>
+                <span class="hero-trust-text"><strong>+400 alunos</strong><span>140 turmas presenciais</span></span>
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.5 14.9 8.6l6.6.9-4.8 4.7 1.2 6.6L12 17.6l-5.9 3.2 1.2-6.6L2.5 9.5l6.6-.9L12 2.5Z"/></svg>
+                <span class="hero-trust-text"><strong>+7.000</strong><span>Procedimentos realizados</span></span>
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 4 13.5h6.5L11 22l9-11.5h-6.5L13 2Z"/></svg>
+                <span class="hero-trust-text"><strong>Acesso imediato</strong><span>Suporte por 1 ano</span></span>
+              </li>
+            </ul>
           </div>
         </div>
       </section>
 
-      <section class="section">
+      <div class="brand-marquee" aria-hidden="true">
+        <div class="brand-marquee-track">
+          <div class="brand-marquee-group">
+            <span class="brand-marquee-item"><em>Método Esculpindo Faces</em> Precisão artística em harmonização facial</span>
+            <span class="brand-marquee-item"><em>Método Esculpindo Faces</em> Da técnica isolada ao diagnóstico completo</span>
+            <span class="brand-marquee-item"><em>Método Esculpindo Faces</em> Formação conduzida pelo Dr. Lopez</span>
+          </div>
+          <div class="brand-marquee-group">
+            <span class="brand-marquee-item"><em>Método Esculpindo Faces</em> Precisão artística em harmonização facial</span>
+            <span class="brand-marquee-item"><em>Método Esculpindo Faces</em> Da técnica isolada ao diagnóstico completo</span>
+            <span class="brand-marquee-item"><em>Método Esculpindo Faces</em> Formação conduzida pelo Dr. Lopez</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="scroll-cue">
+        <a href="#metodo" aria-label="Ver o método">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>
+        </a>
+      </div>
+
+      <section class="section" id="metodo">
         <div class="container two-column">
           <div class="story-copy content-narrow">
             <span class="section-label">—— Nº 01</span>
@@ -2705,7 +3137,7 @@
           </div>
 
           <div class="story-photo">
-            <img src="./ft%20historia.jpg" alt="Dr. Lopez em retrato profissional representando a construção do Método Esculpindo Faces">
+            <img src="./ft%20historia.jpg" alt="Dr. Lopez em retrato profissional representando a construção do Método Esculpindo Faces" loading="lazy" decoding="async">
           </div>
         </div>
       </section>
@@ -2851,9 +3283,9 @@
           <div class="results-grid">
             <div class="case-photo">
               <div class="case-carousel" data-carousel>
-                <img src="./casos/contorno-mandibular.jpeg" alt="Caso 1 de lipoescultura HD de papada e pescoço com comparação de perfil antes e depois" class="is-active">
-                <img src="./casos/lipohd2.jpeg" alt="Caso 2 de lipoescultura HD de papada e pescoço com comparação antes e depois">
-                <img src="./casos/lipohd3.jpeg" alt="Caso 3 de lipoescultura HD de papada e pescoço com comparação antes e depois">
+                <img src="./casos/contorno-mandibular.jpeg" alt="Caso 1 de lipoescultura HD de papada e pescoço com comparação de perfil antes e depois" class="is-active" loading="lazy" decoding="async">
+                <img src="./casos/lipohd2.jpeg" alt="Caso 2 de lipoescultura HD de papada e pescoço com comparação antes e depois" loading="lazy" decoding="async">
+                <img src="./casos/lipohd3.jpeg" alt="Caso 3 de lipoescultura HD de papada e pescoço com comparação antes e depois" loading="lazy" decoding="async">
               </div>
               <button class="case-carousel-arrow case-carousel-prev" type="button" aria-label="Foto anterior">‹</button>
               <button class="case-carousel-arrow case-carousel-next" type="button" aria-label="Próxima foto">›</button>
@@ -2869,9 +3301,9 @@
             </div>
             <div class="case-photo">
               <div class="case-carousel" data-carousel>
-                <img src="./casos/rino.jpeg" alt="Caso 1 de rino definitiva com fios com comparação de perfil nasal antes e depois" class="is-active">
-                <img src="./casos/rino1.jpeg" alt="Caso 2 de rino definitiva com fios com comparação de perfil nasal antes e depois">
-                <img src="./casos/rino2.jpeg" alt="Caso 3 de rino definitiva com fios com comparação de perfil nasal antes e depois">
+                <img src="./casos/rino.jpeg" alt="Caso 1 de rino definitiva com fios com comparação de perfil nasal antes e depois" class="is-active" loading="lazy" decoding="async">
+                <img src="./casos/rino1.jpeg" alt="Caso 2 de rino definitiva com fios com comparação de perfil nasal antes e depois" loading="lazy" decoding="async">
+                <img src="./casos/rino2.jpeg" alt="Caso 3 de rino definitiva com fios com comparação de perfil nasal antes e depois" loading="lazy" decoding="async">
               </div>
               <button class="case-carousel-arrow case-carousel-prev" type="button" aria-label="Foto anterior">‹</button>
               <button class="case-carousel-arrow case-carousel-next" type="button" aria-label="Próxima foto">›</button>
@@ -2887,9 +3319,9 @@
             </div>
             <div class="case-photo">
               <div class="case-carousel" data-carousel>
-                <img src="./casos/orelha.jpeg" alt="Caso 1 de otomodelação de orelha de abano com comparação antes e depois" class="is-active">
-                <img src="./casos/orelha1.jpeg" alt="Caso 2 de otomodelação de orelha de abano com comparação antes e depois">
-                <img src="./casos/orelha2.jpeg" alt="Caso 3 de otomodelação de orelha de abano com comparação antes e depois">
+                <img src="./casos/orelha.jpeg" alt="Caso 1 de otomodelação de orelha de abano com comparação antes e depois" class="is-active" loading="lazy" decoding="async">
+                <img src="./casos/orelha1.jpeg" alt="Caso 2 de otomodelação de orelha de abano com comparação antes e depois" loading="lazy" decoding="async">
+                <img src="./casos/orelha2.jpeg" alt="Caso 3 de otomodelação de orelha de abano com comparação antes e depois" loading="lazy" decoding="async">
               </div>
               <button class="case-carousel-arrow case-carousel-prev" type="button" aria-label="Foto anterior">‹</button>
               <button class="case-carousel-arrow case-carousel-next" type="button" aria-label="Próxima foto">›</button>
@@ -2905,12 +3337,12 @@
             </div>
             <div class="case-photo">
               <div class="case-carousel" data-carousel>
-                <img src="./casos/asa-nasal.jpeg" alt="Caso 1 de alectomia com diminuição das asas nasais antes e depois" class="is-active">
-                <img src="./casos/asanasal1.jpeg" alt="Caso 2 de alectomia com diminuição das asas nasais antes e depois">
-                <img src="./casos/asanasal2.jpeg" alt="Caso 3 de alectomia com marcação cirúrgica das asas nasais">
-                <img src="./casos/asanasal3.jpeg" alt="Caso 4 de alectomia com detalhe da sutura em um dos lados">
-                <img src="./casos/asanasal4.jpeg" alt="Caso 5 de alectomia com resultado do lado já operado">
-                <img src="./casos/asanasal5.jpeg" alt="Caso 6 de alectomia com vista frontal do resultado em um dos lados">
+                <img src="./casos/asa-nasal.jpeg" alt="Caso 1 de alectomia com diminuição das asas nasais antes e depois" class="is-active" loading="lazy" decoding="async">
+                <img src="./casos/asanasal1.jpeg" alt="Caso 2 de alectomia com diminuição das asas nasais antes e depois" loading="lazy" decoding="async">
+                <img src="./casos/asanasal2.jpeg" alt="Caso 3 de alectomia com marcação cirúrgica das asas nasais" loading="lazy" decoding="async">
+                <img src="./casos/asanasal3.jpeg" alt="Caso 4 de alectomia com detalhe da sutura em um dos lados" loading="lazy" decoding="async">
+                <img src="./casos/asanasal4.jpeg" alt="Caso 5 de alectomia com resultado do lado já operado" loading="lazy" decoding="async">
+                <img src="./casos/asanasal5.jpeg" alt="Caso 6 de alectomia com vista frontal do resultado em um dos lados" loading="lazy" decoding="async">
               </div>
               <button class="case-carousel-arrow case-carousel-prev" type="button" aria-label="Foto anterior">‹</button>
               <button class="case-carousel-arrow case-carousel-next" type="button" aria-label="Próxima foto">›</button>
@@ -2929,10 +3361,10 @@
             </div>
             <div class="case-photo">
               <div class="case-carousel" data-carousel>
-                <img src="./casos/bichectomia1.jpeg" alt="Caso 1 de bichectomia com bioplastia facial antes e depois" class="is-active">
-                <img src="./casos/bichectomia2.jpeg" alt="Caso 2 de bichectomia com bioplastia facial antes e depois">
-                <img src="./casos/bichectomia3.jpeg" alt="Caso 3 de bichectomia com bioplastia facial antes e depois">
-                <img src="./casos/bichectomia4.jpeg" alt="Registro cirúrgico do procedimento de bichectomia" data-sensitive="true">
+                <img src="./casos/bichectomia1.jpeg" alt="Caso 1 de bichectomia com bioplastia facial antes e depois" class="is-active" loading="lazy" decoding="async">
+                <img src="./casos/bichectomia2.jpeg" alt="Caso 2 de bichectomia com bioplastia facial antes e depois" loading="lazy" decoding="async">
+                <img src="./casos/bichectomia3.jpeg" alt="Caso 3 de bichectomia com bioplastia facial antes e depois" loading="lazy" decoding="async">
+                <img src="./casos/bichectomia4.jpeg" alt="Registro cirúrgico do procedimento de bichectomia" data-sensitive="true" loading="lazy" decoding="async">
               </div>
               <div class="sensitive-warning" data-sensitive-warning>
                 <div class="sensitive-warning-title">⚠ Conteúdo sensível</div>
@@ -2954,9 +3386,9 @@
             </div>
             <div class="case-photo">
               <div class="case-carousel" data-carousel>
-                <img src="./casos/preenchimento-labial.jpeg" alt="Caso 1 de preenchimento labial antes e depois" class="is-active">
-                <img src="./casos/preenchimento-labial3.jpeg" alt="Caso 2 de preenchimento labial antes e depois">
-                <img src="./casos/preenchimento-labial2.jpeg" alt="Caso 3 de preenchimento labial antes e depois">
+                <img src="./casos/preenchimento-labial.jpeg" alt="Caso 1 de preenchimento labial antes e depois" class="is-active" loading="lazy" decoding="async">
+                <img src="./casos/preenchimento-labial3.jpeg" alt="Caso 2 de preenchimento labial antes e depois" loading="lazy" decoding="async">
+                <img src="./casos/preenchimento-labial2.jpeg" alt="Caso 3 de preenchimento labial antes e depois" loading="lazy" decoding="async">
               </div>
               <button class="case-carousel-arrow case-carousel-prev" type="button" aria-label="Foto anterior">‹</button>
               <button class="case-carousel-arrow case-carousel-next" type="button" aria-label="Próxima foto">›</button>
@@ -2972,9 +3404,9 @@
             </div>
             <div class="case-photo">
               <div class="case-carousel" data-carousel>
-                <img src="./casos/harmonizacao.png" alt="Caso 1 de harmonização orofacial masculina com comparação antes e depois" class="is-active">
-                <img src="./casos/harmonizacao2.jpeg" alt="Caso 2 de harmonização orofacial masculina com comparação antes e depois">
-                <img src="./casos/harmonizacao3.jpeg" alt="Caso 3 de preenchimento de mandíbula feminino com comparação antes e depois">
+                <img src="./casos/harmonizacao.jpg" alt="Caso 1 de harmonização orofacial masculina com comparação antes e depois" class="is-active" loading="lazy" decoding="async">
+                <img src="./casos/harmonizacao2.jpeg" alt="Caso 2 de harmonização orofacial masculina com comparação antes e depois" loading="lazy" decoding="async">
+                <img src="./casos/harmonizacao3.jpeg" alt="Caso 3 de preenchimento de mandíbula feminino com comparação antes e depois" loading="lazy" decoding="async">
               </div>
               <button class="case-carousel-arrow case-carousel-prev" type="button" aria-label="Foto anterior">‹</button>
               <button class="case-carousel-arrow case-carousel-next" type="button" aria-label="Próxima foto">›</button>
@@ -3015,7 +3447,7 @@
           <div class="diploma-grid">
             <article class="diploma-card">
               <div class="diploma-photo">
-                <img src="./alunos/principal-01.jpeg" alt="Dr. Lopez ao lado de aluna com certificados da formação presencial">
+                <img src="./alunos/principal-01.jpeg" alt="Dr. Lopez ao lado de aluna com certificados da formação presencial" loading="lazy" decoding="async">
               </div>
               <div class="diploma-copy">
                 <div class="diploma-name">Aluna certificada</div>
@@ -3026,7 +3458,7 @@
             </article>
             <article class="diploma-card">
               <div class="diploma-photo">
-                <img src="./alunos/principal-02.jpeg" alt="Dr. Lopez ao lado de aluna com certificados da formação presencial">
+                <img src="./alunos/principal-02.jpeg" alt="Dr. Lopez ao lado de aluna com certificados da formação presencial" loading="lazy" decoding="async">
               </div>
               <div class="diploma-copy">
                 <div class="diploma-name">Aluna formada</div>
@@ -3037,7 +3469,7 @@
             </article>
             <article class="diploma-card">
               <div class="diploma-photo">
-                <img src="./alunos/principal-03.jpeg" alt="Dr. Lopez ao lado de aluna com certificado da formação presencial">
+                <img src="./alunos/principal-03.jpeg" alt="Dr. Lopez ao lado de aluna com certificado da formação presencial" loading="lazy" decoding="async">
               </div>
               <div class="diploma-copy">
                 <div class="diploma-name">Aluna certificada</div>
@@ -3048,7 +3480,7 @@
             </article>
             <article class="diploma-card">
               <div class="diploma-photo">
-                <img src="./alunos/principal-05.jpeg" alt="Dr. Lopez ao lado de aluno com certificado da formação presencial">
+                <img src="./alunos/principal-05.jpeg" alt="Dr. Lopez ao lado de aluno com certificado da formação presencial" loading="lazy" decoding="async">
               </div>
               <div class="diploma-copy">
                 <div class="diploma-name">Aluno certificado</div>
@@ -3059,7 +3491,7 @@
             </article>
             <article class="diploma-card">
               <div class="diploma-photo">
-                <img src="./alunos/principal-04.jpeg" alt="Dr. Lopez ao lado de turma presencial com certificados">
+                <img src="./alunos/principal-04.jpeg" alt="Dr. Lopez ao lado de turma presencial com certificados" loading="lazy" decoding="async">
               </div>
               <div class="diploma-copy">
                 <div class="diploma-name">Turma certificada</div>
@@ -3215,6 +3647,21 @@
               <a class="cta-button" href="https://pay.cakto.com.br/8a4ttv8_1045753" target="_blank" rel="noreferrer">QUERO GARANTIR MINHA VAGA</a>
               <a class="secondary-link" href="./modulos">Adquirir módulos separados</a>
             </div>
+            <ul class="secure-badges">
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="10.5" width="18" height="11" rx="2"/><path d="M7.5 10.5V7a4.5 4.5 0 0 1 9 0v3.5"/></svg>
+                <span>Checkout seguro</span>
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.5 4.5 5.8v5.4c0 4.6 3.2 8.4 7.5 9.8 4.3-1.4 7.5-5.2 7.5-9.8V5.8L12 2.5Z"/><path d="m9 12 2.2 2.2L15.5 10"/></svg>
+                <span>Acesso imediato</span>
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 6.8V12l3.4 2"/></svg>
+                <span>Suporte por 1 ano</span>
+              </li>
+            </ul>
+
             <div class="card-footer">Acesso imediato após a confirmação do pagamento.</div>
             <p class="card-footer presencial-note">Prefere investir ainda mais em você mesmo e aprender pessoalmente com o Dr. Lopez? <a href="https://wa.me/5511941736368?text=Ol%C3%A1%2C%20quero%20saber%20mais%20sobre%20as%20turmas%20presenciais%20do%20Dr%20Lopez%20M%C3%A9todo%20Esculpindo%20Faces" target="_blank" rel="noreferrer">Fale sobre as turmas presenciais</a>.</p>
           </div>
@@ -3394,7 +3841,7 @@
     <div class="lightbox" id="lightbox">
       <button class="lightbox-close" type="button" aria-label="Fechar">×</button>
       <button class="lightbox-arrow lightbox-prev" type="button" aria-label="Foto anterior">‹</button>
-      <img class="lightbox-img" src="" alt="">
+      <img class="lightbox-img" src="" alt="" loading="lazy" decoding="async">
       <div class="sensitive-warning" data-lightbox-sensitive-warning>
         <div class="sensitive-warning-title">⚠ Conteúdo sensível</div>
         <div class="sensitive-warning-text">Esta foto mostra um registro cirúrgico e pode ser sensível para alguns visitantes.</div>
@@ -3419,6 +3866,18 @@
   </div>
 
   <script>
+    (() => {
+      const bar = document.getElementById("stickyCta");
+      const hero = document.querySelector(".hero");
+      if (!bar || !hero) return;
+
+      // a barra entra quando o hero sai de vista e some quando ele volta
+      new IntersectionObserver(
+        ([entry]) => bar.classList.toggle("is-visible", !entry.isIntersecting),
+        { rootMargin: "-80px 0px 0px 0px" }
+      ).observe(hero);
+    })();
+
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
