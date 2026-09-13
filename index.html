@@ -32,7 +32,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500&family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap"
     rel="stylesheet"
   >
   <style>
@@ -289,6 +289,10 @@
       animation-delay: 0.44s;
     }
 
+    .hero-dedicatoria {
+      animation-delay: 0.48s;
+    }
+
     .hero-divider {
       animation-delay: 0.52s;
     }
@@ -473,6 +477,32 @@
     .hero-wordmark-tag em {
       color: var(--gold);
       font-style: normal;
+    }
+
+    /* Dedicatoria manuscrita.
+       Caveat e letra de mao de verdade, nao caligrafia de convite: o ponto e
+       parecer escrito pelo Dr. Lopez, nao composto por um designer. Se preferir
+       algo mais formal, troque a familia por "Parisienne" ou "Great Vibes" no
+       link do Google Fonts e aqui — sao mais ornamentadas e menos legiveis. */
+    .hero-dedicatoria {
+      margin-top: 26px;
+      /* A fonte roda pequena para o tamanho nominal; 1.32rem aqui equivale a
+         um corpo de texto normal. */
+      font-family: "Caveat", "Segoe Script", cursive;
+      font-size: 1.32rem;
+      font-weight: 400;
+      line-height: 1.5;
+      color: rgba(201, 168, 76, 0.82);
+      max-width: 34em;
+    }
+
+    .hero-dedicatoria::before {
+      content: "";
+      display: block;
+      width: 26px;
+      height: 1px;
+      margin-bottom: 12px;
+      background: rgba(201, 168, 76, 0.4);
     }
 
     .hero-divider {
@@ -4069,6 +4099,16 @@
         width: 100%;
       }
 
+      /* No celular a dedicatoria e o bloco mais longo do hero. Encolher junto
+         com o .lead evita que ela empurre o botao para fora da primeira tela —
+         que e onde a pagina precisa dele. */
+      .hero-dedicatoria {
+        margin-top: 22px;
+        font-size: 1.18rem;
+        line-height: 1.45;
+        width: 100%;
+      }
+
       .hero-trust {
         width: 100%;
         flex-wrap: nowrap;
@@ -4605,6 +4645,8 @@
             <h1>Aprenda a <span class="gold-shimmer">Esculpir Faces</span> com Precisão Artística</h1>
 
             <p class="lead hero-subline">Um método para profissionais da saúde que querem unir técnica, visão estética e posicionamento para construir resultados transformadores.</p>
+
+            <p class="hero-dedicatoria">Este curso é dedicado à minha querida esposa Deborah Olesovs Lopez, à minha filha Isabella Beatriz Olesovs Lopez e aos meus queridos pais Rita Lopez &amp; José Roberto Lopez.</p>
 
             <div class="hero-divider"></div>
 
